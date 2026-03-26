@@ -1,0 +1,60 @@
+<template>
+  <!-- Spinner displayed while email template data is loading -->
+  <lightning-spinner
+    class="slds-align_absolute-center"
+    lwc:if={isLoadingTemplate}
+    alternative-text="Loading Template...">
+  </lightning-spinner>
+
+  <!-- Button to toggle visibility of the email template section -->
+  <lightning-button
+    label={toggleLabel}
+    icon-name="utility:insert_template"
+    icon-position="left"
+    title="Toggle Email Template Section"
+    variant="brand-outline"
+    onclick={toggleTemplateSection}
+    class="slds-m-bottom_small">
+  </lightning-button>
+
+  <!-- Email template selection UI, shown when toggled open -->
+  <template if:true={isTemplateSectionOpen}>
+    <section class="email-template-section slds-var-m-top_small">
+
+      <!-- Folder selection dropdown -->
+      <lightning-combobox
+        label="Email Template Folder"
+        value={selectedFolderName}
+        options={emailTemplateFolders}
+        onchange={handleFolderChange}>
+      </lightning-combobox>
+
+      <!-- Template selection dropdown -->
+      <lightning-combobox
+        name="emailTemplate"
+        label="Email Template"
+        value={selectedTemplateId}
+        options={emailTemplateOptions}
+        onchange={handleTemplateChange}>
+      </lightning-combobox>
+    </section>
+  </template>
+
+  <!-- Email subject input -->
+  <lightning-input
+    label="Subject"
+    value={subject}
+    onchange={handleSubjectChange}
+    class="slds-var-m-top_small">
+  </lightning-input>
+
+  <!-- Rich text input for email body -->
+  <lightning-input-rich-text
+    label="Email Body"
+    placeholder="Enter email content"
+    value={body}
+    onchange={handleBodyChange}
+    class="slds-var-m-top_small"
+    disabled-categories="INSERT_CONTENT">
+  </lightning-input-rich-text>
+</template>

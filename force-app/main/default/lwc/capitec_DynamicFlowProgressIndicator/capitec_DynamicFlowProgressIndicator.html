@@ -1,0 +1,10 @@
+<template>
+    <div class="slds-p-around_small">
+        <lightning-progress-indicator current-step={currentStage} type={type} variant={varient}>
+            <template for:each={stages} for:item="stage">
+                <lightning-progress-step label={stage.label} value={stage.value}
+                    key={stage.label}></lightning-progress-step>
+            </template>
+        </lightning-progress-indicator>
+    </div>
+</template>

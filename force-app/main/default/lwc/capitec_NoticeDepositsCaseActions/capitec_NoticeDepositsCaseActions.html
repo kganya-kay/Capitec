@@ -1,0 +1,115 @@
+<!--
+ 
+    - Created by Pako on 16.02.2024.
+
+ -->
+
+<!-- Capitec Fraud Case Actions -->
+<template>
+
+    <div class="main-container slds-m-top_medium" data-id="main-container">
+
+        <template lwc:if={showSpinner}>
+            <div class="slds-m-top_medium" data-id="spinner">
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:true={isFlow}>
+            <template lwc:if={contentEmpty}>
+                <h1>{emptyTableCommunicate}
+                <span>
+                    <button class="slds-button slds-button_brand slds-m-top_medium flag-button" onclick={refreshComponent} > <!--FFSF-579-->
+                        Refresh
+                    </button>
+                </span>
+                </h1>
+            </template>
+        </template>
+
+        <template if:false={isFlow}>
+            <template lwc:if={contentEmpty}>
+                <h1>{emptyTableCommunicate}
+                <span>
+                    <button class="slds-button slds-button_brand slds-m-top_medium flag-button" onclick={refreshComponent} > <!--FFSF-579-->
+                        Refresh
+                    </button>
+                </span>
+                </h1>
+            </template>
+
+            <template lwc:else>
+                <div class="full-width slds-m-top_medium">
+                    <button class="slds-button slds-button_brand slds-m-top_medium flag-button" disabled onclick={handleSaveCSV} data-id="flag-button">
+                        Save As CSV
+                    </button>
+                    <button class="slds-button slds-button_brand slds-m-top_medium flag-button red-button" disabled={contentEmpty} onclick={handleApplyActions} data-id="flag-button">
+                        Apply Actions
+                    </button>
+                    <button class="slds-button slds-button_brand slds-m-top_medium flag-button" disabled={contentEmpty} onclick={connectedCallback} data-id="flag-button"> <!--FFSF-341: Added for refresh button-->
+                        Refresh
+                    </button>
+                </div>
+            </template>
+        </template>
+
+        <div class="table-container " data-id="table-container">
+            <template if:false= {contentEmpty}>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <template if:false={isFlow}>
+                            <th class=border-right-custom>Flag<br/>Transaction</th>
+                        </template>
+                        <!--th class=border-right-custom>Hold</th>
+                        <th class=border-right-custom>Confirm<br/>Hold</th-->
+                        <!--th class=border-right-custom>Spend<br/>Group</th-->
+                        <th class=border-right-custom>Case ID</th>
+                        <th class=border-right-custom>Date of<br/>Transaction</th>
+                        <th class=border-right-custom>Date of<br/>Action</th>
+                        <!--th class=border-right-custom>Time to<br/>Lift</th-->
+                        <th class=border-right-custom>Amount</th>
+                        <!--th class=border-right-custom>Amount<br/>Held</th-->
+                        <th class=border-right-custom>Money<br/>In</th>
+                        <!--                            <th class=slds-border_right>From Account</th>-->
+                        <!--                            <th class=slds-border_right>to Account</th>-->
+                        <th class=border-right-custom>Client<br/>Account</th>
+                        <th class=border-right-custom>Beneficiary<br/>Account</th>
+                        <th class=border-right-custom>Agent</th>
+                        <th class=border-right-custom>To<br/>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <template for:each={itemsToDisplay} for:item="item" for:index="index" data-id='full-table'>
+                        <tr key={item.id} data-id="table-tr">
+                            <template if:false={isFlow}>
+                                <td class=border-right-custom><lightning-input type="checkbox" checked={item.fraudFlagged} disabled={item.disableFlag} onchange={handleFlag} data-item-id={index} data-id={index}></lightning-input></td>
+                                <!--td class=border-right-custom><lightning-input type="checkbox" checked={item.holdFlagged} disabled={item.disableHold} onchange={handleHold} data-item-id={index} data-id={index}></lightning-input></td>
+                                <td class="border-right-custom help-text-parent"><lightning-input type="checkbox" checked={item.confirmHold} onchange={handleConfirm} data-item-id={index} data-id={index}></lightning-input>
+                                    <template lwc:if={item.showHelpText}>
+                                        <lightning-helptext class="help-text" content={item.popUpLabel}>{item.popUpLabel}</lightning-helptext>
+                                    </template>
+                                </td-->
+                                <!--td class=border-right-custom>{item.spendGroup}</td-->
+                            </template>
+                            <td class="border-right-custom color-text" onclick={handleRowClick} data-record-id={item.caseId}>{item.caseId}</td><!--FFSF:428: Added onclick={handleRowClick} & data-record-id={item.caseId}-->
+                            <td class=border-right-custom>{item.transactionDate}</td>
+                            <td class=border-right-custom>{item.lastUpdatedAt}</td>
+                            <!--td class=border-right-custom>{item.holdLiftedAt}</td-->
+                            <td class=border-right-custom>{item.amount}</td>
+                            <!--td class=border-right-custom>{item.holdAmount}</td-->
+                            <td class=border-right-custom>{item.moneyIn}</td>
+                            <td class=border-right-custom>{item.account}</td>
+                            <td class=border-right-custom>{item.toAccount}</td>
+                            <td class=border-right-custom>{item.consultantIdentifier}</td>
+                            <td class=border-right-custom>{item.toDescription}</td>
+                        </tr>
+                    </template>
+                    </tbody>
+                </table>
+            </template>
+        </div>
+
+        <!--        <div data-id="error-container" class="slds-m-top_large" if:true={showError></div>-->
+    </div>
+</template>

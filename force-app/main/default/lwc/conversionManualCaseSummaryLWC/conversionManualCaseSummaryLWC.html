@@ -1,0 +1,117 @@
+<template>
+    <lightning-card title="Summary">
+
+        <lightning-accordion allow-multiple-sections-open active-section-name={activeSections}>
+
+            <!-- Case Information -->
+            <lightning-accordion-section name="caseInfo" label="Case Information">
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <div class="slds-col slds-size_1-of-2 slds-p-bottom_small">
+                        <p class="field-label">Case Origin</p>
+                        <p class="field-value">{caseorigin}</p>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-bottom_small">
+                        <p class="field-label">Issue</p>
+                        <p class="field-value">{issue}</p>
+                    </div>
+                </div>
+            </lightning-accordion-section>
+
+            <!-- Client Information -->
+            <lightning-accordion-section name="clientInfo" label="Client Information">
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <div class="slds-col slds-size_1-of-2 slds-p-bottom_small">
+                        <p class="field-label">CIF number</p>
+                        <p class="field-value">{cifNumber}</p>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-bottom_small">
+                        <p class="field-label">ID number</p>
+                        <p class="field-value">{idNumber}</p>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-bottom_small">
+                        <p class="field-label">Passport Number</p>
+                        <p class="field-value">{passportNumber}</p>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-bottom_small">
+                        <p class="field-label">Salutation</p>
+                        <p class="field-value">{salutation}</p>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-bottom_small">
+                        <p class="field-label">First Name</p>
+                        <p class="field-value">{firstName}</p>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-bottom_small">
+                        <p class="field-label">Last Name</p>
+                        <p class="field-value">{lastName}</p>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-bottom_small">
+                        <p class="field-label">Home Contact Number</p>
+                        <p class="field-value">{primaryNumber}</p>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-bottom_small">
+                        <p class="field-label">Work Contact Number</p>
+                        <p class="field-value">{secondaryNumber}</p>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-bottom_small">
+                        <p class="field-label">Mobile Number</p>
+                        <p class="field-value">{mobileNumber}</p>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-bottom_small">
+                        <p class="field-label">Email address</p>
+                        <p class="field-value">{email}</p>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-bottom_small">
+                        <p class="field-label">Preferred Contact Time</p>
+                        <p class="field-value">{preferredContactTime}</p>
+                    </div>
+                </div>
+            </lightning-accordion-section>
+
+            <!-- Old Bank Information -->
+            <lightning-accordion-section name="oldBankInfo" label="Old Bank Information">
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <div class="slds-col slds-size_1-of-2 slds-p-bottom_small">
+                        <p class="field-label">Old Branch Code</p>
+                        <p class="field-value">{oldBranchCode}</p>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-bottom_small">
+                        <p class="field-label">Old Bank Name</p>
+                        <p class="field-value">{oldBankName}</p>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-bottom_small">
+                        <p class="field-label">Old Account Number</p>
+                        <p class="field-value">{oldAccountNumber}</p>
+                    </div>
+                </div>
+            </lightning-accordion-section>
+
+            <!-- Debit Order Details -->
+            <lightning-accordion-section name="debitOrders" label="Debit Order Details">
+                <lightning-datatable
+                    key-field="Name"
+                    data={parsedDebitOrders}
+                    columns={columns}
+                    hide-checkbox-column
+                ></lightning-datatable>
+            </lightning-accordion-section>
+
+            <!-- Notes -->
+            <lightning-accordion-section name="notes" label="Notes">
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label">
+                        Additional comments
+                        <lightning-helptext content="Only add notes if necessary"></lightning-helptext>
+                    </label>
+                    <div class="slds-form-element__control">
+                        <lightning-textarea
+                            value={additionalComments}
+                            placeholder="Only add notes if necessary"
+                            onchange={handleCommentsChange}
+                        ></lightning-textarea>
+                    </div>
+                </div>
+            </lightning-accordion-section>
+
+        </lightning-accordion>
+    </lightning-card>
+</template>

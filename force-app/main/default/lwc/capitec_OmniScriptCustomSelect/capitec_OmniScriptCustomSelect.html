@@ -1,0 +1,31 @@
+<template>
+    <div class="slds-grid slds-wrap">
+        <div class="slds-size_1-of-2">
+            <div class="slds-m-around_x-small">
+                <lightning-combobox name="PrimaryNeed"
+                                    label="Primary Need"
+                                    options={primaryOptions}
+                                    onchange={handlePrimaryChange}>
+                </lightning-combobox>
+            </div>
+        </div>
+        <div class="slds-size_1-of-2">
+          <div class="slds-m-around_x-small">
+                <lightning-combobox name="Channel"
+                                    label="Channel"
+                                    options={channelOptions}
+                                    onchange={handleChannelChange}>
+                </lightning-combobox>
+          </div>
+        </div>
+        <div class="slds-size_1-of-2">
+            <div class="slds-m-around_x-small">
+                <lightning-combobox name="SpecificNeed"
+                                    label="Specific Need"
+                                    options={specificOptions}
+                                    onchange={handleSpecificChange}>
+                </lightning-combobox>
+            </div>
+          </div>
+      </div>
+</template>

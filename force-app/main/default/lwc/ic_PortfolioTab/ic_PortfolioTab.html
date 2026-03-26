@@ -1,0 +1,27 @@
+<!--
+  @description       : Parent component for the portfolio tab that includes the 'Show All' button [ICS-1644]
+  @author            : Samiirah.A@bsky.co.za
+  @group             : 
+  @last modified on  : 10-04-2024
+  @last modified by  : Samiirah.A@bsky.co.za
+-->
+<template>
+
+    <article class="slds-card slds-card_boundary">
+        <div class="slds-grid slds-grid_align-end slds-m-around_x-small">
+            <lightning-button label="Show All" variant="brand" onclick={handleShowAll} disabled={showAll}></lightning-button>
+        </div>
+
+        <div class="slds-m-bottom_small">
+            <c-ic-_-lives-assured record-id={recordId} show-all-policies={showAll}></c-ic-_-lives-assured>
+        </div>
+
+        <div class="slds-m-bottom_medium">
+            <c-ic-_-beneficiaries record-id={recordId} show-all-policies={showAll}></c-ic-_-beneficiaries>
+        </div>
+
+        <div class="slds-m-bottom_medium">
+            <c-ic-_-claim-participants record-id={recordId}></c-ic-_-claim-participants>
+        </div>
+    </article>
+</template>

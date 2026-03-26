@@ -1,0 +1,82 @@
+<template>
+    <div class="table-container">
+        <template lwc:if={itemsToDisplay}>
+            <table lwc:if={itemsToDisplay.content}>
+                <thead>
+                    <tr>
+                        <template for:each={headers} for:item="header">
+                            <th key={header}>{header}</th>
+                        </template>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={itemsToDisplay.content} for:item="item" data-id='full-table' >
+                        <tr key={item.id} onclick={handleDataSave} data-id="table-tr" class={item.rowColor}>
+                            
+                            <template lwc:if={item.id}> 
+                                <td> <lightning-input disabled={item.checked} checked={item.checked} value="true" type="checkbox" onchange={handleCheckboxChange} data-item-id={item.id} data-id="checkbox"></lightning-input></td>
+                            </template>
+                            <template lwc:if={isBankingTransactionTab}>
+                                <td>{item.creditDebitIndicator}</td>
+                                <td>{item.branchId}</td>
+                                <td>{item.transactionId}</td>
+                                <td>{item.transactionDate}</td>
+                                <td>{item.transactionCode}</td>
+                                <td>{item.accountNumber}</td>
+                                <td>{item.postDate}</td>
+                                <td>{item.journalNumber}</td>
+                                <td>{item.transactionAmount}</td>
+                                <td>{item.promoCode}</td>
+                                <td>{item.authId}</td>
+                                <td>{item.narrative}</td>
+                                <td>{item.availableBalance}</td>
+                            </template>
+                           <template lwc:if={isCardTransactionTab}>
+                                <td>{item.postilionTransactionId}</td>
+                                <td>{item.officeTransactionNumber}</td>
+                                <td>{item.parsedTransactionDateTime}</td>
+                                <td>{item.siteName}</td>
+                                <td>{item.deviceId}</td>
+                                <td>{item.sourceNodeName}</td>
+                                <td>{item.sinkNodeName}</td>
+                                <td>{item.transactionPostilionOriginated}</td>
+                                <td>{item.cardProduct}</td>
+                                <td>{item.transactionType}</td>
+                                <td>{item.responseCode}</td>
+                                <td>{item.cardNumber}</td>
+                                <td>{item.retrievalReferenceNumber}</td>
+                                <td>{item.authId}</td>
+                                <td>{item.messageType}</td>
+                                <td>{item.systemTraceAuditNumber}</td>
+                                <td>{item.reconBatchNumber}</td>
+                                <td>{item.fromAccountNumber}</td>
+                                <td>{item.toAccountNumber}</td>
+                                <td>{item.transactionRequestAmount}</td>
+                                <td>{item.transactionResponseAmount}</td>
+                                <td>{item.settleAmountImpact}</td>
+                            </template>
+                            <template lwc:if={isTransationEventsTab} >
+                                <td>{item.parsedEventDateTime}</td>
+                                <td>{item.entity}</td>
+                                <td>{item.deviceId}</td>
+                                <td >{item.eventId}</td>
+                                <td>{item.severity}</td>
+                                <td>{item.message}</td>
+                             </template>
+                             <template lwc:if={isATMEventsTab}>
+                                <td>{item.source}</td>
+                                <td>{item.deviceId}</td>
+                                <td>{item.eventNumber}</td>
+                                <td>{item.parsedEventDateTime}</td>
+                                <td>{item.eventMessage}</td>
+                                <td>{item.originalMessage}</td>
+                            </template>
+                            
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </template>
+    </div>
+</template>

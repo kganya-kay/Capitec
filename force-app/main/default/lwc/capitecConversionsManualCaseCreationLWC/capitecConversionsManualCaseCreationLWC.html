@@ -1,0 +1,732 @@
+<template>
+    <!-- Loading Overlay -->
+    <template if:true={isLoading}>
+        <div class="loading-overlay">
+            <lightning-spinner size="medium" alternative-text="Loading..."></lightning-spinner>
+        </div>
+    </template>
+
+    <div class="wizard-container">
+
+        <!-- ===================== LEFT SIDEBAR – Step Indicator ===================== -->
+        <div class="steps-sidebar">
+            <p class="steps-title">Steps</p>
+            <ul class="step-list">
+                <template for:each={steps} for:item="step">
+                    <li key={step.id} class={step.liClass}>
+                        <span class={step.dotClass}></span>
+                        <span class={step.labelClass}>{step.label}</span>
+                    </li>
+                </template>
+            </ul>
+        </div>
+
+        <!-- ===================== RIGHT CONTENT AREA ===================== -->
+        <div class="step-content">
+
+            <!-- ================================================================
+                 STEP 1 – Client Identification
+            ================================================================ -->
+            <template if:true={isStep1}>
+                <h2 class="step-heading">Client Identification</h2>
+
+                <div class="info-banner">
+                    <lightning-icon icon-name="utility:info" size="small" variant="inverse" class="banner-icon"></lightning-icon>
+                    <span>Select the correct Identification Type and enter the matching Identification Number. The number must match the selected type to continue, and review the client information before proceeding.</span>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-header">
+                        <lightning-icon icon-name="utility:chevrondown" size="x-small"></lightning-icon>
+                        <span class="section-title">Identification Type Validation</span>
+                    </div>
+                    <div class="section-body">
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-combobox
+                                    label="Identification Type"
+                                    value={formData.identificationType}
+                                    options={identificationTypeOptions}
+                                    required
+                                    placeholder="--None--"
+                                    data-field="identificationType"
+                                    onchange={handleComboChange}>
+                                </lightning-combobox>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input
+                                    label="Identification Number"
+                                    value={formData.identificationNumber}
+                                    required
+                                    data-field="identificationNumber"
+                                    onchange={handleInputChange}>
+                                </lightning-input>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <lightning-button label="Cancel" onclick={handleCancel}></lightning-button>
+                    <lightning-button variant="brand" label="Next" onclick={handleNext}></lightning-button>
+                </div>
+            </template>
+
+            <!-- ================================================================
+                 STEP 2 – Client Details
+            ================================================================ -->
+            <template if:true={isStep2}>
+                <h2 class="step-heading">Client Details</h2>
+
+                <div class="info-banner">
+                    <lightning-icon icon-name="utility:info" size="small" variant="inverse" class="banner-icon"></lightning-icon>
+                    <span>Select the correct Identification Type and enter the matching Identification Number. The number must match the selected type to continue, and review the client information before proceeding.</span>
+                </div>
+
+                <!-- Identification Type Validation (editable – agent can adjust before proceeding) -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <lightning-icon icon-name="utility:chevrondown" size="x-small"></lightning-icon>
+                        <span class="section-title">Identification Type Validation</span>
+                    </div>
+                    <div class="section-body">
+                        <div class="slds-grid slds-gutters slds-wrap">
+                            <!-- Identification Type -->
+                            <div class="slds-col slds-size_1-of-2 info-field">
+                                <p class="field-label">Identification Type</p>
+                                <p class="field-value">{formData.identificationType}</p>
+                            </div>
+
+                            <!-- Identification Number -->
+                            <div class="slds-col slds-size_1-of-2 info-field">
+                                <p class="field-label">Identification Number</p>
+                                <p class="field-value">{formData.identificationNumber}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Client Information (read-only, fetched from Apex) -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <lightning-icon icon-name="utility:chevrondown" size="x-small"></lightning-icon>
+                        <span class="section-title">Client Information</span>
+                    </div>
+                    <div class="section-body">
+                        <div class="slds-grid slds-gutters slds-wrap">
+                            <div class="slds-col slds-size_1-of-2 info-field">
+                                <p class="field-label">CIF number</p>
+                                <p class="field-value">{clientInfo.cifNumber}</p>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 info-field">
+                                <p class="field-label">ID number</p>
+                                <p class="field-value">{clientInfo.idNumber}</p>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 info-field">
+                                <p class="field-label">Passport Number</p>
+                                <p class="field-value">{clientInfo.passportNumber}</p>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 info-field">
+                                <p class="field-label">Salutation</p>
+                                <p class="field-value">{clientInfo.salutation}</p>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 info-field">
+                                <p class="field-label">First Name</p>
+                                <p class="field-value">{clientInfo.firstName}</p>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 info-field">
+                                <p class="field-label">Last Name</p>
+                                <p class="field-value">{clientInfo.lastName}</p>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 info-field">
+                                <p class="field-label">Home Contact Number</p>
+                                <p class="field-value">{clientInfo.homeContactNumber}</p>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 info-field">
+                                <p class="field-label">Work Contact Number</p>
+                                <p class="field-value">{clientInfo.workContactNumber}</p>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 info-field">
+                                <p class="field-label">Mobile number</p>
+                                <p class="field-value">{clientInfo.mobileNumber}</p>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 info-field">
+                                <p class="field-label">Email address</p>
+                                <p class="field-value">{clientInfo.emailAddress}</p>
+                            </div>
+                        </div>
+
+                        <!-- Preferred Contact Time – editable -->
+                        <div class="slds-grid slds-gutters slds-m-top_small">
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input
+                                    type="time"
+                                    label="Preferred Contact Time"
+                                    value={formData.preferredContactTime}
+                                    required
+                                    data-field="preferredContactTime"
+                                    onchange={handleInputChange}>
+                                </lightning-input>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <lightning-button label="Cancel" onclick={handleCancel}></lightning-button>
+                    <div class="right-buttons">
+                        <lightning-button label="Previous" onclick={handlePrevious} class="slds-m-right_small"></lightning-button>
+                        <lightning-button variant="brand" label="Next" onclick={handleNext}></lightning-button>
+                    </div>
+                </div>
+            </template>
+
+            <!-- ================================================================
+                 STEP 3 – Case Details
+            ================================================================ -->
+            <template if:true={isStep3}>
+                <h2 class="step-heading">Case Details</h2>
+
+                <div class="info-banner">
+                    <lightning-icon icon-name="utility:info" size="small" variant="inverse" class="banner-icon"></lightning-icon>
+                    <span>Ensure all mandatory fields are completed, then upload the client&#39;s bank statement and signed authorisation form</span>
+                </div>
+
+                <!-- Case Information -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <lightning-icon icon-name="utility:chevrondown" size="x-small"></lightning-icon>
+                        <span class="section-title">Case Information</span>
+                    </div>
+                    <div class="section-body">
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-combobox
+                                    label="Source"
+                                    value={formData.source}
+                                    options={sourceOptions}
+                                    required
+                                    placeholder="--None--"
+                                    data-field="source"
+                                    onchange={handleComboChange}>
+                                </lightning-combobox>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-combobox
+                                    label="Issue"
+                                    value={formData.issue}
+                                    options={issueOptions}
+                                    required
+                                    placeholder="--None--"
+                                    data-field="issue"
+                                    onchange={handleComboChange}>
+                                </lightning-combobox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upload Case Documents -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <lightning-icon icon-name="utility:chevrondown" size="x-small"></lightning-icon>
+                        <span class="section-title">Upload Case documents</span>
+                    </div>
+                    <div class="section-body">
+                        <div class="files-box">
+                        <div class="files-box-header slds-grid slds-grid_align-spread slds-grid_vertical-align-center slds-p-around_small" style="background-color: #f3f2f2; border-radius: 0.25rem;">
+                            <!-- Left side: Icon + Label -->
+                            <div class="slds-col slds-grid slds-grid_vertical-align-center">
+                                <lightning-icon icon-name="doctype:unknown" size="small" class="slds-m-right_x-small"></lightning-icon>
+                                <span class="files-count-label">Files ({uploadedFilesCount})</span>
+                            </div>
+
+                            <!-- Right side: Add Files button -->
+                            <div class="slds-col">
+                                <lightning-button label="Add Files" variant="neutral" onclick={handleAddFiles}></lightning-button>
+                            </div>
+                        </div>
+
+                            <!-- Hidden native file input -->
+                            <input
+                                type="file"
+                                data-id="fileInput"
+                                multiple
+                                accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                                onchange={handleFileSelected}
+                                class="hidden-file-input" />
+
+                            <!-- File rows with Document Type dropdowns -->
+                            <template if:true={hasUploadedFiles}>
+                                <div class="slds-m-top_small">
+                                    <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+                                        <thead>
+                                            <tr class="slds-line-height_reset">
+                                                <th class="slds-text-title_caps" scope="col">Document</th>
+                                                <th class="slds-text-title_caps" scope="col">Document Type</th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <template for:each={uploadedFiles} for:item="file">
+                                                <tr key={file.id}>
+                                                    <td>
+                                                        <span class="slds-truncate">{file.name}</span>
+                                                    </td>
+                                                    <td>
+                                                        <lightning-combobox
+                                                            value={file.documentType}
+                                                            options={documentTypeOptions}
+                                                            data-file-id={file.id}
+                                                            onchange={handleDocumentTypeChange}
+                                                            class="doc-type-combo">
+                                                        </lightning-combobox>
+                                                    </td>
+                                                    <td class="slds-text-align_center">
+                                                        <lightning-button-icon
+                                                            icon-name="utility:delete"
+                                                            variant="bare"
+                                                            alternative-text="Remove"
+                                                            data-file-id={file.id}
+                                                            onclick={handleRemoveFile}>
+                                                        </lightning-button-icon>
+                                                    </td>
+                                                </tr>
+                                            </template>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </template>
+
+                            <!-- Empty state -->
+                            <template if:false={hasUploadedFiles}>
+                                <div class="empty-files-state">
+                                    <p class="slds-text-color_weak slds-m-bottom_small">No files uploaded yet.</p>
+                                    <lightning-button label="Upload Files" variant="neutral" onclick={handleAddFiles}></lightning-button>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <lightning-button label="Cancel" onclick={handleCancel}></lightning-button>
+                    <div class="right-buttons">
+                        <lightning-button label="Previous" onclick={handlePrevious} class="slds-m-right_small"></lightning-button>
+                        <lightning-button variant="brand" label="Next" onclick={handleNext}></lightning-button>
+                    </div>
+                </div>
+            </template>
+
+            <!-- ================================================================
+                 STEP 4 – Debit Order Details
+            ================================================================ -->
+            <template if:true={isStep4}>
+                <h2 class="step-heading">Debit Order Details</h2>
+
+                <div class="info-banner">
+                    <lightning-icon icon-name="utility:info" size="small" variant="inverse" class="banner-icon"></lightning-icon>
+                    <div>
+                        <p class="slds-m-bottom_xx-small">If no debit orders are returned, click the <strong>Retry OCR button x 3</strong> to attempt extraction again.</p>
+                        <p class="slds-m-bottom_xx-small">If OCR extraction is still unsuccessful. Please capture the debit order details manually to continue.</p>
+                        <p class="slds-m-bottom_none">To view the documents, click on the hyperlink in the attachments table.</p>
+                    </div>
+                </div>
+
+                <!-- Uploaded Files (read-only summary with preview links) -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <lightning-icon icon-name="utility:chevrondown" size="x-small"></lightning-icon>
+                        <span class="section-title">Uploaded Files</span>
+                    </div>
+                    <div class="section-body">
+                        <div class="files-box">
+                            <div class="files-box-header slds-grid slds-grid_vertical-align-center">
+                                <lightning-icon icon-name="doctype:attachment" size="small" class="slds-m-right_x-small"></lightning-icon>
+                                <span class="files-count-label">Attachments ({uploadedFilesCount})</span>
+                            </div>
+                            <template if:true={hasUploadedFiles}>
+                                <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered slds-m-top_small">
+                                    <thead>
+                                        <tr class="slds-line-height_reset">
+                                            <th class="slds-text-title_caps" scope="col">Document</th>
+                                            <th class="slds-text-title_caps" scope="col">Document Name</th>
+                                            <th class="slds-text-title_caps" scope="col">Document Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <template for:each={uploadedFiles} for:item="file">
+                                            <tr key={file.id}>
+                                                <td>
+                                                    <a href="javascript:void(0)"
+                                                       data-file-id={file.id}
+                                                       onclick={handlePreviewFile}
+                                                       class="preview-link">Preview</a>
+                                                </td>
+                                                <td>{file.name}</td>
+                                                <td>{file.documentType}</td>
+                                            </tr>
+                                        </template>
+                                    </tbody>
+                                </table>
+                            </template>
+                            <template if:false={hasUploadedFiles}>
+                                <p class="slds-text-color_weak slds-m-top_small">No files attached.</p>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Old Bank Information -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <lightning-icon icon-name="utility:chevrondown" size="x-small"></lightning-icon>
+                        <span class="section-title">Old Bank Information</span>
+                    </div>
+                    <div class="section-body">
+                        <div class="slds-grid slds-gutters slds-wrap">
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-combobox
+                                    label="Old Bank Name"
+                                    value={formData.oldBankName}
+                                    options={bankNameOptions}
+                                    required
+                                    placeholder="--None--"
+                                    data-field="oldBankName"
+                                    onchange={handleComboChange}>
+                                </lightning-combobox>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-combobox
+                                    label="Old Branch Code"
+                                    value={formData.oldBranchCode}
+                                    options={oldBranchCodeOptions}
+                                    required
+                                    placeholder="--None--"
+                                    data-field="oldBranchCode"
+                                    onchange={handleComboChange}>
+                                </lightning-combobox>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-m-top_small">
+                                <lightning-input
+                                    label="Old Account Number"
+                                    value={formData.oldAccountNumber}
+                                    required
+                                    data-field="oldAccountNumber"
+                                    onchange={handleInputChange}>
+                                </lightning-input>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Debit Order Details -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <lightning-icon icon-name="utility:chevrondown" size="x-small"></lightning-icon>
+                        <span class="section-title">Debit Order Details</span>
+                    </div>
+                    <div class="section-body">
+                        <div class="files-box">
+                        <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center slds-m-bottom_small slds-p-around_small" style="background: #f3f2f2; border-radius: 0.25rem;">
+                            <!-- Left side: Icon + Label -->
+                            <div class="slds-col slds-grid slds-grid_vertical-align-center">
+                                <lightning-icon icon-name="standard:orders" size="small" class="slds-m-right_x-small"></lightning-icon>
+                                <span class="files-count-label">Debit Orders ({debitOrdersCount})</span>
+                            </div>
+
+                            <!-- Right side: Search + Buttons -->
+                            <div class="slds-col slds-grid slds-grid_vertical-align-center slds-grid_align-end">
+                                <lightning-input
+                                    type="search"
+                                    placeholder="Search"
+                                    value={debitOrderSearch}
+                                    onchange={handleDebitOrderSearch}
+                                    class="search-input slds-m-right_small"
+                                    style="max-width: 250px;">
+                                </lightning-input>
+
+                                <lightning-button
+                                    label="Retry OCR"
+                                    variant="brand"
+                                    disabled={isOcrRetryDisabled}
+                                    onclick={handleRetryOcr}
+                                    class="slds-m-right_small">
+                                </lightning-button>
+
+                                <lightning-button
+                                    label="New"
+                                    variant="brand"
+                                    onclick={handleNewDebitOrder}>
+                                </lightning-button>
+                            </div>
+                        </div>
+
+                            <!-- OCR Loading Spinner -->
+                            <template if:true={isOcrLoading}>
+                                <div class="ocr-loading">
+                                    <lightning-spinner size="medium" alternative-text="Processing OCR..."></lightning-spinner>
+                                    <p class="slds-m-top_small slds-text-color_weak">Data loading...</p>
+                                </div>
+                            </template>
+
+                            <!-- Debit Orders Datatable -->
+                            <template if:false={isOcrLoading}>
+                                <template if:true={hasDebitOrders}>
+                                    <lightning-datatable
+                                        data={filteredDebitOrders}
+                                        columns={debitOrderColumns}
+                                        key-field="doReferenceNumber"
+                                        hide-checkbox-column
+                                        class="slds-m-top_small">
+                                    </lightning-datatable>
+                                </template>
+                                <template if:false={hasDebitOrders}>
+                                    <p class="slds-text-align_center slds-text-color_weak slds-p-around_medium">
+                                        No debit orders found. Use Retry OCR or add manually via New.
+                                    </p>
+                                </template>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- New Debit Order Inline Modal -->
+                <template if:true={showNewDebitOrderForm}>
+                    <section class="slds-modal slds-fade-in-open">
+                        <div class="slds-modal__container">
+                            <div class="slds-modal__header">
+                                <h2 class="slds-modal__title">New Debit Order</h2>
+                                <lightning-button-icon
+                                    icon-name="utility:close"
+                                    variant="bare-inverse"
+                                    alternative-text="Close"
+                                    onclick={handleCancelNewDebitOrder}
+                                    class="slds-modal__close">
+                                </lightning-button-icon>
+                            </div>
+                            <div class="slds-modal__content slds-p-around_medium">
+                                <div class="slds-grid slds-gutters slds-wrap">
+                                    <div class="slds-col slds-size_1-of-2 slds-m-bottom_small">
+                                        <lightning-input
+                                            label="DO Reference Number"
+                                            value={newDebitOrder.doReferenceNumber}
+                                            data-field="doReferenceNumber"
+                                            onchange={handleNewDebitOrderFieldChange}>
+                                        </lightning-input>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-m-bottom_small">
+                                        <lightning-record-picker
+                                            label="DOI Name"
+                                            placeholder="Search Debit Order Initiator..."
+                                            object-api-name="Debit_Order_Initiator__c"
+                                            value={newDebitOrder.doiId}
+                                            onchange={handleDoiChange}>
+                                        </lightning-record-picker>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-m-bottom_small">
+                                        <lightning-input
+                                            type="date"
+                                            label="Debit Order Date"
+                                            value={newDebitOrder.debitOrderDate}
+                                            data-field="debitOrderDate"
+                                            onchange={handleNewDebitOrderFieldChange}>
+                                        </lightning-input>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-m-bottom_small">
+                                        <lightning-input
+                                            type="number"
+                                            label="Amount"
+                                            value={newDebitOrder.amount}
+                                            formatter="currency"
+                                            data-field="amount"
+                                            onchange={handleNewDebitOrderFieldChange}>
+                                        </lightning-input>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <lightning-combobox
+                                            label="Category"
+                                            value={newDebitOrder.category}
+                                            options={debitOrderCategoryOptions}
+                                            data-field="category"
+                                            placeholder="--None--"
+                                            onchange={handleNewDebitOrderComboChange}>
+                                        </lightning-combobox>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-modal__footer">
+                                <lightning-button label="Cancel" onclick={handleCancelNewDebitOrder} class="slds-m-right_small"></lightning-button>
+                                <lightning-button variant="brand" label="Save" onclick={handleSaveNewDebitOrder}></lightning-button>
+                            </div>
+                        </div>
+                    </section>
+                    <div class="slds-backdrop slds-backdrop_open"></div>
+                </template>
+
+                <div class="action-buttons">
+                    <lightning-button label="Cancel" onclick={handleCancel}></lightning-button>
+                    <div class="right-buttons">
+                        <lightning-button label="Previous" onclick={handlePrevious} class="slds-m-right_small"></lightning-button>
+                        <lightning-button variant="brand" label="Next" onclick={handleNext}></lightning-button>
+                    </div>
+                </div>
+            </template>
+
+            <!-- ================================================================
+                 STEP 5 – Summary
+            ================================================================ -->
+            <template if:true={isStep5}>
+                <h2 class="step-heading">Summary</h2>
+
+                <div class="info-banner">
+                    <lightning-icon icon-name="utility:info" size="small" variant="inverse" class="banner-icon"></lightning-icon>
+                    <span>Review all captured case and debit order details before submitting the case.</span>
+                </div>
+
+                <!-- Client Information -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <lightning-icon icon-name="utility:chevrondown" size="x-small"></lightning-icon>
+                        <span class="section-title">Client Information</span>
+                    </div>
+                    <div class="section-body">
+                        <div class="slds-grid slds-gutters slds-wrap">
+                            <div class="slds-col slds-size_1-of-2 summary-field">
+                                <p class="field-label">CIF number</p>
+                                <p class="field-value-bold">{clientInfo.cifNumber}</p>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 summary-field">
+                                <p class="field-label">ID number</p>
+                                <p class="field-value-bold">{clientInfo.idNumber}</p>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 summary-field">
+                                <p class="field-label">Passport Number</p>
+                                <p class="field-value-bold">{clientInfo.passportNumber}</p>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 summary-field">
+                                <p class="field-label">Salutation</p>
+                                <p class="field-value-bold">{clientInfo.salutation}</p>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 summary-field">
+                                <p class="field-label">First Name</p>
+                                <p class="field-value-bold">{clientInfo.firstName}</p>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 summary-field">
+                                <p class="field-label">Last Name</p>
+                                <p class="field-value-bold">{clientInfo.lastName}</p>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 summary-field">
+                                <p class="field-label">Primary number</p>
+                                <p class="field-value-bold">{clientInfo.mobileNumber}</p>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 summary-field">
+                                <p class="field-label">Secondary Number</p>
+                                <p class="field-value-bold">{clientInfo.workContactNumber}</p>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 summary-field">
+                                <p class="field-label">Email address</p>
+                                <p class="field-value-bold">{clientInfo.emailAddress}</p>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 summary-field">
+                                <p class="field-label">Preferred Contact Time</p>
+                                <p class="field-value-bold">{formData.preferredContactTime}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Case Information -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <lightning-icon icon-name="utility:chevrondown" size="x-small"></lightning-icon>
+                        <span class="section-title">Case Information</span>
+                    </div>
+                    <div class="section-body">
+                        <div class="slds-grid slds-gutters slds-wrap">
+                            <div class="slds-col slds-size_1-of-2 summary-field">
+                                <p class="field-label">Source</p>
+                                <p class="field-value-bold">{formData.source}</p>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 summary-field">
+                                <p class="field-label">Issue</p>
+                                <p class="field-value-bold">{formData.issue}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Old Bank Information -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <lightning-icon icon-name="utility:chevrondown" size="x-small"></lightning-icon>
+                        <span class="section-title">Old Bank Information</span>
+                    </div>
+                    <div class="section-body">
+                        <div class="slds-grid slds-gutters slds-wrap">
+                            <div class="slds-col slds-size_1-of-2 summary-field">
+                                <p class="field-label">Old Branch Code</p>
+                                <p class="field-value-bold">{formData.oldBranchCode}</p>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 summary-field">
+                                <p class="field-label">Old Bank Name</p>
+                                <p class="field-value-bold">{formData.oldBankName}</p>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 summary-field">
+                                <p class="field-label">Old Account Number</p>
+                                <p class="field-value-bold">{formData.oldAccountNumber}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Debit Order Details -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <lightning-icon icon-name="utility:chevrondown" size="x-small"></lightning-icon>
+                        <span class="section-title">Debit Order Details</span>
+                    </div>
+                    <div class="section-body">
+                        <template if:true={hasDebitOrders}>
+                            <lightning-datatable
+                                data={debitOrders}
+                                columns={debitOrderColumns}
+                                key-field="doReferenceNumber"
+                                hide-checkbox-column>
+                            </lightning-datatable>
+                        </template>
+                        <template if:false={hasDebitOrders}>
+                            <p class="slds-text-color_weak">No debit orders captured.</p>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Notes -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <lightning-icon icon-name="utility:chevrondown" size="x-small"></lightning-icon>
+                        <span class="section-title">Notes</span>
+                    </div>
+                    <div class="section-body">
+                        <lightning-textarea
+                            label="Additional comments"
+                            value={formData.additionalComments}
+                            placeholder="Only add notes if necessary"
+                            data-field="additionalComments"
+                            onchange={handleInputChange}>
+                        </lightning-textarea>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <lightning-button label="Cancel" onclick={handleCancel}></lightning-button>
+                    <div class="right-buttons">
+                        <lightning-button label="Previous" onclick={handlePrevious} class="slds-m-right_small"></lightning-button>
+                        <lightning-button variant="brand" label="Submit" onclick={handleSubmit}></lightning-button>
+                    </div>
+                </div>
+            </template>
+
+        </div>
+    </div>
+</template>

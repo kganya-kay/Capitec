@@ -1,0 +1,65 @@
+<template>
+    <div class="module-container">
+        <div class="date-input-flex">
+            <div class="flex-inputs">
+                <template lwc:if={isThirOrFourthStep}>
+                    <lightning-input class="slds-m-right_medium panel-input" type="datetime-local" name="startDateTime" label="Start Date And Time" value={inputs.startDateTime} onchange={handleInputChange}></lightning-input>
+                    <lightning-input class="slds-m-right_medium panel-input" type="datetime-local" name="endDateTime" label="End Date And Time" value={inputs.endDateTime} onchange={handleInputChange}></lightning-input>
+                    <lightning-input class="slds-m-right_medium panel-input panel-input-device" type="text" name="deviceId" label="Device Id" value={inputs.deviceId} onchange={handleInputChange}></lightning-input>
+                </template>
+                <template lwc:else>
+                    <lightning-input class="slds-m-right_medium panel-input" type="date" name="startDate" label="Start Date" value={inputs.startDate} onchange={handleInputChange}></lightning-input>
+                    <lightning-input class="slds-m-right_medium panel-input" type="date" name="endDate" label="End Date" value={inputs.endDate} onchange={handleInputChange}></lightning-input>
+                </template>
+                <template lwc:if={isFirstStep}>
+                    <lightning-input class="slds-m-right_medium panel-input" type="text" name="accountNumber" label="Account Number" value={inputs.accountNumber} onchange={handleInputChange}></lightning-input>
+                </template>
+                <template lwc:elseif={isSecondStep}>
+                    <div class="button-container">
+                        <lightning-input  class="slds-m-right_medium panel-input" type="text" name="fromAccountNumber"  label="Account Number" value={inputs.fromAccountNumber} onchange={handleInputChange}></lightning-input>
+                        <lightning-helptext class="help-text" content="Search by From or To Account Number">Search by From or To Account Number</lightning-helptext>
+                    </div>
+                </template>
+            </div>
+
+        </div>
+        <div class="flex-buttons">
+            <button class={buttonClasses} onclick={handleFetchData} data-id="refresh-button">
+                Get Transactions
+            </button>
+            <button class={buttonClasses} onclick={handleSaveFlaggedData} disabled={isSendFlaggedItemsButtonActive} data-id="seve-flagged-button">
+                Save Flagged Events
+            </button>
+            <button class={buttonClasses} onclick={handleSaveCSV} disabled={isSendCSVButtonActive} data-id="seve-csv-button">
+                Save CSV
+            </button>
+        </div>
+ 
+        <div class="table-container">
+            <template lwc:if={isLoading}> 
+                <div class="slds-m-top_medium" data-id="spinner">
+                    <lightning-spinner alternative-text="Loading" size="medium" if={isLoading}></lightning-spinner>
+                </div>
+            </template>
+            <template lwc:if={dataFetchError}>
+                <div>
+                    <span>Cannot load data.</span>
+                </div>
+            </template>
+            <template lwc:if={storedIdError}>
+                <div>
+                    <span>Please provide device Id</span>
+                </div>
+            </template>
+            <div class="flagged-info">
+                <template lwc:if={isItemsFlagged}>
+                    <span>Selected items has been flagged.</span>
+                </template>
+            </div>
+            <template lwc:if={fetchedData}>
+                <c-capitec_-data-table items-to-display={fetchedData} oncount={handleOnCount} source={source} record-id={recordId}></c-capitec_-data-table>
+            </template>
+        </div>
+    </div> 
+        
+</template>

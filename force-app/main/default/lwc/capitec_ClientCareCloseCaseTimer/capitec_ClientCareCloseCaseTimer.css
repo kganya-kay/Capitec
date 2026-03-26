@@ -1,0 +1,31 @@
+.progress-container {
+    position: relative; /* Ensure the container is positioned relative to its children */
+}
+
+.progress-ring {
+    transform: rotate(-90deg); /* Rotate the circle to start from the top */
+    transform-origin: 50% 50%; /* Center the rotation */
+}
+
+.progress-ring-circle {
+    stroke-width: 8; /* Make the line thicker */
+    stroke-dasharray: 339.292; /* Circumference of the circle (2 * PI * radius) */
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1s;
+    stroke: green; /* Circle color */
+}
+
+.time-left {
+    font-size: 2rem; /* Adjust font size as necessary */
+    font-weight: bold;
+    width:120px;
+    top:50%;
+    left:75px;
+    transform: translate(-50%, -50%); /* Center the text */
+    color: black; /* Ensure the text color contrasts with the circle */
+}
+
+.loading-spinner{
+    width:100%;
+    margin:auto auto;
+}

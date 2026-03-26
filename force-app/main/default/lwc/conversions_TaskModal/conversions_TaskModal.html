@@ -1,0 +1,77 @@
+<!--
+  @description       : 
+  @author            : Samiirah.A@bsky.co.za
+  @group             : 
+  @last modified on  : 01-05-2026
+  @last modified by  : Samiirah Aujub
+-->
+<template>
+    <div style="max-width: 35rem; margin: 0 auto;">
+        <lightning-modal-header label="New Task"></lightning-modal-header>
+
+        <lightning-modal-body>
+            
+            <template if:true={showSpinner}>
+                <lightning-spinner alternative-text="Saving Task" size="medium"></lightning-spinner>
+            </template>
+
+            <p class="slds-m-bottom_small slds-text-title_bold">Awaiting Client Information</p>
+
+            <div class="slds-p-bottom_small">
+                <div class="slds-box" style="background-color:#5C5C5C;">
+                    <p style="color:#ffffff; display:flex; align-items:center;">
+                        <lightning-icon icon-name="utility:info"
+                                        size="x-small"
+                                        style="--sds-c-icon-color-foreground-default:#ffffff;padding-bottom: 15px;">
+                        </lightning-icon>
+                        &nbsp;Create a new task to assign to the case. Tasks can be found in the "Activity" feed once created.
+                    </p>
+                </div>
+            </div>
+
+            <p class="slds-text-color_error slds-m-bottom_small">Fields marked with * are required.</p>
+
+            <lightning-input 
+                label="Reason" 
+                value={subject} 
+                onchange={handleInputChange} 
+                data-id="subject"
+                required>
+            </lightning-input>
+
+            <lightning-textarea 
+                label="Description" 
+                value={description} 
+                onchange={handleInputChange} 
+                data-id="description">
+            </lightning-textarea>
+
+            <lightning-input 
+                type="date" 
+                label="Due Date" 
+                value={dueDate} 
+                onchange={handleInputChange} 
+                data-id="dueDate"
+                required>
+            </lightning-input>
+
+            <lightning-combobox
+                label="Status"
+                value={status}
+                options={statusOptions}
+                onchange={handleInputChange}
+                data-id="status"
+                disabled>
+            </lightning-combobox>
+
+            <lightning-input label="Assign To" value={getOwnerName} disabled></lightning-input>
+            <lightning-input label="Related Case" value={getCaseNumber} disabled></lightning-input>
+            
+        </lightning-modal-body>
+
+        <lightning-modal-footer >
+            <lightning-button variant="neutral" label="Cancel" onclick={closeModal}></lightning-button>
+            <lightning-button variant="brand" label="Create Task" onclick={handleSaveTask}></lightning-button>
+        </lightning-modal-footer>
+    </div>
+</template>

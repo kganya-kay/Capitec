@@ -1,0 +1,14 @@
+/**
+ * Created by dawid on 29.08.2024.
+ */
+
+.ic-record-banner{
+    border-radius: 11px;
+    padding: 0.75rem 1rem 0.75rem 1rem;
+    margin: auto;
+    display: flex;
+}
+
+.ic-record-title{
+    margin: auto;
+}

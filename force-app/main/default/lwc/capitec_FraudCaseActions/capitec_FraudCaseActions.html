@@ -1,0 +1,154 @@
+<!--
+ - Created by dawid on 02.11.2023.
+ -->
+
+<!-- Capitec Fraud Case Actions -->
+<template>
+
+    <div class="main-container slds-m-top_medium" data-id="main-container">
+
+        <template lwc:if={showSpinner}>
+            <div class="slds-m-top_medium" data-id="spinner">
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template lwc:if={contentEmpty}>
+            <h1>{emptyTableCommunicate}
+              <span> 
+                <button class="slds-button slds-button_brand slds-m-top_medium flag-button" onclick={refreshComponent} > <!--FFSF-579-->
+                     Refresh
+                </button>
+              </span>
+            </h1>
+        </template>
+
+        <template lwc:else>
+            <!-- 
+            <div class="full-width date-input-flex">
+                <button class="slds-button slds-button_brand slds-m-top_medium flag-button" disabled onclick={handleSaveCSV} data-id="flag-button">
+                    Save As CSV
+                </button>
+                <button class="slds-button slds-button_brand slds-m-top_medium flag-button red-button" disabled={contentEmpty} onclick={handleApplyActions} data-id="flag-button">
+                    Apply Actions
+                </button>
+                <button class="slds-button slds-button_brand slds-m-top_medium flag-button" disabled={contentEmpty} onclick={connectedCallback} data-id="flag-button"> 
+                    Refresh
+                </button>
+                <button class="slds-button slds-button_brand slds-m-top_medium flag-button" disabled={contentEmpty} onclick={recalculateAmtDefrauded} data-id="flag-button"> 
+                     Re-calculate amount defrauded
+                </button>
+            </div>-->
+
+            <div class="slds-page-header slds-m-top_medium slds-p-around_small border-header">
+                <div class="slds-page-header__row slds-align_absolute-center">
+                    
+                    <div class="slds-page-header__col-title">
+                        <div class="slds-media slds-align_absolute-center">
+                            <div class="slds-media__figure">
+                                <lightning-icon icon-name="standard:case" alternative-text="Case Actions" size="medium"></lightning-icon>
+                            </div>
+                            
+                            <div class="slds-media__body slds-p-left_small">
+                                <h1 class="slds-page-header__title slds-truncate" title="Case Actions">
+                                    Case Actions
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-page-header__col-actions slds-grid slds-align-center slds-grid_vertical-align-center">
+                                          <!--
+                        <button 
+                            class="slds-button slds-button_brand slds-m-right_small" 
+                            disabled 
+                            onclick={handleSaveCSV} 
+                            data-id="flag-button">
+                            Save As CSV
+                        </button>-->
+
+                        <button 
+                            class="slds-button slds-button_brand slds-m-right_small red-button" 
+                            disabled={contentEmpty} 
+                            onclick={handleApplyActions} 
+                            data-id="flag-button">
+                            Apply Actions
+                        </button>
+
+                        <button 
+                            class="slds-button slds-button_brand slds-m-right_small" 
+                            disabled={contentEmpty} 
+                            onclick={connectedCallback} 
+                            data-id="flag-button">
+                            Refresh
+                        </button>
+
+                        <button 
+                            class="slds-button slds-button_brand" 
+                            disabled={contentEmpty} 
+                            onclick={recalculateAmtDefrauded} 
+                            data-id="flag-button">
+                            Re-calculate Amount Defrauded
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <div class="table-container " data-id="table-container">
+            <template if:false= {contentEmpty}>
+                <table class="table slds-table slds-table_cell-buffer slds-table_bordered table-bordered">
+                    <thead>
+                    <tr>
+                        <th slds-text-align_left>Flag<br/>Transaction</th>
+                        <th slds-text-align_left>Hold</th>
+                        <th slds-text-align_left>Confirm<br/>Hold</th>
+                        <th slds-text-align_left>Spend<br/>Group</th>
+                        <th slds-text-align_left>Case ID</th>
+                        <th slds-text-align_left>Date of<br/>Transaction</th>
+                        <th slds-text-align_left>Date of<br/>Action</th>
+                        <th slds-text-align_left>Time to<br/>Lift</th>
+                        <th slds-text-align_left>Amount</th>
+                        <th slds-text-align_left>Amount<br/>Held</th>
+                        <th slds-text-align_left>Money<br/>In</th>
+                        <!--                            <th class=slds-border_right>From Account</th>-->
+                        <!--                            <th class=slds-border_right>to Account</th>-->
+                        <th slds-text-align_left>Client<br/>Account</th>
+                        <th slds-text-align_left>Contra<br/>Account</th>
+                        <th slds-text-align_left>Agent</th>
+                        <th slds-text-align_left>To<br/>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <template for:each={itemsToDisplay} for:item="item" for:index="index" data-id='full-table'>
+                        <tr key={item.id} data-id="table-tr">
+                            <td class="slds-text-align_left tdformat"><lightning-input type="checkbox" checked={item.flaggedFraud} disabled={item.disableFlag} onchange={handleFlag} data-item-id={index} data-id={index}></lightning-input></td>
+                            <td class="slds-text-align_left tdformat"><lightning-input type="checkbox" checked={item.flaggedHold} disabled={item.disableHold} onchange={handleHold} data-item-id={index} data-id={index}></lightning-input></td>
+                            <td class="slds-text-align_left tdformat help-text-parent"><lightning-input type="checkbox" disabled={item.confirmHoldDisabled} checked={item.confirmHold} onchange={handleConfirm} data-item-id={index} data-id={index}></lightning-input>
+                                <template lwc:if={item.showHelpText}>
+                                    <lightning-helptext class="help-text" content={item.popUpLabel}>{item.popUpLabel}</lightning-helptext>
+                                </template>
+                            </td>
+                            <td class="slds-text-align_left tdformat">{item.tranGroupType}</td>
+                            <td class="slds-text-align_left tdformat color-text" onclick={handleRowClick} data-record-id={item.caseId}>{item.caseId}</td><!--FFSF:428: Added onclick={handleRowClick} & data-record-id={item.caseId}-->
+                            <!-- <td class=border-right-custom>{item.transactionDate}</td> -->
+                            <td class="slds-text-align_left tdformat">{item.newtransactionDate}</td>
+                            <!-- <td class=border-right-custom>{item.lastUpdatedAt}</td> -->
+                            <td class="slds-text-align_left tdformat">{item.newlastUpdatedAt}</td>
+                            <td class="slds-text-align_left tdformat">{item.autoUnholdDate}</td>
+                            <td class="slds-text-align_left tdformat">{item.amount}</td>
+                            <td class="slds-text-align_left tdformat">{item.holdAmount}</td>
+                            <td class="slds-text-align_left tdformat">{item.moneyIn}</td>
+                            <td class="slds-text-align_left tdformat">{item.accountNr}</td>
+                            <td class="slds-text-align_left tdformat">{item.toAccountNr}</td>
+                            <td class="slds-text-align_left tdformat">{item.consultantIdentifier}</td>
+                            <td class="slds-text-align_left tdformat">{item.toDescription}</td>
+                        </tr>
+                    </template>
+                    </tbody>
+                </table>
+            </template>
+        </div>
+
+        <!--        <div data-id="error-container" class="slds-m-top_large" if:true={showError></div>-->
+    </div>
+</template>

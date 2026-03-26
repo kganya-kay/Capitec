@@ -1,0 +1,50 @@
+.container {
+    background-color: #fff;
+    border: 1px solid #d8dde6; /* Light border similar to FlexCard */
+    border-radius: 0.5rem; /* Rounded corners */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for a modern look */
+    padding: 1rem;
+    margin: 1rem 0; /* Add some margin for spacing */
+    display: flex;
+    flex-direction: row;
+    color:rgb(5, 166, 223);
+}
+
+.slds-button-group {
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+    color:rgb(5, 166, 223);
+}
+
+.button-group {
+    margin-right: 1rem;
+    display: flex;
+    align-items: left;
+    color: rgb(5, 166, 223); /* Icon color */
+}
+
+.custom-icon .slds-button__icon {
+    fill: inherit; /* Ensures fill works */
+}
+
+svg {
+    fill: red !important;
+    color:red;
+}
+
+.cash-icon .slds-button__icon {
+    fill: green !important;
+}
+
+.recall-icon .slds-button__icon {
+    fill: orange !important;
+}
+
+.escalation-icon .slds-button__icon {
+    fill: blue !important;
+}
+
+.pay-icon .slds-button__icon {
+    fill: purple !important;
+}

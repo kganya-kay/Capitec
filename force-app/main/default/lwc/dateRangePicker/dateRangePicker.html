@@ -1,0 +1,226 @@
+<template>
+    <div class="main-container">
+        <div class="date-range-group">
+            <lightning-input class="slds-m-right_medium" type="date" name="input1" label="From date" value={fromDate} onchange={fromDateChange} data-field="fromDate" min={minFromDate} max={maxDate}></lightning-input>
+            <lightning-input class="slds-m-right_medium" type="date" name="input2" label="To date" value={toDate} onchange={toDateChange} data-field="toDate" min={minToDate} max={maxDate}></lightning-input>
+            <lightning-button class="slds-button btn-get-incidents"  variant="brand" label="Get Incidents" title="Get Incidents related to this client" onclick={getStrackIncidents}></lightning-button>
+            <template if:false={hideAddIncidentButtons}>
+            <lightning-button class="slds-button btn-add-incidents"  variant="brand-outline" label="Add Incidents" disabled={disableAddIncidents} title="Add Incidents as related to the case" onclick={addIncidents}></lightning-button>
+        </template>
+        </div>
+
+        <div class="slds-var-m-top_medium" if:true={spinner} data-id="incident-spinner">
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </div>
+
+        <template if:true={showError}>
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                            <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small"></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium">Error</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium">
+                        <lightning-formatted-rich-text class="message-error" value={displayMessage}></lightning-formatted-rich-text>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning-button variant="neutral" label="Close" onclick={closeModal}></lightning-button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+        
+        <template if:true={showSuccess}>
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-02" aria-modal="true" aria-describedby="modal-content-id-2" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                            <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small"></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-02" class="slds-text-heading_medium">Success</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium">
+                        <lightning-formatted-rich-text class="message-success" value={displayMessage}></lightning-formatted-rich-text>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning-button variant="neutral" label="Close" onclick={closeModal}></lightning-button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+        
+
+
+         <!-- Data Table or No Data Message -->
+         <template if:true={showData}>
+            <template if:true={data.length}>
+                <!-- Display Data in Table -->
+                <div class="table-container">
+                    <lightning-datatable
+                        key-field="incidentNumber" 
+                        data={formattedData}
+                        columns={columns}
+                        onsort={handleSort}
+                        onrowaction={handleRowAction}
+                        onrowselection={getSelectedIncidents}
+                        hide-checkbox-column={hideSelection}>
+                    </lightning-datatable>
+                </div>
+            </template>
+            <template if:false={data.length}>
+                <!-- Display No Data Message -->
+                <lightning-formatted-rich-text class="message-info" value={displayMessage}></lightning-formatted-rich-text>
+            </template>
+        </template>
+
+    </div>
+
+    <template if:true={showDetails}>
+
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- modal header start -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeDetails}>
+                        <lightning-icon icon-name="utility:close"
+                        alternative-text="close"
+                        variant="inverse"
+                        size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-03" class="slds-text-heading_medium slds-hyphenate">Incident Details</h2>
+                </header>
+    
+                <!-- modal body start -->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <!-- Tabs layout-->
+                    <lightning-tabset class="custom-tabset">
+                        <lightning-tab label="Details">
+                            <div class="details-container">
+                                    <div class="detail-item">
+                                        <p class="detail-label">Incident Number</p>
+                                        <p class="detail-value">{incidentNumber}</p>
+                                    </div>
+                                    <div class="detail-item">
+                                        <p class="detail-label">Category</p> 
+                                        <p class="detail-value">{category}</p>
+                                    </div>
+                                    <div class="detail-item">
+                                        <p class="detail-label">Sub Category</p> 
+                                        <p class="detail-value">{subCategory}</p>
+                                    </div>
+                                    <div class="detail-item">
+                                        <p class="detail-label">Issue</p> 
+                                        <p class="detail-value">{issue}</p>
+                                    </div>
+                                    <div class="detail-item">
+                                        <p class="detail-label">Summary</p> 
+                                        <p class="detail-value">{summary}</p>
+                                    </div>
+                                    <div class="detail-item">
+                                        <p class="detail-label">Type</p> 
+                                        <p class="detail-value">{type}</p>
+                                    </div>
+                                    <div class="detail-item">
+                                        <p class="detail-label">Status</p> 
+                                        <p class="detail-value">{status}</p>
+                                    </div>
+                                    <div class="detail-item">
+                                        <p class="detail-label">Record ID</p> 
+                                        <p class="detail-value">{recordId}</p>
+                                    </div>
+                                    <div class="detail-item">
+                                        <p class="detail-label">Voice Reference Number</p> 
+                                        <p class="detail-value">{voiceRefNo}</p>
+                                    </div>
+                                    <div class="detail-item">
+                                        <p class="detail-label">Caller Phone</p> 
+                                        <p class="detail-value">{callerPhone}</p>
+                                    </div>
+                                    <div class="detail-item">
+                                        <p class="detail-label">Organization Unit ID</p> 
+                                        <p class="detail-value">{organizationUnitId}</p>
+                                    </div>
+                                    <div class="detail-item">
+                                        <p class="detail-label">VDN</p> 
+                                        <p class="detail-value">{vdn}</p>
+                                    </div>
+                                    <div class="detail-item">
+                                        <p class="detail-label">Source</p> 
+                                        <p class="detail-value">{source}</p>
+                                    </div>
+                                    <div class="detail-item">
+                                        <p class="detail-label">Network Username</p> 
+                                        <p class="detail-value">{networkUsername}</p>
+                                    </div>
+                                    <div class="detail-item">
+                                        <p class="detail-label">Impact</p> 
+                                        <p class="detail-value">{impact}</p>
+                                    </div>
+                                    <div class="detail-item">
+                                        <p class="detail-label">Urgency</p> 
+                                        <p class="detail-value">{urgency}</p>
+                                    </div>
+                                    <div class="detail-item">
+                                        <p class="detail-label">Branch ID</p> 
+                                        <p class="detail-value">{branchId}</p>
+                                    </div>
+                                    <div class="detail-item">
+                                        <p class="detail-label">Cause Code</p> 
+                                        <p class="detail-value">{causeCode}</p>
+                                    </div>
+                                    <div class="detail-item">
+                                        <p class="detail-label">Owner Team</p> 
+                                        <p class="detail-value">{ownerTeam}</p>
+                                    </div>
+                                    <div class="detail-item">
+                                        <p class="detail-label">Owner</p> 
+                                        <p class="detail-value">{owner}</p>
+                                    </div>
+                                    <div class="detail-item">
+                                        <p class="detail-label">Created On Date</p> 
+                                        <p class="detail-value">{createdOnDate}</p>
+                                    </div>
+                            </div>
+                        </lightning-tab>
+
+                        <lightning-tab label="Description">
+                            <div class="detail-item">
+                                <p class="detail-label">Description</p>
+                                <p class="detail-value">{description}</p>
+                            </div>
+                        </lightning-tab>
+
+                        <lightning-tab label="Resolution">
+                            <div class="detail-item">
+                                <p class="detail-label">Resolution</p>
+                                <p class="detail-value">{resolution}</p>
+                            </div>
+                        </lightning-tab>
+                    </lightning-tabset>
+                </div>
+    
+                <!-- modal footer start-->
+                <footer class="slds-modal__footer slds-grid slds-grid_align-spread">
+                    <div>
+                        <a href={strackURL} target="_blank" class="slds-button btn-open-strack">Open in STrack</a>
+                    </div>
+                    <div class="slds-grid slds-grid_align-end">
+                    <template if:false={hideAddIncidentButtons}>
+                        <lightning-button class="slds-button btn-add-incidents"  variant="brand-outline" label="Add Incident" onclick={addIncidents}></lightning-button>
+                    </template>
+                    <button class="slds-button slds-button_neutral" onclick={closeDetails}>Close</button>
+                </div>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    
+</template>

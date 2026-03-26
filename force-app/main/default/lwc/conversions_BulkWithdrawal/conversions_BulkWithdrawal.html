@@ -1,0 +1,42 @@
+<!--
+  @description       : LWC component for bulk withdrawal of Debit Orders
+  @author            : Samiirah Aujub
+  @group             : 
+  @last modified on  : 03-25-2026
+  @last modified by  : Samiirah Aujub
+-->
+<template>
+    <lightning-modal-header label="Update Withdrawal"></lightning-modal-header>
+
+    <lightning-modal-body>
+        <template if:true={showSpinner}>
+            <lightning-spinner alternative-text="Saving" size="medium"></lightning-spinner>
+        </template>
+
+        <div class="slds-grid">
+            <div class="slds-col slds-size_9-of-12">
+                <lightning-combobox label="Withdrawal Cause Code"
+                                    value={selectedWithdrawalValue}
+                                    options={withdrawalOptions}
+                                    onchange={handleWithdrawalChange}
+                                    placeholder="Select a value"
+                                    required>
+                </lightning-combobox>
+            </div>
+        </div>
+    </lightning-modal-body>
+
+    <lightning-modal-footer>
+        <lightning-button
+            label="Cancel"
+            onclick={handleCancel}>
+        </lightning-button>
+
+        <lightning-button
+            variant="brand"
+            label="Save"
+            onclick={handleSave}
+            class="slds-m-left_small">
+        </lightning-button>
+    </lightning-modal-footer>
+</template>

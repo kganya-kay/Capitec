@@ -1,0 +1,17 @@
+/**
+ * Created by dawid on 13.11.2023.
+ */
+
+h1{
+    /*margin-bottom: 20px;*/
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+.modal-body-box{
+    padding: 20px 20px 20px 20px;
+}
+
+.message{
+    font-size: 1.15em;
+}

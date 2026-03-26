@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>64.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__RecordPage</target>
+        <target>lightning__AppPage</target>
+        <target>lightning__HomePage</target>
+        <target>lightning__UtilityBar</target>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage,lightning__AppPage,lightning__HomePage,lightning__UtilityBar,lightning__FlowScreen">
+            <property name="variant" type="String" label="Variant (Info, Success, Warning, Message)"/>
+            <property name="htmlContent" type="String" label="HTML Content" description="Raw HTML to render inside the panel."/>
+            <property name="showIcon" type="Boolean" label="Hide Icon (set to show by default, set true to hide)" description="Option to show or hide icon."/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

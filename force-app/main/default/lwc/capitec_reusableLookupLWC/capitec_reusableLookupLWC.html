@@ -1,0 +1,20 @@
+<template>
+    <lightning-input
+        type="text"
+        label={label}
+        placeholder={placeholder}
+        value={searchKey}
+        onchange={handleInputChange}
+        onfocus={handleFocus}>
+    </lightning-input>
+
+    <template if:true={results}>
+        <div class="slds-box slds-m-top_small slds-scrollable_y" style="max-height:150px;">
+            <template for:each={results} for:item="rec">
+                <div key={rec.Id} class="slds-p-around_xx-small slds-hint-parent" onclick={selectRecord}>
+                    {rec.Name}
+                </div>
+            </template>
+        </div>
+    </template>
+</template>

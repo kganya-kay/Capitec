@@ -1,0 +1,68 @@
+<!--
+ Created by Steffan on 26.02.2023.
+ -->
+
+<!-- Capitec Global Transaction History-->
+<template>
+
+    <div class="main-container slds-m-top_medium" data-id="main-container">
+        <template lwc:if={showSpinner}>
+            <div class="slds-m-top_medium" data-id="spinner">
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </div>
+        </template>
+        <div class="full-width slds-m-bottom_x-small date-input-flex">
+            <button class="slds-button slds-button_brand flag-button" onclick={getLast7Dates} data-id="flag-button">
+                Last 7 days
+            </button>
+            <button class="slds-button slds-button_brand flag-button" onclick={getLast30Dates} data-id="flag-button">
+                Last 30 days
+            </button>
+            <button class="slds-button slds-button_brand flag-button" onclick={getLastyear} data-id="flag-button">
+                Last Year
+            </button>
+        </div>
+        
+        
+        <div class="date-input-flex">
+            <lightning-input class="slds-m-right_medium" type="date" name="input1" data-id="startDateInput" label="From Date" value={startDate} ></lightning-input>
+            <lightning-input class="slds-m-right_medium" type="date" name="input1" data-id="endDateInput" label="To Date" value={endDate} ></lightning-input>
+            <lightning-input type="text" class="slds-m-right_medium" label="Account Number" value={comboboxValue} data-id="fin-id"></lightning-input>
+            <button class="slds-button slds-button_brand slds-m-top_medium" onclick={handleGetTransactions} data-id="refresh-button">
+                Get Transactions
+            </button>
+        </div>
+        <div class="table-container " data-id="table-container">
+            <template if:true={itemsToDisplay}>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class=border-right-custom>Account<br/>Number</th>
+                            <th class=border-right-custom>Transaction<br/>Date</th>
+                            <th class=border-right-custom>Statement<br/>Description</th>
+                            <th class=border-right-custom>Amount</th>
+                            <th class=border-right-custom>Balance</th>
+                            <th class=border-right-custom>Transaction<br/>Code</th>
+                            <th class=border-right-custom>Transaction<br/>Description</th>
+                            <th class=border-right-custom>Inflow</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <template for:each={itemsToDisplay} for:item="item" for:index="index" data-id='full-table' >
+                        <tr key={item.id} data-id="table-tr">
+                            <td class=border-right-custom>{item.accountNr}</td>
+                            <td class=border-right-custom>{item.newtransactionDate}</td>
+                            <td class=border-right-custom>{item.statementDesc}</td>
+                            <td class=border-right-custom>{item.amount}</td>
+                            <td class=border-right-custom>{item.balance}</td>
+                            <td class=border-right-custom>{item.tranCode}</td>
+                            <td class=border-right-custom>{item.originalDesc}</td>
+                            <td class=border-right-custom>{item.moneyIn}</td>
+                        </tr>
+                    </template>
+                    </tbody>
+                </table>
+            </template>
+        </div>
+    </div>
+</template>

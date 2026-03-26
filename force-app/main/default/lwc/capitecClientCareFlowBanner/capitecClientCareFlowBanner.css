@@ -1,0 +1,61 @@
+.wrap {
+    border: 1px solid transparent;
+    border-radius: 5px;
+    padding: 12px 14px;
+}
+
+.row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.icon-col {
+    flex: 0 0 auto;
+    line-height: 0;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+/* 🔑 Fix the white box */
+.content,
+.content * {
+    background: transparent !important;
+    color: inherit !important;
+    border: none;
+    box-shadow: none;
+    font-weight: 400;
+}
+
+.content p {
+    margin: 0 0 6px 0;
+}
+
+.content strong {
+    font-weight: 600;
+}
+
+/* INFO variant */
+.variant-info {
+    background: #5C5C5C;
+    color: #fff;
+    border-color: transparent;
+}
+
+/* MESSAGE variant */
+.variant-message {
+    background: #FAEAEB;
+    border: 2px solid #D4646E;
+    border-radius: 5px;
+    color: #d4646e;
+}
+
+.variant-warning {
+    background-color: #fff8e5; /* softer yellow */
+    padding: 1rem;
+    border-radius: 4px;
+}

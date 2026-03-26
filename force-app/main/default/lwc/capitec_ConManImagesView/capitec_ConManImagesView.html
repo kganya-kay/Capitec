@@ -1,0 +1,230 @@
+<template>
+    <div class="slds-p-around_medium slds-grid slds-grid_align-start">
+        <lightning-button 
+            label="Get Related Documents" 
+            onclick={handleRetrieveDocuments} 
+            variant="brand">
+        </lightning-button>
+    </div>
+    <template lwc:if={showSpinner}>
+        <div class="slds-m-top_medium" data-id="spinner">
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </div>
+    </template>
+
+    <!-- Section Related Documents-->
+    <lightning-card title="" icon-name="" class="custom-border">
+        <div class="custom-header slds-grid slds-grid_vertical-align-center slds-p-horizontal_small">
+            <lightning-icon 
+                icon-name="custom:custom18" 
+                alternative-text="Selfie Icon" 
+                class="slds-m-right_x-small custom-icon">
+            </lightning-icon>
+            <span class="custom-title">Related Documents</span>
+        </div>
+
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_1-of-1">
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Name">Name</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Created Date">Created Date</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Action">Action</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={docitems} for:item="docitem">
+                            <tr key={docitem.id}>
+                                <td>
+                                    <div class="slds-truncate" title={docitem.name}>{docitem.name}</div>
+                                </td>
+                                <td>
+                                    <div class="slds-truncate" title={docitem.createdDate}>{docitem.createdDate}</div>
+                                </td>
+                                <td>
+                                    <template if:true={docitem.fileUrl}>
+                                        <lightning-icon icon-name="utility:success" alternative-text="Success" size="small" class="slds-icon slds-icon-text-success"></lightning-icon>
+                                    </template>
+                                    <template if:false={docitem.fileUrl}>
+                                        <lightning-button label="Retrieve" 
+                                        onclick={handleRetrieveDoc} 
+                                        data-id={docitem.id}></lightning-button>
+                                    </template>
+                                
+                                </td>
+                            </tr>
+                            <template if:true={docitem.fileUrl}>
+                                <tr key={docitem.id}>
+                                    <td colspan="3">
+                                        <div class="slds-align_absolute-center">
+                                            <a href="javascript:void(0);" 
+                                            data-id={docitem.contentDocumentId} 
+                                            onclick={handlePreviewDoc} 
+                                            class="slds-text-link">
+                                                <lightning-icon 
+                                                    icon-name="utility:download" 
+                                                    alternative-text="Download" 
+                                                    size="x-small" 
+                                                    class="slds-m-right_x-small">
+                                                </lightning-icon>
+                                                Click here to View Document
+                                            </a>
+                                            <div class="doc-type-tooltip">{docitem.documentId}</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </template>
+                            
+                            
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </lightning-card>
+    <!-- Section Client Enrolment Images-->
+    <lightning-card title="" icon-name="" class="custom-border">
+        <div class="custom-header slds-grid slds-grid_vertical-align-center slds-p-horizontal_small">
+            <lightning-icon 
+                icon-name="standard:user" 
+                alternative-text="Gallery Icon" 
+                class="slds-m-right_x-small custom-icon">
+            </lightning-icon>
+            <span class="custom-title">Client Enrolment Images</span>
+
+        </div>
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_1-of-1">
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Name">Name</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Created Date">Created Date</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Action">Action</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={imageprofileitems} for:item="imageitem">
+                            <tr key={imageitem.id}>
+                                <td>
+                                    <div class="slds-truncate" title={imageitem.name}>{imageitem.name}</div>
+                                </td>
+                                <td>
+                                    <div class="slds-truncate" title={imageitem.createdDate}>{imageitem.createdDate}</div>
+                                </td>
+
+                                <td>
+                                    <template if:true={imageitem.imageUrl}>
+                                        <lightning-icon icon-name="utility:success" alternative-text="Success" size="small" class="slds-icon slds-icon-text-success"></lightning-icon>
+                                    </template>
+                                    <template if:false={imageitem.imageUrl}>
+                                        <lightning-button label="Retrieve" onclick={handleRetrieveProfileImage} data-id={imageitem.id}></lightning-button>
+                                    </template>
+                                
+                                </td>
+                            </tr>
+                            <template if:true={imageitem.imageUrl}>
+                                <tr key={imageitem.id}>
+                                    <td colspan="3">
+                                        <div class="slds-align_absolute-center">
+                                            <a href="javascript:void(0);" 
+                                                data-id={imageitem.contentDocumentId} 
+                                                onclick={handlePreviewDoc} 
+                                                class="slds-text-link">
+                                                <img src={imageitem.imageUrl} alt="Retrieved image" class="account-image bordered-image"/>
+                                            </a>
+                                            <div class="doc-type-tooltip">{imageitem.documentId}</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </template>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </lightning-card>
+
+    <!-- Section Client Profile Images-->
+    <lightning-card title="" icon-name="" class="custom-border">
+        <div class="custom-header slds-grid slds-grid_vertical-align-center slds-p-horizontal_small">
+            <lightning-icon 
+                icon-name="standard:party_profile" 
+                alternative-text="Gallery Icon" 
+                class="slds-m-right_x-small custom-icon">
+            </lightning-icon>
+            <span class="custom-title">Client Profile Images</span>
+
+        </div>
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_1-of-1">
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Name">Name</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Created Date">Created Date</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Action">Action</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={imageitems} for:item="imageitem">
+                            <tr key={imageitem.id}>
+                                <td>
+                                    <div class="slds-truncate" title={imageitem.name}>{imageitem.name}</div>
+                                </td>
+                                <td>
+                                    <div class="slds-truncate" title={imageitem.createdDate}>{imageitem.createdDate}</div>
+                                </td>
+
+                                <td>
+                                    <template if:true={imageitem.imageUrl}>
+                                        <lightning-icon icon-name="utility:success" alternative-text="Success" size="small" class="slds-icon slds-icon-text-success"></lightning-icon>
+                                    </template>
+                                    <template if:false={imageitem.imageUrl}>
+                                        <lightning-button label="Retrieve" onclick={handleRetrieveImage} data-id={imageitem.id}></lightning-button>
+                                    </template>
+                                
+                                </td>
+                            </tr>
+                            <template if:true={imageitem.imageUrl}>
+                                <tr key={imageitem.id}>
+                                    <td colspan="3">
+                                        <div class="slds-align_absolute-center">
+                                            <a href="javascript:void(0);" 
+                                                data-id={imageitem.contentDocumentId} 
+                                                onclick={handlePreviewDoc} 
+                                                class="slds-text-link">
+                                                <img src={imageitem.imageUrl} alt="Retrieved image" class="account-image bordered-image"/>
+                                            </a>
+                                            <div class="doc-type-tooltip">{imageitem.documentId}</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </template>
+                            
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </lightning-card>
+</template>

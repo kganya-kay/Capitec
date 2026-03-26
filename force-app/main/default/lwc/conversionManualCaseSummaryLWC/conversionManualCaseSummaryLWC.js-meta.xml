@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <!-- Case Info -->
+            <property name="caseorigin" type="String" label="Case Origin"/>
+            <property name="issue" type="String" label="Issue"/>
+            <!-- Client Info -->
+            <property name="cifNumber" type="String" label="CIF Number"/>
+            <property name="idNumber" type="String" label="ID Number"/>
+            <property name="passportNumber" type="String" label="Passport Number"/>
+            <property name="salutation" type="String" label="Salutation"/>
+            <property name="firstName" type="String" label="First Name"/>
+            <property name="lastName" type="String" label="Last Name"/>
+            <property name="primaryNumber" type="String" label="Home Contact Number"/>
+            <property name="secondaryNumber" type="String" label="Work Contact Number"/>
+            <property name="mobileNumber" type="String" label="Mobile Number"/>
+            <property name="email" type="String" label="Email Address"/>
+            <property name="preferredContactTime" type="String" label="Preferred Contact Time"/>
+            
+            <!-- Old Bank -->
+            <property name="oldBranchCode" type="String" label="Old Branch Code"/>
+            <property name="oldAccountNumber" type="String" label="Old Account Number"/>
+            <property name="oldBankName" type="String" label="Old Bank Name"/>
+
+            <!-- Notes -->
+            <property name="additionalComments" type="String" label="Additional Comments"/>
+
+            <!-- Debit Orders -->
+            <property name="debitOrders" type="String" label="Debit Orders JSON"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

@@ -1,0 +1,10 @@
+.table-container {
+    max-width: 100%;
+}
+th, td {
+    border: 1px solid #000000;
+    padding: 0 10px;
+}
+.yellow-row {
+    background-color: rgb(255,255,141);
+}

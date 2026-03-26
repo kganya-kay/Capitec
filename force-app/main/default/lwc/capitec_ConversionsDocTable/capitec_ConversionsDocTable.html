@@ -1,0 +1,33 @@
+<!--
+  @description       : 
+  @author            : Samiirah.A@bsky.co.za
+  @group             : 
+  @last modified on  : 05-20-2025
+  @last modified by  : Samiirah.A@bsky.co.za
+-->
+<template>
+    <lightning-card>
+         <div class="slds-p-horizontal_medium slds-p-vertical_small slds-grid slds-align-center slds-wrap">
+            <lightning-icon 
+                icon-name={iconName} 
+                size="small" 
+                class="slds-m-right_small">
+            </lightning-icon>
+            <h2 class="slds-text-heading_small">{title}</h2>
+        </div>
+        <template if:true={records}>
+            <lightning-datatable
+                key-field="Id"
+                data={records}
+                columns={columns}
+                onrowselection={handleRowSelection}
+                selected-rows={selectedRowIds}
+                max-row-selection={maxRowSelection}
+            >
+            </lightning-datatable>
+        </template>
+        <template if:true={error}>
+            <p class="slds-text-color_error">{error}</p>
+        </template>
+    </lightning-card>
+</template>

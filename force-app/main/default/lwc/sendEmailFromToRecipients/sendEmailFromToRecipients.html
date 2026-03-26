@@ -1,0 +1,137 @@
+<template>
+  <div>
+    <lightning-layout multiple-rows>
+
+      <!-- Row 1: From Address selection with clear button -->
+      <lightning-layout-item size="6" padding="around-small">
+        <lightning-layout>
+          <!-- From Address combobox -->
+          <lightning-layout-item size="11">
+            <lightning-combobox
+              label="From Address"
+              name="fromAddressComboBox"
+              variant="label-stacked"
+              placeholder="Select Email"
+              options={fromAddressOptions}
+              value={selectedFromAddressId}
+              onchange={handleFromAddressChange}>
+            </lightning-combobox>
+          </lightning-layout-item>
+
+          <!-- Clear button for From Address -->
+          <lightning-layout-item size="1" class="slds-p-left_x-small slds-m-top_large">
+            <lightning-button-icon
+              icon-name="utility:close"
+              alternative-text="Clear"
+              onclick={clearFromAddressSelection}
+              disabled={isClearDisabled}
+              variant="border-filled">
+            </lightning-button-icon>
+          </lightning-layout-item>
+        </lightning-layout>
+      </lightning-layout-item>
+
+      <!-- Row 1: To Contact selection with clear button and pills -->
+      <lightning-layout-item size="6" padding="around-small">
+        <lightning-layout>
+          <!-- To Contact combobox -->
+          <lightning-layout-item size="11">
+            <lightning-combobox
+              label="To Contact"
+              placeholder="Select a contact"
+              options={contactOptions}
+              value={selectedToContactEmail}
+              onchange={handleToContactChange}>
+            </lightning-combobox>
+          </lightning-layout-item>
+
+          <!-- Clear button for To Contact -->
+          <lightning-layout-item size="1" class="slds-p-left_x-small slds-m-top_large">
+            <lightning-button-icon
+              icon-name="utility:close"
+              alternative-text="Clear"
+              onclick={clearToContactSelection}
+              disabled={isToClearDisabled}
+              variant="border-filled">
+            </lightning-button-icon>
+          </lightning-layout-item>
+        </lightning-layout>
+
+        <!-- Pill container for multiple To: recipients -->
+        <template if:true={toEmails.length}>
+          <lightning-pill-container
+            class="slds-m-top_small"
+            items={toEmails}
+            onitemremove={handleRemoveEmail}
+            data-inputtype="to">
+          </lightning-pill-container>
+        </template>
+      </lightning-layout-item>
+
+      <!-- Row 2 (Visible when 'Add Other Email' toggle is ON): Toggle + Input + Add -->
+      <template if:true={showOtherEmail}>
+        <!-- Toggle to enable Other Email input -->
+        <lightning-layout-item size="6" padding="around-small">
+          <lightning-layout>
+            <lightning-layout-item size="12">
+              <lightning-input
+                type="toggle"
+                label="Add Other Email"
+                checked={showOtherEmail}
+                onchange={handleOtherEmailCheckbox}>
+              </lightning-input>
+            </lightning-layout-item>
+          </lightning-layout>
+        </lightning-layout-item>
+
+        <!-- Other Email input field with add button -->
+        <lightning-layout-item size="6" padding="around-small">
+          <lightning-layout>
+            <!-- Input for custom email -->
+            <lightning-layout-item size="11">
+              <lightning-input
+                label="Other To Address"
+                variant="label-stacked"
+                value={toInputValue}
+                onchange={handleToInputChange}
+                placeholder="Enter To Email">
+              </lightning-input>
+            </lightning-layout-item>
+
+            <!-- Add email button -->
+            <lightning-layout-item size="1" class="slds-p-left_x-small slds-m-top_large">
+              <lightning-button-icon
+                icon-name="utility:add"
+                alternative-text="Add"
+                onclick={handleAddToEmail}
+                disabled={isAddDisabled}
+                variant="brand">
+              </lightning-button-icon>
+            </lightning-layout-item>
+          </lightning-layout>
+        </lightning-layout-item>
+      </template>
+
+      <!-- Row 2 fallback: Only toggle shown when Other Email input is hidden -->
+      <template if:false={showOtherEmail}>
+        <!-- Toggle only on the left -->
+        <lightning-layout-item size="6" padding="around-small">
+          <lightning-layout>
+            <lightning-layout-item size="12">
+              <lightning-input
+                type="toggle"
+                label="Add Other Email"
+                checked={showOtherEmail}
+                onchange={handleOtherEmailCheckbox}>
+              </lightning-input>
+            </lightning-layout-item>
+          </lightning-layout>
+        </lightning-layout-item>
+
+        <!-- Empty column for layout alignment -->
+        <lightning-layout-item size="6" padding="around-small"></lightning-layout-item>
+      </template>
+
+    </lightning-layout>
+  </div>
+</template>

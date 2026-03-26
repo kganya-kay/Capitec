@@ -1,0 +1,81 @@
+<!--
+  @description       : Cloned from the capitec_GenericTransactionHistory LWC and 
+                       updated for client care requirements
+                       Displays a table of transaction history lines
+  @author            : Cornelia Smit
+  @group             : 
+  @last modified on  : 30-01-2025
+  @last modified by  : Kevin Nundran
+-->
+<template>
+    <div class="main-container slds-m-top_medium" data-id="main-container">
+        <template lwc:if={showSpinner}>
+            <div class="slds-m-top_medium" data-id="spinner">
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </div>
+        </template>
+        <div class="full-width slds-m-bottom_x-small date-input-flex">
+            <button class="slds-button slds-button_brand flag-button" onclick={getLast7Dates} data-id="flag-button">
+                Last 7 days
+            </button>
+            <button class="slds-button slds-button_brand flag-button" onclick={getLast30Dates} data-id="flag-button">
+                Last 30 days
+            </button>
+        </div>
+        <div class="date-input-flex">
+            <lightning-input class="slds-m-right_medium" type="date" name="input1" data-id="startDateInput" label="From Date" value={startDate} ></lightning-input>
+            <lightning-input class="slds-m-right_medium" type="date" name="input1" data-id="endDateInput" label="To Date" value={endDate} ></lightning-input>
+            <lightning-combobox class="slds-m-right_medium combobox-custom-width" label="Account Number" value={comboboxValue} options={financialAccountsNumbers} data-id="combobox-fin-id" onchange={handleACChange}></lightning-combobox>
+            <button class="slds-button slds-button_brand slds-m-top_medium" onclick={handleGetTransactions} data-id="refresh-button">
+                Get Transactions
+            </button>
+        </div>
+        <div class="table-container " data-id="table-container">
+            <template if:true={itemsToDisplay}>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class=border-right-custom>Flag</th>
+                            <th class=border-right-custom>Account<br/>Number</th>
+                            <template if:true={isRecallRequest}>
+                                <th class=border-right-custom>To Account<br/>Number</th>
+                            </template>
+                            <th class=border-right-custom>Transaction<br/>Date</th>
+                            <th class=border-right-custom>Statement<br/>Description</th>
+                            <th class=border-right-custom>Amount</th>
+                            <th class=border-right-custom>Transaction<br/>Type</th>
+                            <th class=border-right-custom>Transaction<br/>Description</th>
+                            <th class=border-right-custom>Inflow</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <template for:each={itemsToDisplay} for:item="item" for:index="index" data-id='full-table' >
+                        <tr key={item.id} data-id="table-tr">
+                            <td class=border-right-custom><lightning-input type="checkbox" checked={item.fraudFlagged} disabled={item.disableFlag} onchange={handleFlag} data-item-id={index} data-id={index}></lightning-input></td>
+                            <td class=border-right-custom>{item.accountNr}</td>
+                            <template if:true={isRecallRequest}>
+                                <td class=border-right-custom>{item.transferAccountNr}</td>
+                            </template>
+                            <td class=border-right-custom>{item.transactionDateFormatted}</td>
+                            <td class=border-right-custom>{item.statementDesc}</td>
+                            <td class=border-right-custom>{item.amount}</td>
+                            <td class=border-right-custom>{item.transactionType}</td>
+                            <td class=border-right-custom>{item.originalDesc}</td>
+                            <td class=border-right-custom>{item.moneyIn}</td>
+                        </tr>
+                    </template>
+                    </tbody>
+                </table>
+            </template>
+        </div>
+        <div class="full-width-ftc slds-m-top_medium date-input-flex">
+            <template if:true={isRecallRequest}>
+                Client Available Balance<br/>
+                {availableBalance}
+            </template>
+            <button class="slds-button slds-button_brand slds-m-top_medium ftc-button" disabled={disableActions} onclick={handleFlagToCase} data-id="flag-button">
+                Flag to case
+            </button>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,97 @@
+<!--
+  @description       : This component is used to show a success or failure message
+  @group             : Notice Deposit[User story 3]
+  @last modified on  : 30-07-2024
+  @last modified by  : Cornelia Smit, CE
+-->
+<template>
+    <template if:true={isShowModal}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <div style="border: 1px solid black; position: relative">
+                    <!--Spinner-->
+                    <template lwc:if={showSpinner}>
+                        <div class="spinner-container" data-id="spinner">
+                            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                        </div>
+                    </template>
+                    <template if:false={confirmEvidence}>
+                        <template if:true={isSuccess}>
+                            <header class="slds-modal__header" style="background-color:#6eaf00">        
+                                <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate" style="color:#ffffff">Successful</h2>
+                            </header>
+                            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                                <p class="slds-text-title_bold slds-text-heading_small slds-text-align_center">Withdrawal successfully resubmitted</p>    
+                            </div>
+                        </template>
+                        <template if:false={isSuccess}>
+                            <header class="slds-modal__header" style="background-color:#a50f28">
+                                <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate" style="color:#ffffff">Unsuccessful</h2>
+                            </header>
+                            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+                                <p class="slds-text-title_bold slds-text-heading_small slds-text-align_center">Unable to resubmit withdrawal</p>    
+                            </div>
+                        </template>
+                        <div style="background-color: #ffffff;display: flex;justify-content: center;padding-bottom: 15px;">
+                            <button class="slds-button slds-button_brand" onclick={handleConfirmation}>OK</button>
+                        </div>
+                    </template>
+                    <!--CECSF-201/200 - Combine Invalid Request and Continue buttons & 
+                    limit Assignment Reason dropdown; add yes/no for agent to confirm evidence attached-->
+                    <template if:true={confirmEvidence}>
+						<template if:false={showPicklist}>
+                        	<header class="slds-modal__header" style="background-color: rgb(48 96 133);">
+                            	<button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={hideModalBox}>
+                                	<lightning-icon icon-name="utility:close" alternative-text="close" style="background-color: lightgrey;" variant="inverse" size="small">
+                                	</lightning-icon>
+                                	<span class="slds-assistive-text">Close</span>
+                            	</button>
+                            	<h2 id="modal-heading-03" class="slds-text-heading_medium slds-hyphenate" style="color:#ffffff">You have not selected a record</h2>
+                        	</header>
+                        	<div style="background-color: #ffffff;padding: 15px;">
+                                <lightning-combobox
+                                    name="evidenceProvided"
+                                    label="Has supporting evidence of the withdrawal request been provided?"
+                                    value={evidenceProvided}
+                                    placeholder="Select an option"
+                                    options={evidenceOptions}
+                                    required
+                                    onchange={handleEvidenceChange}>
+                                </lightning-combobox>
+                        	</div>
+                        	<div style="background-color: #ffffff;display: flex;justify-content: center;padding-bottom: 15px;">
+                            	<button class="slds-button slds-button_brand" onclick={handleNext}>Next</button>
+                        	</div>
+						</template>
+                    	<template if:true={showPicklist}>
+                        	<header class="slds-modal__header" style="background-color: rgb(48 96 133);">
+                            	<button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={hideModalBox}>
+                                	<lightning-icon icon-name="utility:close" alternative-text="close" style="background-color: lightgrey;" variant="inverse" size="small">
+                                	</lightning-icon>
+                                	<span class="slds-assistive-text">Close</span>
+                            	</button>
+                            	<h2 id="modal-heading-04" class="slds-text-heading_medium slds-hyphenate" style="color:#ffffff">Select an Assignment Reason</h2>
+                        	</header>
+                        	<div style="background-color: #ffffff;">
+                            	<lightning-combobox
+                                	name="assignmentReason"
+                                	label="Please select an assignment reason:"
+                                	value={assignmentReason}
+                                    placeholder="Select an option"
+                                	options={assignmentReasonOptions}
+                                    required
+                                	onchange={handleReasonChange}>
+                            	</lightning-combobox>
+                        	</div>
+                            <div style="background-color: #ffffff; height: 20px;"></div>
+                        	<div style="background-color: #ffffff; display: flex; justify-content: center; padding-bottom: 15px;">
+                                <button class="slds-button slds-button_brand" onclick={handleContinue} disabled={isContinueDisabled}>Continue</button>
+                            </div>
+                    	</template>
+					</template>
+                </div>
+            </div>
+        </section>
+    </template>
+</template>

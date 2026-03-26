@@ -1,0 +1,17 @@
+<!--
+  @description       : 
+  @author            : Kevin Nundran
+  @group             : 
+  @last modified on  : 09-04-2025
+  @last modified by  : Kevin Nundran
+-->
+<template>
+    <section class={wrapperClass} role="region" aria-label="Flow banner">
+        <div class="row" style="display: flex; align-items: center">
+            <div class="icon-col" if:true={iconUrl} hidden={showIcon}>
+                <img class="icon" src={iconUrl} alt={iconAlt} />
+            </div>
+            <div class="content" lwc:dom="manual"></div>
+        </div>
+    </section>
+</template>

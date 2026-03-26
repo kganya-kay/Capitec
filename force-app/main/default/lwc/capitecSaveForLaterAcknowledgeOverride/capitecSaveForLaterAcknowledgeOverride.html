@@ -1,0 +1,18 @@
+<!--
+  @description       : 
+  @author            : Kevin Nundran
+  @group             : 
+  @last modified on  : 11-06-2024
+  @last modified by  : Kevin Nundran
+-->
+<template>
+    <lightning-card>
+        <div class="slds-align_absolute-center slds-p-around_medium">
+            <div class="slds-text-align_center">
+                <lightning-icon icon-name="utility:success" alternative-text="Success" size="large" class="icon-success slds-m-bottom_small" style="color:#2e8540"></lightning-icon>
+                <p class="slds-text-heading_medium slds-m-bottom_medium">Your changes have been saved for later.</p>
+                <lightning-button label="Finish" variant="brand" onclick={handleFinish}></lightning-button>
+            </div>
+        </div>
+    </lightning-card>
+</template>

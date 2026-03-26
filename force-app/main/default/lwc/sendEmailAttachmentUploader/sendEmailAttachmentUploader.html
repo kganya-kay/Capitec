@@ -1,0 +1,61 @@
+<!-- Send Email Attachment Uploader -->
+<template>
+  <!-- Upload area container -->
+  <div class="slds-var-p-around_medium slds-text-align_center">
+
+    <!-- Center: info message about total size limit -->
+    <div class="slds-scoped-notification slds-media slds-media_center slds-theme_info" role="status">
+      <div class="slds-media__figure">
+        <lightning-icon icon-name="utility:info"
+                        alternative-text="Info"
+                        variant="inverse"
+                        size="small">
+        </lightning-icon>
+      </div>
+      <div class="slds-media__body">
+        <p>The total size of all uploaded files can not exceed 2MB</p>
+      </div>
+    </div>
+    <!-- Spacer -->
+    <br />
+    <!-- Instructional text for users -->
+    <p class="slds-text-body_regular">Drag files here or click to upload</p>
+
+    <!-- File input: accepts multiple PDF files only -->
+    <lightning-input
+      type="file"
+      accept=".pdf"
+      label=""
+      multiple
+      onchange={handleFileChange}>
+    </lightning-input>
+  </div>
+
+  <!-- Uploaded file list -->
+  <template for:each={attachments} for:item="attachment">
+    <li key={attachment.fileName}
+        class="slds-var-p-around_x-small slds-var-m-bottom_small slds-grid slds-grid_align-spread slds-border_bottom file-item">
+
+      <!-- Left: shows file name and its size -->
+      <div class="slds-truncate" title={attachment.fileName}>
+        <!-- Display file name -->
+        <span>{attachment.fileName}</span>
+        <!-- Display file size (e.g., KB/MB) -->
+        <span class="slds-text-color_weak slds-m-left_small" title={attachment.sizeLabel}>
+          {attachment.sizeLabel}
+        </span>
+      </div>
+
+      <!-- Right: actions (delete button for removing the file) -->
+      <div class="slds-button-group" role="group">
+        <lightning-button-icon
+          icon-name="utility:delete"
+          alternative-text="Remove file"
+          data-filename={attachment.fileName}
+          onclick={removeFile}
+          variant="border-filled">
+        </lightning-button-icon>
+      </div>
+    </li>
+  </template>
+</template>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59</apiVersion>
+    <description>Capitec Fraud Th Data Handler</description>
+    <isExposed>false</isExposed>
+    <masterLabel>Capitec Fraud Th Data Handler</masterLabel>
+</LightningComponentBundle>

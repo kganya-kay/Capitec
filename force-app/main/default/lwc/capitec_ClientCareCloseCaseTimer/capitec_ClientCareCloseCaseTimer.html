@@ -1,0 +1,45 @@
+<!--
+  @description       : 
+  @author            : Kevin Nundran
+  @group             : 
+  @last modified on  : 18-11-2024
+  @last modified by  : Cornelia Smit
+-->
+<template>
+    <lightning-card class="slds-p-around_medium">
+        <div class="slds-grid slds-grid_align-left slds-m-around_medium">
+            <template if:true={showMessage}>
+                <div class="slds-size_1-of-1 slds-text-align_left">
+                    <!--CEDT-3287 - remove case number from lwc and add to omniscript instead
+                    <p class="slds-text-heading_medium slds-m-bottom_small">
+                        Case Number:&nbsp;
+                        <a target="_blank" href={caseUrl}><strong>{ccRecordCaseNumber}</strong></a>
+                    </p><br/>
+                    -->
+                    <p class="slds-text-heading_medium slds-m-bottom_small">
+                        This case will close in:
+                    </p><br/>
+                    
+                    <div class="progress-container slds-is-relative">
+            
+                        <!-- Loading Spinner -->
+                        <template if:true={isLoading}>
+                            <div class="loading-spinner slds-is-fixed slds-align_absolute-center">
+                                <lightning-spinner alternative-text="Loading..." size="large"></lightning-spinner>
+                            </div>
+                        </template>
+                        
+                        <svg class="progress-ring" width="120" height="120">
+                            <circle class="progress-ring-circle" stroke="green" stroke-width="8" fill="transparent" r="54" cx="60" cy="60" />
+                        </svg>
+                        <p class="time-left slds-text-heading_medium slds-is-absolute">{timeLeftFormatted}</p>
+                    </div><br/>
+                    <lightning-button variant="brand" label="Close Case" onclick={handleCloseCase}></lightning-button>
+                </div>
+            </template>
+            <template if:true={showClosedMessage}>
+                <p class="slds-text-align_center">This case has been closed</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

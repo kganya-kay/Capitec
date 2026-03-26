@@ -1,0 +1,137 @@
+<!--
+  @description       : 
+  @author            : Kevin Nundran
+  @group             : 
+  @last modified on  : 03-06-2025
+  @last modified by  : Kevin Nundran
+-->
+<template>
+    <!-- Display the service menu buttons if OmniScript is not shown -->
+    <div class="slds-card slds-p-around_medium slds-size_1-of-1">
+        <div class="slds-card__header slds-grid slds-page-header">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <!--div class="slds-media__figure">
+                    <span class="slds-icon_container slds-icon-custom-custom18" title="SearchDetails">
+                        <lightning-icon icon-name="custom:custom18"></lightning-icon>
+                    </span>
+                </div-->
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <label class="slds-card__header-link slds-truncate" title="Service Menu">
+                            <span>Service Menu</span>
+                        </label>
+                    </h2>
+                </div>
+            </header>
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+            <template if:false={hideServiceMenu}>
+                <div class="slds-button-group">
+                    <div class="button-group">
+                        <lightning-button label="Fraud" icon-name="utility:shield" alternative-text="Fraud"
+                            title="Fraud" onclick={handleFraudClick}></lightning-button>
+                    </div>
+                    <div class="button-group">
+                        <lightning-button label="Cash" icon-name="utility:money" alternative-text="Cash Disputes" 
+                        title="Cash Disputes" onclick={handleCashDisputeClick}></lightning-button>
+                    </div>
+                    <template if:true={hasRecallRequestPermission}>
+                        <div class="button-group">
+                            <lightning-button label="Recall Request" icon-name="utility:replace" alternative-text="Recall Request"
+                                title="Recall Request" onclick={handleRecallRequestClick}></lightning-button>
+                        </div>
+                    </template>
+                    <template if:false={hasRecallRequestPermission}>
+                        <div class="button-group">
+                            <lightning-button label="Recall Request" icon-name="utility:replace" alternative-text="Recall Request"
+                                title="Recall Request" onclick={handleRecallRequestClick} disabled></lightning-button>
+                        </div>
+                    </template>
+                    <!--div class="button-group">
+                        <lightning-button label="Deceased Estates" icon-name="utility:leave_conference" alternative-text="Deceased Estates" title="Deceased Estates" disabled></lightning-button>
+                    </div-->
+                    <template if:true={hasCaseEscalationPermission}>
+                        <div class="button-group">
+                            <lightning-button label="Escalation Case" icon-name="utility:case" alternative-text="Escalation Case" 
+                                title="Escalation Case" onclick={handleEscalateCaseClick}></lightning-button>
+                        </div>
+                    </template>
+                    <template if:false={hasCaseEscalationPermission}>
+                        <div class="button-group">
+                            <lightning-button label="Escalation Case" icon-name="utility:case" alternative-text="Escalation Case" 
+                                title="Escalation Case" onclick={handleEscalateCaseClick} disabled></lightning-button>
+                        </div>
+                    </template>
+                    <!--div class="button-group">
+                        <lightning-button label="Capitec Pay" icon-name="utility:currency" alternative-text="Capitec Pay" 
+                            title="Capitec Pay" onclick={handleCapitecPayCaseClick}></lightning-button>
+                    </div-->
+                </div>
+            </template>
+
+            <!-- Display the Fraud OmniScript when showOmniScript is true -->
+            <template if:true={showFraudOmniScript}>
+                <!-- Embed the OmniScript component -->
+                <ul class="slds-tabs_default__nav" role="tablist">
+                    <li class="slds-tabs_default__item slds-is-active" title="Fraud Determination" role="presentation">
+                      <a class="slds-tabs_default__link" href="#" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-default-1" id="tab-default-1__item">Fraud Determination</a>
+                    </li>
+                </ul>
+                <div id="tab-default-1" class="slds-tabs_default__content slds-show" role="tabpanel" aria-labelledby="tab-default-1__item">
+                <c-client-care-service-menu--fraud-determination-english
+                    prefill={prefillData}
+                    layout="lightning">
+                </c-client-care-service-menu--fraud-determination-english>
+                </div>
+            </template>
+
+            <!-- Display the Cash Disputes OmniScript when showOmniScript is true -->
+            <template if:true={showCashDisputeOmniScript}>
+                <!-- Embed the OmniScript component -->
+                <ul class="slds-tabs_default__nav" role="tablist">
+                    <li class="slds-tabs_default__item slds-is-active" title="Cash DIspute" role="presentation">
+                      <a class="slds-tabs_default__link" href="#" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-default-3" id="tab-default-3__item">Cash Dispute</a>
+                    </li>
+                </ul>
+                <div id="tab-default-3" class="slds-tabs_default__content slds-show" role="tabpanel" aria-labelledby="tab-default-3__item">
+                <c-client-care-service-menu--cash-dispute-determination-english
+                    prefill={prefillData}
+                    layout="lightning">
+                </c-client-care-service-menu--cash-dispute-determination-english>
+                </div>
+            </template>
+
+            <!-- Display the Recall Request OmniScript when showOmniScript is true -->
+            <template if:true={showRecallRequestOmniScript}>
+                <!-- Embed the OmniScript component -->
+                <ul class="slds-tabs_default__nav" role="tablist">
+                    <li class="slds-tabs_default__item slds-is-active" title="Recall Request" role="presentation">
+                      <a class="slds-tabs_default__link" href="#" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-default-2" id="tab-default-2__item">Recall Request</a>
+                    </li>
+                </ul>
+                <div id="tab-default-2" class="slds-tabs_default__content slds-show" role="tabpanel" aria-labelledby="tab-default-2__item">
+                <c-client-care-service-menu--recall-request-english
+                    prefill={prefillData}
+                    layout="lightning">
+                </c-client-care-service-menu--recall-request-english>
+                </div>
+            </template>
+
+            <!-- Display the Escalate OmniScript when showOmniScript is true -->
+            <template if:true={showEscalateCaseOmniScript}>
+                <!-- Embed the OmniScript component -->
+                <ul class="slds-tabs_default__nav" role="tablist">
+                    <li class="slds-tabs_default__item slds-is-active" title="Escalate Case" role="presentation">
+                      <a class="slds-tabs_default__link" href="#" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-default-4" id="tab-default-4__item">Escalate Case</a>
+                    </li>
+                </ul>
+                <div id="tab-default-4" class="slds-tabs_default__content slds-show" role="tabpanel" aria-labelledby="tab-default-4__item">
+                <c-client-care-service-menu--escalate-case-english
+                    prefill={prefillData}
+                    layout="lightning">
+                </c-client-care-service-menu--escalate-case-english>
+                </div>
+            </template>
+        </div>
+    </div>
+</template>

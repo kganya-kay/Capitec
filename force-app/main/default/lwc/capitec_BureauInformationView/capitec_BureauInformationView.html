@@ -1,0 +1,134 @@
+<!--
+ - Created by dawid on 18.04.2023.
+ -->
+
+<!-- Capitec Bureau Information View -->
+<template>
+    <div data-id='error-message' hidden=hidden>
+        <p>Data Retrieval Error.</p>
+
+        <p>Apologies, we're unable to retrieve data from the external service at the moment. Please try again later. Thank you for your patience.</p>
+
+        <p>{messageError}</p>
+    </div>
+    <div data-id='main-container'>
+        <div data-id="spinner">
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </div>
+        <div class="flex-col">
+
+            <div class='table-headline'>
+                <p class='table-headline-text'>Definite Match</p>
+            </div>
+            <div class='table-container slds-m-bottom_x-large'>
+                <table data-id='definite-match-table'>
+                    <tr>
+                        <th>Identification/Passport No.</th>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Identification Status</th>
+                        <th>Deceased Date</th>
+                        <th>Country</th>
+                    </tr>
+                </table>
+            </div>
+
+
+
+            <div class='table-headline'>
+                <p class='table-headline-text'>Employers</p>
+            </div>
+            <div class='table-container slds-m-bottom_x-large'>
+                <table data-id='employers-table'>
+                    <tr>
+                        <th>Employer Name</th>
+                        <th>Occupation</th>
+                        <th>Employer Type</th>
+                        <th>Salary Freq.</th>
+                        <th>Payslip Ref.</th>
+                        <th>Employee No.</th>
+                        <th>Active Date</th>
+                    </tr>
+                </table>
+            </div>
+
+
+
+            <div class='table-headline'>
+                <p class='table-headline-text'>Addresses</p>
+            </div>
+            <div class='table-container slds-m-bottom_x-large'>
+                <table data-id='addresses-table'>
+                    <tr>
+                        <th>Address Type</th>
+                        <th>Address</th>
+                        <th>Postal Code</th>
+                        <th>Date Last Updated</th>
+                    </tr>
+                </table>
+            </div>
+
+
+
+            <div class='table-headline'>
+                <p class='table-headline-text'>Contact Numbers</p>
+            </div>
+            <div class='table-container slds-m-bottom_x-large'>
+                <table data-id='contact-numbers-table'>
+                    <tr>
+                        <th>Number Type</th>
+                        <th>Contact No.</th>
+                        <th>Date Created</th>
+                    </tr>
+                </table>
+            </div>
+
+
+
+            <div class='table-headline'>
+                <p class='table-headline-text'>Properties Owned</p>
+            </div>
+            <div class='table-container slds-m-bottom_x-large'>
+                <table data-id='properties-owned-table'>
+                    <tr>
+                        <th>ERF No.</th>
+                        <th>Property Type</th>
+                        <th>Deed Town / Registration Division</th>
+                        <th>Purchase Amount</th>
+                        <th>Registration Date</th>
+                        <th>Purchase Date</th>
+                    </tr>
+                </table>
+            </div>
+
+
+
+
+            <div class='table-headline'>
+                <p class='table-headline-text'>Principal Information</p>
+            </div>
+            <div class='table-container slds-m-bottom_x-large'>
+                <table data-id='principal-info-owned-table'>
+                    <tr>
+                        <th>Company Name</th>
+                        <th>Enterprise Type</th>
+                        <th>Enterprise Status</th>
+                        <th>Registration No.</th>
+                        <th>Registration Date</th>
+                    </tr>
+                </table>
+            </div>
+
+
+
+            <div class='table-headline' data-id='json' onclick={toggleJSON}>
+                <button class='table-headline-text'>JSON RAW</button>
+            </div>
+            <div class='json-body' data-id='json-body' hidden=hidden>
+                <p>{jsonRaw}</p>
+            </div>
+
+
+        </div>
+    </div>
+</template>

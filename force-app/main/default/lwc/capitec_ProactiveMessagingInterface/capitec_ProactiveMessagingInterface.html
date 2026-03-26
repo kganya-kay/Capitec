@@ -1,0 +1,130 @@
+<template>
+  <!-- Display a loading spinner if the spinner variable is true -->
+  <div if:true={spinner}>
+    <lightning-spinner alternative-text="Loading" size="medium"
+                       variant="brand"></lightning-spinner>
+  </div>
+
+  <!-- Main card container for the proactive messaging UI -->
+  <lightning-card class="slds-p-around_small">
+    <!-- Card header with a WhatsApp icon and title -->
+    <div class="card-header" slot="title">
+      <lightning-icon class="header-icon" icon-name="standard:whatsapp" size="medium"></lightning-icon>
+      <div class="header-text">
+        <h2 class="title">Proactive Messaging</h2>
+      </div>
+    </div>
+
+    <!-- Grid layout for the proactive skill and template selection -->
+    <div class="slds-grid slds-gutters slds-grid_vertical-align-center">
+      <!-- Proactive Skill dropdown -->
+      <div class="slds-col slds-size_3-of-8">
+        <lightning-combobox
+          label="Proactive Skill"
+          title="Proactive Skill"
+          variant="label-stacked"
+          placeholder="Select a Skill"
+          value={selectedProactiveSkill}
+          options={proactiveSkillOptions}
+          onchange={handleSkillChange}>
+        </lightning-combobox>
+      </div>
+
+      <!-- Proactive Template dropdown -->
+      <div class="slds-col slds-size_3-of-8">
+        <lightning-combobox
+          label="Proactive Template"
+          title="Proactive Template"
+          variant="label-stacked"
+          placeholder="Select a Proactive"
+          value={selectedProactiveTemplate}
+          options={proactiveTemplateOptions}
+          onchange={handleProactiveChange}
+          spinner-active={isLoading}>
+        </lightning-combobox>
+      </div>
+
+      <!-- Send Proactive Message button -->
+      <div class="slds-col slds-size_2-of-8 slds-p-top_small">
+        <lightning-button
+          label="Send Proactive Message"
+          title="Send Proactive Message"
+          icon-name="utility:chat"
+          icon-position="left"
+          variant="brand-outline"
+          disabled={buttonIsDisabled}
+          onclick={handSendMessage}>
+        </lightning-button>
+      </div>
+    </div>
+
+    <!-- Chat section to display the proactive message -->
+    <div class="slds-grid slds-gutters">
+      <div class="slds-col">
+        <section role="log" class="slds-chat">
+          <ul class="slds-chat-list">
+            <!-- Chat start bookend with client name and current date/time -->
+            <li class="slds-chat-listitem slds-chat-listitem_bookend">
+              <div class="slds-chat-bookend">
+                <span class="slds-icon_container slds-icon-utility-chat slds-chat-icon">
+                  <svg class="slds-icon slds-icon_x-small slds-icon-text-default" aria-hidden="true">
+                    <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#chat"></use>
+                  </svg>
+                </span>
+                <p>Start a chat with&nbsp;
+                  <b>
+                    <lightning-formatted-text
+                      value={clientName}>
+                    </lightning-formatted-text>
+                  </b>
+                  &nbsp;•&nbsp;
+                  <lightning-formatted-date-time
+                    value={currentDateTime}>
+                  </lightning-formatted-date-time>
+                </p>
+              </div>
+            </li>
+
+            <!-- Outbound chat message with agent details and message content -->
+            <li class="slds-chat-listitem slds-chat-listitem_outbound">
+              <div class="slds-chat-message">
+                <span aria-hidden="true" class="slds-avatar slds-avatar_circle slds-chat-avatar">
+                  <lightning-avatar title={agentName}
+                                    alternative-text={agentName}
+                                    src={agentPhotoUrl}
+                                    fallback-icon-name="standard:user"
+                                    variant="circle">
+                  </lightning-avatar>
+                </span>
+                <div class="slds-chat-message__body">
+                  <div class="slds-chat-message__text slds-chat-message__text_outbound">
+                    <span>
+                      <lightning-formatted-rich-text value={proactiveDefaultMessage}></lightning-formatted-rich-text>
+                    </span>
+                  </div>
+                  <div class="slds-chat-message__meta">
+                    <p>
+                      <lightning-formatted-text
+                        value={agentName}>
+                      </lightning-formatted-text>
+                      &nbsp;•&nbsp;
+                      <lightning-formatted-date-time
+                        value={currentDateTime}>
+                      </lightning-formatted-date-time>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <!-- Chat end bookend -->
+            <li class="slds-chat-listitem slds-chat-listitem_bookend">
+              <div class="slds-chat-bookend slds-chat-bookend_stop">
+              </div>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </lightning-card>
+</template>

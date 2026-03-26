@@ -1,0 +1,100 @@
+<!--
+  @description       : 
+  @author            : Kevin Nundran
+  @group             : 
+  @last modified on  : 18-12-2024
+  @last modified by  : Cornelia Smit
+-->
+<template>
+    <lightning-card title="Send Cash Vouchers" icon-name="custom:custom61">
+        <template if:true={vouchers}>
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th scope="col">Voucher Number</th>
+                        <th scope="col">Sent From</th>
+                        <th scope="col">Send Amount</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Date Created</th>
+                        <th scope="col">Date Modified</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={vouchers} for:item="voucher">
+                        <tr key={voucher.Id}>
+                            <td>{voucher.VoucherNumber}</td>
+                            <td>{voucher.SentFrom}</td>
+                            <td>{voucher.SendAmount}</td>
+                            <td lwc:if={voucher.isRedeemable}>
+                                <div class="redeemable-container">
+                                    <span class="small-pill-text">{voucher.Status}</span>
+                                </div>
+                            </td>
+                            <td lwc:if={voucher.isRedeemed}>
+                                <div class="redeemed-container">
+                                    <span class="small-pill-text">{voucher.Status}</span>
+                                </div>
+                            </td>
+                            <td lwc:if={voucher.isHold}>
+                                <div class="hold-container">
+                                    <span class="small-pill-text">{voucher.Status}</span>
+                                </div>
+                            </td>
+                            <td lwc:if={voucher.isOther}>
+                                <div class="other-container">
+                                    <span class="small-pill-text">{voucher.Status}</span>
+                                </div>
+                            </td>
+                            <td>{voucher.DateCreatedFormatted}</td>
+                            <td>{voucher.DateModifiedFormatted}</td>
+                            <!-- Conditional column -->
+                            <template if:true={showHoldRelease}>
+                                <td>
+                                    <!-- Button for Hold action -->
+                                    <template if:true={voucher.showHoldButton}>
+                                        <lightning-button
+                                            variant="brand"
+                                            label={actionTypeLabel}
+                                            data-voucher={voucher.VoucherNumber}
+                                            onclick={handleHoldAction}>
+                                        </lightning-button>
+                                    </template>    
+
+                                    <!-- Button for Release action -->
+                                    <template if:true={voucher.showReleaseButton}>
+                                        <lightning-button
+                                            variant="brand"
+                                            label={actionTypeLabel}
+                                            data-voucher={voucher.VoucherNumber}
+                                            onclick={handleReleaseAction}>
+                                        </lightning-button>
+                                    </template>
+                                </td>
+                            </template>
+                            <!-- CEDT-3492 Add flag option -->
+                            <template if:false={showHoldRelease}>
+                                <td>
+                                <!-- Button for Flag action -->
+                                    <lightning-button
+                                        variant="brand"
+                                        label={actionTypeLabel}
+                                        data-voucher={voucher.VoucherNumber}
+                                        onclick={handleFlagAction}>
+                                    </lightning-button>
+                                </td>
+                            </template>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </template>
+
+        <!-- Error message if there's an issue fetching the data -->
+        <template if:true={error}>
+            <div class="slds-text-color_error">
+                <p>No records found</p>
+            </div>
+        </template>
+    </lightning-card>
+</template>

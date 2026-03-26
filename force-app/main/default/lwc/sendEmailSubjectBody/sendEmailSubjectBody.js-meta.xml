@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <description>MManages the subject, body, and optional email template selection for the Send Email interface. It
+        supports folder and template selection, and emits events when the subject, body, or template changes.
+    </description>
+    <isExposed>false</isExposed>
+    <masterLabel>Send Email Subject Body</masterLabel>
+</LightningComponentBundle>

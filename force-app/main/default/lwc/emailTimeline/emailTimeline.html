@@ -1,0 +1,248 @@
+<template>
+  <!-- Spinner shown while loading -->
+  <lightning-spinner
+    variant="brand"
+    lwc:if={isLoading}
+    alternative-text="Loading...">
+  </lightning-spinner>
+
+  <!-- Main email timeline container card -->
+  <lightning-card>
+    <!-- Card header with icon and label -->
+    <h2 slot="title" class="slds-media slds-media_center slds-p-around_x-small">
+      <lightning-icon icon-name="standard:email" size="medium" class="slds-m-right_small"></lightning-icon>
+      <span>Email Messages Timeline</span>
+    </h2>
+
+    <!-- Action buttons: Expand/Collapse All, Refresh, and Send Email -->
+    <div class="slds-m-around_medium slds-grid slds-grid_align-end" slot="actions">
+      <lightning-button-group>
+        <lightning-button label={toggleAllLabel} onclick={toggleAll} icon-name={toggleAllIcon}></lightning-button>
+        <lightning-button label="Refresh" title="Reload Email Messages" onclick={handleRefresh}
+                          icon-name="utility:refresh"></lightning-button>
+        <lightning-button lwc:if={showSendEmailActionButtons} label="Send Email" onclick={handleSendEmail} icon-name="action:email"></lightning-button>
+      </lightning-button-group>
+    </div>
+
+    <!-- Empty state message shown when there are no emails -->
+    <template if:true={showEmptyState}>
+      <div class="slds-illustration slds-illustration_small" aria-hidden="true">
+        <!-- Empty illustration image -->
+        <img src="/img/chatter/Desert.svg"
+             class="slds-illustration__svg"
+             alt="No email messages found" />
+
+        <!-- Empty state text -->
+        <div class="slds-text-longform">
+          <h3 class="slds-text-heading_medium">No Email Messages Found</h3>
+          <p class="slds-text-body_regular">
+            There are no email messages related to this record yet.
+          </p>
+        </div>
+      </div>
+    </template>
+
+    <!-- Email timeline scroll container -->
+    <div class="email-timeline-scroll">
+      <ul class="slds-timeline">
+        <template for:each={computedEmails} for:item="email">
+          <li key={email.id}>
+            <!-- Timeline item for a single email -->
+            <div class="slds-timeline__item_expandable slds-timeline__item_email">
+              <span class="slds-assistive-text">email</span>
+              <div class="slds-media">
+
+                <!-- Left section with toggle button and direction icon -->
+                <div class="slds-media__figure">
+                  <lightning-button-icon
+                    icon-name={email.iconName}
+                    alternative-text="Toggle email details"
+                    title={email.subject}
+                    onclick={toggleDetails}
+                    data-id={email.id}
+                    class="slds-timeline__details-action-icon"
+                    aria-controls={email.id}
+                    variant="bare">
+                  </lightning-button-icon>
+
+                  <lightning-icon class="slds-icon_container slds-timeline__icon"
+                                  title="Email"
+                                  icon-name={email.directionIcon}
+                                  aria-hidden="true"
+                                  size="small">
+                  </lightning-icon>
+                </div>
+
+                <!-- Right section with subject, time, and actions -->
+                <div class="slds-media__body">
+                  <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+                    <div class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space">
+                      <!-- Subject displayed as clickable button -->
+                      <h3 class="slds-truncate" title={email.subject}>
+                        <lightning-button
+                          variant="base"
+                          label={email.subject}
+                          title="View Email"
+                          onclick={handleOpenEmail}
+                          data-id={email.id}
+                          class="slds-text-title_bold slds-button_reset">
+                        </lightning-button>
+
+                        <!-- Attachment icon if email has attachments -->
+                        <template if:true={email.hasAttachments}>
+                          <lightning-icon
+                            icon-name="doctype:attachment"
+                            alternative-text="Has attachments"
+                            size="xx-small"
+                            class="slds-m-left_xx-small slds-icon-text-default">
+                          </lightning-icon>
+                        </template>
+                      </h3>
+                    </div>
+
+                    <!-- Date/time and action icons (reply, forward, redo) -->
+                    <div class="slds-timeline__actions slds-timeline__actions_inline">
+                      <p class="slds-timeline__date">
+                        <lightning-formatted-date-time
+                          value={email.createdDate}
+                          year="numeric"
+                          month="short"
+                          day="2-digit"
+                          weekday="short"
+                          hour="2-digit"
+                          minute="2-digit">
+                        </lightning-formatted-date-time>
+                      </p>
+
+                      <!-- Action buttons group -->
+                      <lightning-button-group lwc:if={showSendEmailActionButtons} class="slds-m-left_small">
+                        <!-- Reply button (shown for inbound emails only) -->
+                        <template if:true={email.isInbound}>
+                          <lightning-button-icon
+                            icon-name="utility:reply"
+                            alternative-text="Reply"
+                            title="Reply"
+                            data-id={email.id}
+                            data-action="reply"
+                            variant="border-filled"
+                            icon-class="slds-button__icon_small"
+                            onclick={handleEmailAction}>
+                          </lightning-button-icon>
+                        </template>
+
+                        <!-- Forward button (always shown) -->
+                        <lightning-button-icon
+                          icon-name="utility:forward"
+                          alternative-text="Forward"
+                          title="Forward"
+                          data-id={email.id}
+                          data-action="forward"
+                          variant="border-filled"
+                          icon-class="slds-button__icon_small"
+                          onclick={handleEmailAction}>
+                        </lightning-button-icon>
+
+                        <!-- Redo button (shown for outbound emails only) -->
+                        <template if:false={email.isInbound}>
+                          <lightning-button-icon
+                            icon-name="utility:redo"
+                            alternative-text="Redo"
+                            title="Redo"
+                            data-id={email.id}
+                            data-action="redo"
+                            variant="border-filled"
+                            icon-class="slds-button__icon_small"
+                            onclick={handleEmailAction}>
+                          </lightning-button-icon>
+                        </template>
+                      </lightning-button-group>
+                    </div>
+                  </div>
+
+                  <!-- Email from/to info -->
+                  <p class="slds-m-horizontal_xx-small">
+                    <a href="#">{email.fromAddress}</a> emailed <a href="#">{email.toAddress}</a>
+                  </p>
+
+                  <!-- Expanded view of email content -->
+                  <template if:true={email.expanded}>
+                    <lightning-card class="slds-m-top_x-small" variant="base">
+                      <div class="slds-box slds-theme_default slds-p-around_medium">
+                        <lightning-layout multiple-rows>
+
+                          <!-- From and To fields -->
+                          <lightning-layout-item size="6" padding="horizontal-small">
+                            <lightning-input type="text" label="From Address" value={email.fromAddress}
+                                             disabled></lightning-input>
+                          </lightning-layout-item>
+                          <lightning-layout-item size="6" padding="horizontal-small">
+                            <lightning-input type="text" label="To Address" value={email.toAddress}
+                                             disabled></lightning-input>
+                          </lightning-layout-item>
+
+                          <!-- Email body -->
+                          <lightning-layout-item size="12" class="slds-p-top_medium slds-p-horizontal_small">
+                            <label class="slds-form-element__label slds-p-bottom_x-small">Message Body</label>
+                            <div class="email-body-readonly">
+                              <lightning-formatted-rich-text value={email.body}></lightning-formatted-rich-text>
+                            </div>
+                          </lightning-layout-item>
+
+                          <!-- Email attachments section -->
+                          <template if:true={email.hasAttachments}>
+                            <lightning-layout-item size="12" class="slds-p-top_medium slds-p-horizontal_small">
+                              <div class="slds-box slds-theme_default slds-p-around_small">
+                                <template for:each={email.computedAttachments} for:item="file">
+                                  <div key={file.id} class="slds-box slds-theme_default slds-m-bottom_x-small">
+                                    <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+
+                                      <!-- File icon and name -->
+                                      <div class="slds-grid slds-grid_vertical-align-center">
+                                        <lightning-icon icon-name={file.iconName} size="small"
+                                                        alternative-text={file.fileType}
+                                                        class="slds-m-right_small"></lightning-icon>
+                                        <span class="slds-text-title_bold slds-truncate"
+                                              title={file.fileName}>{file.fileName}</span>
+                                      </div>
+
+                                      <!-- Preview and download buttons -->
+                                      <lightning-button-group>
+                                        <lightning-button-icon
+                                          icon-name="utility:preview"
+                                          alternative-text="Preview"
+                                          title="Preview"
+                                          variant="border"
+                                          size="medium"
+                                          onclick={handlePreview}
+                                          data-id={file.fileContentDocumentId}>
+                                        </lightning-button-icon>
+                                        <lightning-button-icon
+                                          icon-name="utility:download"
+                                          alternative-text="Download"
+                                          title="Download"
+                                          variant="border"
+                                          size="medium"
+                                          onclick={handleDownload}
+                                          data-url={file.downloadUrl}>
+                                        </lightning-button-icon>
+                                      </lightning-button-group>
+                                    </div>
+                                  </div>
+                                </template>
+                              </div>
+                            </lightning-layout-item>
+                          </template>
+
+                        </lightning-layout>
+                      </div>
+                    </lightning-card>
+                  </template>
+                </div>
+              </div>
+            </div>
+          </li>
+        </template>
+      </ul>
+    </div>
+  </lightning-card>
+</template>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>63.0</apiVersion>
+    <description>Proactive Messaging Interface</description>
+    <isExposed>true</isExposed>
+    <masterLabel>Proactive Messaging Interface</masterLabel>
+    <targets>
+        <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <property label="Priority"
+                      name="priority"
+                      description="The priority of the initiated chat."
+                      type="String"
+                      datasource="0,1"
+                      required="true"
+                      default="1"/>
+            <property label="Department"
+                      name="department"
+                      description="The department the initiated chat belongs to."
+                      type="String"
+                      required="true"
+                      default="BSC"/>
+            <property label="TeamName"
+                      name="teamName"
+                      description="The team the initiated chat belongs to."
+                      type="String"
+                      required="true"
+                      default="CEC"/>
+            <property label="Type"
+                      name="type"
+                      description="The type of the initiated chat."
+                      type="String"
+                      datasource="Service,Marketing,Utility"
+                      required="true"
+                      default="Service"/>
+            <property label="OutboundNumber"
+                      name="outboundNumber"
+                      description="Indicated whether sending to a client or employee."
+                      type="String"
+                      datasource="Client,Employee"
+                      required="true"
+                      default="Client"/>
+            <objects>
+                <object>Case</object>
+            </objects>
+            <supportedFormFactors>
+                <supportedFormFactor type="Large"/>
+            </supportedFormFactors>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

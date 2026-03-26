@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Capitec Conversions Related List</masterLabel>
+
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+
+            <property name="preloadedRecords"
+                      type="String"
+                      role="inputOnly"
+                      label="Input: OCR Draft Records (JSON)" />
+
+            <property name="stagingRecords"
+                      type="String"
+                      role="outputOnly"
+                      label="Output: Final Draft Records" />
+
+            <property name="showNewButton"
+                      type="Boolean"
+                      role="inputOnly"
+                      default="true"
+                      label="Show New Button" />
+
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

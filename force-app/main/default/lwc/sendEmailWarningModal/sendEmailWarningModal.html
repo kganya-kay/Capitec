@@ -1,0 +1,41 @@
+<template>
+  <!-- Modal header with dynamic label -->
+  <lightning-modal-header label={label}>
+  </lightning-modal-header>
+
+  <!-- Modal body with alert texture styling -->
+  <lightning-modal-body class="slds-theme_alert-texture">
+    <div>
+      <!-- Warning description shown in red text -->
+      <span class="slds-text-color_error">{description}</span>
+    </div>
+
+    <!-- Dropdown to select reason for using 'Other Email' -->
+    <lightning-combobox
+      label="Reason for Other Email"
+      placeholder="Select a reason"
+      options={reasonOptions}
+      value={selectedReason}
+      onchange={handleReasonChange}>
+    </lightning-combobox>
+  </lightning-modal-body>
+
+  <!-- Modal footer with Cancel and Proceed buttons -->
+  <lightning-modal-footer>
+    <!-- Cancel button: closes the modal without saving -->
+    <lightning-button
+      label="Cancel"
+      variant="neutral"
+      onclick={handleCancel}
+      class="slds-var-m-right_x-small">
+    </lightning-button>
+
+    <!-- Proceed button: confirms the selection, disabled until reason is selected -->
+    <lightning-button
+      label="Proceed"
+      variant="brand"
+      onclick={handleProceed}
+      disabled={isProceedDisabled}>
+    </lightning-button>
+  </lightning-modal-footer>
+</template>

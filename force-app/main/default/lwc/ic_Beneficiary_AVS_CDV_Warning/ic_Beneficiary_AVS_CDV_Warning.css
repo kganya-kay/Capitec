@@ -1,0 +1,12 @@
+/**
+ * Created by dawid on 15.11.2024.
+ */
+
+
+p{
+    background-color: lightyellow;
+    color: black;
+    font-weight: bold;
+    padding: 5px 0px 5px 5px;
+    border: darkred solid 2px;
+}

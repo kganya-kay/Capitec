@@ -1,0 +1,84 @@
+.module-container{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+.date-input-flex{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+.table-container{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    background-color: white;
+    padding: 15px 0 15px 0;
+    margin: 15px 0 15px 0;
+    overflow-y: auto;
+    max-height: 600px;
+}
+
+.panel-button{
+    -ms-flex-item-align: end;
+    align-self: end;
+    -webkit-box-pack: right;
+    -ms-flex-pack: right;
+    justify-content: right;
+    min-height: 32px;
+    height: 32px;
+}
+.panel-input{
+    -ms-flex-item-align: end;
+    align-self: end;
+    -webkit-box-pack: right;
+    -ms-flex-pack: right;
+    justify-content: right;
+}
+.panel-input-device{
+    margin-bottom: 4px;
+}
+.flex-inputs{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+}
+.button-container{
+    position:relative;
+}
+.help-text{
+    position: absolute;
+    top: 0;
+    right: 16px;
+}
+
+.flex-buttons{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.last-button{
+    margin-bottom: 4px;
+}
+.flagged-info{
+    min-height: 65px;
+}

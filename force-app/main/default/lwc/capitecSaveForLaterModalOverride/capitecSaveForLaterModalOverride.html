@@ -1,0 +1,79 @@
+<!--
+  @description       : 
+  @author            : Kevin Nundran
+  @group             : 
+  @last modified on  : 30-01-2025
+  @last modified by  : Cornelia Smit
+-->
+<template>
+  <!-- Primary Modal Container -->
+  <template if:true={showModal}>
+    <div class="slds-modal slds-fade-in-open">
+      <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal__container">
+        
+        <!-- Modal Header -->
+        <template if:false={hideHeader}>
+          <header class="slds-modal__header">
+            {headerText}
+          </header>
+        </template>
+
+        <!-- Modal Content -->
+        <div class="slds-modal__content slds-p-around_medium" style="position: relative; height: 20vh">
+          <!-- Show Spinner when saving -->
+          <template if:true={isLoading}>
+            <div class="spinner-overlay">
+              <lightning-spinner
+                alternative-text="Saving..."
+                size="small"
+              ></lightning-spinner>
+            </div>
+          </template>
+
+          <!-- User Input Components -->
+          <!-- Picklist: CM_Cancel_Reason__c -->
+          <template if:true={showCancelReason}>
+            <lightning-combobox
+              label="Save for Later Reason"
+              value={cancelReason}
+              placeholder="Select Save for Later Reason"
+              options={cancelReasonOptions}
+              onchange={handleCancelReasonChange}
+            ></lightning-combobox>
+          </template>
+
+          <!-- Picklist: CM_Channel__c -->
+          <template if:true={showChannel}>
+            <lightning-combobox
+              label="Channel"
+              value={channel}
+              placeholder="Select Channel"
+              options={channelOptions}
+              required
+              onchange={handleChannelChange}
+            ></lightning-combobox>
+        </template>
+
+          <!-- Error Message -->
+          <template if:true={errorMessage}>
+            <div class="slds-text-color_error">{errorMessage}</div>
+            <div style="height: 10px;"></div> 
+          </template>
+
+          <!-- Additional Content Slot -->
+          <slot name="content" id="modal-content" aria-live="assertive"></slot>
+        </div>
+
+        <!-- Modal Footer -->
+        <template if:false={hideFooter}>
+          <footer class="slds-modal__footer">
+            <slot name="footer"></slot>
+          </footer>
+        </template>
+      </section>
+    </div>
+
+    <!-- Modal Backdrop -->
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </template>
+</template>

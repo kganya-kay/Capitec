@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>ClientCareRecipientDetails</masterLabel>
+    <runtimeNamespace>omnistudio</runtimeNamespace>
+    <targets>
+      <target>lightning__RecordPage</target>
+        <target>lightning__FlowScreen</target>
+        <target>lightning__AppPage</target>
+        <target>lightning__HomePage</target>
+        <target>lightningCommunity__Default</target>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Page_Layout</target>
+        <target>lightningCommunity__Theme_Layout</target>
+        <target>lightningSnapin__ChatHeader</target>
+        <target>lightningSnapin__ChatMessage</target>
+        <target>lightningSnapin__Minimized</target>
+        <target>lightningSnapin__PreChat</target>
+        <target>lightning__Inbox</target>
+        <target>lightning__RecordAction</target>
+        <target>lightning__Tab</target>
+        <target>lightning__UtilityBar</target>
+        </targets>
+      <targetConfigs>
+    <targetConfig  targets="lightning__RecordPage"><property  name="cfClientAccountNumber" type="String" label="ClientAccountNumber" description="CEDT-3010" required="true"></property></targetConfig><targetConfig  targets="lightning__AppPage"><property  name="cfClientAccountNumber" type="String" label="ClientAccountNumber" description="CEDT-3010" required="true"></property></targetConfig><targetConfig  targets="lightning__HomePage"><property  name="cfClientAccountNumber" type="String" label="ClientAccountNumber" description="CEDT-3010" required="true"></property></targetConfig><targetConfig  targets="lightning__FlowScreen"><property  name="cfClientAccountNumber" type="String" label="ClientAccountNumber" description="CEDT-3010" required="true"></property></targetConfig><targetConfig  targets="lightning__UtilityBar"><property  name="cfClientAccountNumber" type="String" label="ClientAccountNumber" description="CEDT-3010" required="true"></property></targetConfig>
+    </targetConfigs></LightningComponentBundle>

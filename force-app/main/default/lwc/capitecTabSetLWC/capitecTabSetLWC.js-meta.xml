@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="tab1Label" type="String" label="Label for Tab 1"/>
+            <property name="tab2Label" type="String" label="Label for Tab 2"/>
+            <property name="tab3Label" type="String" label="Label for Tab 3"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

@@ -1,0 +1,115 @@
+<template>
+  <!-- Modal header with dynamic label -->
+  <lightning-modal-header label={label}>
+  </lightning-modal-header>
+
+  <!-- Modal body content -->
+  <lightning-modal-body>
+    <div class="modal-body-container">
+
+      <!-- Spinner shown while email is being sent -->
+      <lightning-spinner
+        lwc:if={showSpinner}
+        alternative-text="Sending email..."
+        variant="brand">
+      </lightning-spinner>
+
+      <!-- Sender and Recipient Section -->
+      <div class="card-container">
+        <lightning-card>
+          <!-- Section header with email icon -->
+          <h3 slot="title" class="slds-media slds-media_center">
+            <lightning-icon icon-name="standard:case_email" size="medium" class="slds-m-right_small"></lightning-icon>
+            <span>Sender and Recipient</span>
+          </h3>
+
+          <!-- Card body with recipient component -->
+          <div class="custom-card-body slds-card__body slds-card__body_inner">
+            <c-send-email-from-to-recipients
+              record-id={recordId}
+              object-api-name={objectApiName}
+              mode={mode}
+              from-address={fromAddress}
+              reply-to-addresses={toEmails}
+              reply-to-contact-ids={selectedContactIds}
+              onfromchange={handleFromChange}
+              onrecipientschange={handleRecipientsChange}>
+            </c-send-email-from-to-recipients>
+          </div>
+        </lightning-card>
+      </div>
+
+      <!-- Subject and Body Section -->
+      <div class="card-container">
+        <lightning-card>
+          <!-- Section header with template icon -->
+          <h3 slot="title" class="slds-media slds-media_center">
+            <lightning-icon icon-name="standard:template" size="medium" class="slds-m-right_small"></lightning-icon>
+            <span>Subject and Body</span>
+          </h3>
+
+          <!-- Card body with subject/body/template selection -->
+          <div class="custom-card-body slds-card__body slds-card__body_inner">
+            <c-send-email-subject-body
+              record-id={recordId}
+              contact-id={contactId}
+              mode={mode}
+              subject={subject}
+              body={body}
+              onsubjectchange={handleSubjectUpdate}
+              onbodychange={handleBodyUpdate}
+              ontemplatechange={handleTemplateUpdate}
+              ontemplateattachmentsloaded={handleTemplateAttachments}>
+            </c-send-email-subject-body>
+          </div>
+        </lightning-card>
+      </div>
+
+      <!-- Attachments Section -->
+      <div class="card-container">
+        <lightning-card>
+          <!-- Section header with PDF icon -->
+          <h3 slot="title" class="slds-media slds-media_center">
+            <lightning-icon icon-name="doctype:pdf" size="medium" class="slds-m-right_small"></lightning-icon>
+            <span>Attachments</span>
+          </h3>
+
+          <!-- Card body with attachment uploader -->
+          <div class="custom-card-body slds-card__body slds-card__body_inner">
+            <c-send-email-attachment-uploader
+              template-attachments={templateAttachments}
+              forwarded-attachments={forwardedAttachments}
+              onattachmentschange={handleAttachmentsChange}>
+            </c-send-email-attachment-uploader>
+          </div>
+        </lightning-card>
+      </div>
+
+    </div>
+  </lightning-modal-body>
+
+  <!-- Modal footer with action buttons -->
+  <lightning-modal-footer>
+    <lightning-button-group class="slds-grid slds-grid_align-end">
+
+      <!-- Cancel Button -->
+      <lightning-button
+        variant="destructive-text"
+        label="Cancel"
+        icon-name="utility:close"
+        icon-position="left"
+        onclick={closeModal}>
+      </lightning-button>
+
+      <!-- Send Button -->
+      <lightning-button
+        variant="brand-outline"
+        label="Send Email"
+        icon-name="utility:send"
+        icon-position="left"
+        onclick={handleSendEmail}>
+      </lightning-button>
+
+    </lightning-button-group>
+  </lightning-modal-footer>
+</template>

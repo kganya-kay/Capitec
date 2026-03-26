@@ -1,0 +1,9 @@
+:host {
+    --slds-c-accordion-summary-color-background: #f3f2f2; /* light grey */
+    --slds-c-accordion-summary-text-color: #000000;
+    --slds-c-accordion-summary-padding: 0.75rem 1rem;
+}
+
+:host {
+    --slds-c-accordion-summary-action-icon-color: #000000;
+}

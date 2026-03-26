@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>66.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="fileIdsString" type="String" label="Comma-separated File IDs"/>
+            <property name="fileNamesString" type="String" label="Comma-separated File Names"/>
+            <property name="selectedFileId" type="String" label="Selected File ID" description="This will be passed back to Flow"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

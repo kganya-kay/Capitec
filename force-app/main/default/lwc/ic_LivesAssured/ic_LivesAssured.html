@@ -1,0 +1,46 @@
+<template> 
+  <article class="slds-card slds-card_boundary">
+    <div class="slds-page-header">
+      <div class="slds-page-header__row">
+        <div class="slds-page-header__col-title">
+          <div class="slds-media">
+            <div class="slds-media__figure">
+              <span class="slds-icon_container slds-icon-standard-opportunity">            
+                <lightning-icon icon-name="standard:people" size="medium"></lightning-icon>
+              </span>
+            </div>
+            <div class="slds-media__body">
+              <div class="slds-page-header__name">
+                <div class="slds-page-header__name-title">
+                  <h1>
+                    <span class="slds-page-header__title slds-truncate" title="Lives Assured">Lives Assured ({size})</span>
+                    <span>{size} items</span>
+                  </h1>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--<div class="slds-page-header__col-actions">
+          <div class="slds-page-header__controls">
+            <div class="slds-page-header__control">
+              <button class="slds-button slds-button_icon slds-button_icon-border-filled" title="Refresh List" onclick={getLivesAssuredByCaseId}>
+                <lightning-icon icon-name="utility:refresh" size="x-small"></lightning-icon>
+                <span class="slds-assistive-text">Refresh List</span>
+              </button>
+            </div>
+          </div>
+        </div>-->
+      </div>
+    </div>
+    <lightning-datatable
+            key-field="Id"
+            data={data}
+            columns={columns}
+            hide-checkbox-column
+            onsave={handleSave}
+            draft-values={draftValues}
+            errors={errorx}>
+    </lightning-datatable>
+  </article>
+</template>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>61.0</apiVersion>
+    <isExposed>true</isExposed>
+    <description>Capitec Client Care Transaction History</description>
+    <masterLabel>Capitec Client Care Transaction History</masterLabel>
+    <targets>
+      <target>lightning__RecordPage</target>
+      <target>lightning__AppPage</target>
+      <target>lightning__HomePage</target>
+      <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+      <targetConfig targets="lightning__FlowScreen">
+        <property name="recordId" label="Record Id" type="String" role="inputOnly" />
+        <property name="processType" label="Process Type" type="String" role="inputOnly" />
+        <property name="serviceType" label="Service Type" type="String" role="inputOnly" />
+      </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

@@ -1,0 +1,209 @@
+<!--
+  @description       : LWC Component to display list of Debit Orders[Parent]
+  @author            : Samiirah.A@bsky.co.za
+  @group             : Capitec Conversions
+  @last modified on  : 03-23-2026
+  @last modified by  : Samiirah Aujub
+-->
+<template>
+    <lightning-card>
+        <template if:true={showSpinner}>
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </template>
+        <div class="slds-p-horizontal_medium">
+            <div class="slds-p-bottom_small">
+                 <div class="slds-box slds-theme--shade">
+                    <p><lightning-icon icon-name="utility:info" alternative-text="Info" size="x-small"></lightning-icon>
+                    &nbsp;{helpMsg}</p>
+                </div>
+            </div>
+            <template if:true={showRefreshMessage}>
+                <div class="slds-m-top_small slds-m-bottom_medium slds-text-color_error">
+                    <p class="slds-text-title_bold">
+                        <lightning-icon icon-name="utility:warning" alternative-text="Warning" size="x-small" class="slds-m-right_xx-small"></lightning-icon>
+                        This case's status is being updated to 'Confirmed'. Please refresh the page to see the changes.
+                    </p>
+                </div>
+            </template>
+            <div class="slds-grid slds-wrap slds-p-bottom_small slds-p-top_small" style="background-color: lightgrey;">
+                <div class="slds-col slds-size_3-of-12 slds-p-left_small">
+                    <lightning-icon icon-name="standard:orders" size="medium" class="slds-m-right_small"></lightning-icon>
+                    <strong>{debitOrderCountTitle}</strong><br/>
+                </div>
+
+                <div class="slds-col slds-size_4-of-12 slds-p-right_small">
+                    <lightning-input type="search" 
+                                     placeholder="Search debit orders" 
+                                     onchange={handleSearch}>
+                    </lightning-input>
+                </div>
+
+                <div class="slds-col slds-size_1-of-12 slds-p-right_small" style="padding-top: 17px;">
+                     <lightning-button-icon icon-name="utility:refresh" 
+                                            alternative-text="Refresh" 
+                                            title="Refresh List" 
+                                            onclick={refreshData}>
+                    </lightning-button-icon>
+                </div> 
+
+                <div class="slds-col slds-size_3-of-12 slds-p-right_small" style="padding-top: 17px;">
+                    <template if:true={caseInProgress}>
+                        <lightning-button variant="brand-outline"
+                                          label="New"
+                                          onclick={handleNewClick}
+                                          class="slds-p-right_small">
+                        </lightning-button> 
+                    </template>
+                    <template if:true={showDelete}>
+                        <lightning-button variant="brand"
+                                          label="Delete"
+                                          onclick={handleDelete}
+                                          class="slds-p-right_small">
+                        </lightning-button> 
+                    </template>
+                    <template if:true={showWithdraw}>
+                        <lightning-button variant="brand"
+                                          label="Withdraw"
+                                          onclick={handleWithdraw}>
+                        </lightning-button> 
+                    </template>
+                </div>  
+            </div>
+            <div style="width:100%; overflow-x:auto;">
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered" style="min-width:1100px;table-layout:auto;">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th scope="col" style="width:3rem">
+                                        <div class="slds-truncate">
+                                            <lightning-input
+                                                type="checkbox"
+                                                onchange={handleSelectAll}>
+                                            </lightning-input>
+                                        </div>
+                                </th>
+                                <th scope="col" style="width: 20%;">
+                                    <div class="slds-truncate">DOI Name</div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate">Reference Number</div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate">Order Date</div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate">Reviewed</div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate">Withdrawn Cause Code</div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate">Submitted Cause Code</div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate">Confirmed Cause Code</div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate">DOI not Onboarded</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={debitOrders} for:item="order">
+                                <tr key={order.Id}>
+                                   <td>
+                                        <lightning-input type="checkbox"
+                                                         data-id={order.Id}
+                                                         checked={order.isSelected}
+                                                         onchange={handleRowSelect}>
+                                        </lightning-input>
+                                    </td>
+                                    <td>
+                                        <div class="slds-grid slds-grid_vertical-align-center slds-text-align_left">
+                                            <span class="slds-truncate">{order.InitiatorName}</span>
+                                            <template if:true={order.isFlagged}>
+                                                <span class="slds-badge slds-theme_warning slds-m-left_x-small">
+                                                    Flagged
+                                                </span>
+                                            </template>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <a href="javascript:void(0)" data-id={order.Id} onclick={handleViewDetails}>
+                                            {order.Name}
+                                        </a>
+                                    </td>
+
+                                    <td>{order.Debit_OrderDate__c}</td>
+                                    <td>
+                                        <template if:true={order.Reviewed__c}>
+                                                <lightning-icon icon-name="utility:success" 
+                                                                alternative-text="Reviewed" 
+                                                                variant="success" 
+                                                                size="small" 
+                                                                class="slds-icon slds-icon-text-success"
+                                                                style="padding-left: 10px; padding-top: 4px;">
+                                                </lightning-icon>
+                                        </template>
+                                    </td>
+                                    <td>{order.Withdrawn_Cause_Code__c}</td>
+                                    <td>{order.Submitted_Cause_Code__c}</td>
+                                    <td>{order.Confirmation_Cause_Code__c}</td>
+                                    <td>{order.Not_yet_onboarded__c}</td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+
+        <template if:true={showSubmit}>
+             <div  class="slds-p-around_small slds-grid slds-grid_align-end" >
+                <lightning-button label="Submit"
+                                  variant="brand"
+                                  class="slds-m-left_small"
+                                  disabled={disableSubmitBtn}
+                                  onclick={handleSubmit}>
+                </lightning-button>
+            </div>
+        </template>
+    
+    </lightning-card>
+    <!-- Confirmation modal -->
+    <template if:true={showConfirmModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 class="slds-text-heading_medium">Delete Debit Order</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <div class="slds-box slds-theme_shade slds-m-bottom_small">
+                        <lightning-icon icon-name="utility:info"
+                                        alternative-text="Info"
+                                        size="x-small"
+                                        class="slds-m-right_x-small"></lightning-icon>
+                       {confirmationMsg}
+                    </div>
+                    <p>Are you sure you want to delete?</p>
+                </div>
+                <footer class="slds-modal__footer slds-grid slds-grid_align-spread">
+                    <lightning-button label="No" onclick={closeConfirmationModal}></lightning-button>
+                    <lightning-button label="Yes" variant="brand" onclick={confirmDelete}></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <template if:true={showDeditOrderModal}>
+       <c-capitec-_-conversions-new-d-o-modal edit-d-o={editDO}
+                                              show-modal={showDeditOrderModal}
+                                              show-refresh-message={showRefreshMessage}
+                                              selected-d-o={selectedDO}
+                                              case-record={caseRecord}
+                                              case-in-progress ={caseInProgress}
+                                              onclose={closeModal}
+                                              onupdatesuccess={refreshData}
+                                              onshowrefreshmsg={handleShowRefreshMessage}>
+        </c-capitec-_-conversions-new-d-o-modal>
+    </template>
+</template>

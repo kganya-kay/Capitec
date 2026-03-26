@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>63.0</apiVersion>
+    <description>Capitec Conversions Document Table</description>
+    <isExposed>true</isExposed>
+    <masterLabel>Capitec Conversions Document Table</masterLabel>
+    <targets>
+        <target>lightning__RecordPage</target>
+        <target>lightning__AppPage</target>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="recordId" type="String" label="Record Id" description="ID of the parent record" />
+            <property name="selectionMode" type="String" label="Selection Mode" description="single, multiple, or none" />
+            <property name="iconName" type="String" label="Icon Name" />
+            <property name="title" type="String" label="Title of table"/>
+             <property name="type" type="String" label="Type of document to display"/>
+
+            <propertyType name="Obj" extends="SObject" label="Select sobject to display"/>
+            <property name="recordsFromFlow" type="{Obj[]}" label="Records to filter" description="Documents to filter" />
+            <!--<property name="selectedRowIds" type="String[]" label="Selected Row IDs" role="outputOnly" />-->
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

@@ -1,0 +1,17 @@
+/* Outer container for the card with border, background, and rounded corners */
+.card-container {
+    border: 1px solid #d8dde6; /* Light gray border */
+    border-radius: 0.25rem; /* Slightly rounded corners */
+    background-color: #ffffff; /* White background */
+    overflow: hidden; /* Prevent content from overflowing the edges */
+}
+
+/* Padding inside the card body */
+.custom-card-body {
+    padding: 1rem; /* Consistent inner spacing */
+}
+
+/* Container for modal body content with positioning context */
+.modal-body-container {
+    position: relative; /* Enables absolute positioning of child elements */
+}

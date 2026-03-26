@@ -1,0 +1,289 @@
+<template>
+   <div class="main-container slds-m-top_medium" data-id="main-container">
+      <template lwc:if={showSpinner}>
+         <div class="slds-m-top_medium" data-id="spinner">
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+         </div>
+      </template>
+
+       <!-- Modal for status confirmation -->
+        <template if:true={showModal}>
+            <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <lightning-modal-header label="Confirm Status Change"></lightning-modal-header>
+                    <lightning-modal-body>
+                        <p>Are you sure you want to change the status of this beneficiary?</p>
+                    </lightning-modal-body>
+                    <lightning-modal-footer>
+                        <lightning-button label="Cancel" onclick={handleCancel}></lightning-button>
+                        <lightning-button label="Confirm" variant="brand" onclick={handleConfirm}></lightning-button>
+                    </lightning-modal-footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+    <!-- Modal for file Upload -->
+    <template if:true={isModalOpen}>
+        <section 
+            role="dialog" 
+            tabindex="-1" 
+            aria-modal="true" 
+            aria-labelledby="modal-heading" 
+            class="slds-modal slds-fade-in-open"
+        >
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading" class="slds-text-heading_medium">
+                        Upload Excel File
+                    </h2>
+                    <button 
+                        class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" 
+                        onclick={closeModal} 
+                        title="Close"
+                    >
+                        <lightning-icon 
+                            icon-name="utility:close" 
+                            alternative-text="Close modal" 
+                            variant="inverse"
+                        ></lightning-icon>
+                    </button>
+                </header>
+                
+                <div class="slds-modal__content slds-p-around_medium">
+                    <lightning-input 
+                        type="file" 
+                        label="Upload File" 
+                        accept=".csv" 
+                        onchange={handleFileUpload}
+                    ></lightning-input>
+                    
+                    <template if:true={data}>
+                        <h3 class="slds-text-heading_small slds-m-top_medium">File Data:</h3>
+                        <template if:true={errorMessage}>
+                            <div class="slds-text-color_error slds-m-top_medium">{errorMessage}</div>
+                        </template>
+                        <div class="scrollable-datatable">
+                            <lightning-datatable
+                                key-field="id"
+                                data={data}
+                                columns={columns}
+                                hide-checkbox-column>
+                            </lightning-datatable>
+                        </div>
+                    </template>
+                </div>
+                
+                <footer class="slds-modal__footer">
+                    <lightning-button 
+                        label="Cancel" 
+                        onclick={closeModal}
+                    ></lightning-button>
+                    <lightning-button 
+                        label="Upload Risky Beneficiaries" 
+                        variant="brand" 
+                        onclick={handleUpload}
+                        disabled={hasFileError}>
+                    ></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <!-- Loading Spinner -->
+    <template if:true={isLoading}>
+        <div class="slds-align_absolute-center">
+            <lightning-spinner alternative-text="Uploading..." size="medium"></lightning-spinner>
+        </div>
+    </template>
+        <div class="slds-grid slds-m-bottom_medium">
+            <div class="slds-col slds-size_1-of-6">
+                <lightning-combobox class="slds-m-right_medium" 
+                                    label="Status" 
+                                    value={statusValue} 
+                                    options={badBenStatusOptionsDef} 
+                                    data-id="combobox-bbs-id" 
+                                    onchange={handleBadBenStatusChange}>
+                </lightning-combobox>
+            </div>
+            <div class="slds-col slds-size_1-of-6">
+                <lightning-input class="slds-m-right_medium" 
+                                label="Identifier" 
+                                value={searchText} 
+                                onchange={handleSearchTextChange} 
+                                data-id="search-text">
+                </lightning-input>
+            </div>
+            <div class="slds-col slds-size_1-of-3">
+                <button 
+                    class="slds-button slds-button_brand slds-m-top_medium slds-m-right_small buttonformat"
+                    onclick={getBadBen}
+                    data-id="getBadBen">
+                    Get Risky Beneficiaries
+                </button>
+                <template if:true={isButtonVisible}>
+                    <button 
+                        class="slds-button slds-button_brand slds-m-top_medium buttonformat"
+                        onclick={openUploadModal}
+                        data-id="openUploadModal">
+                        Upload Risky Beneficiaries
+                    </button>
+                </template>
+
+            </div>
+        </div>
+
+        <div class="slds-page-header">
+            <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+                <div class="slds-col slds-size_1-of-1">
+                    <lightning-icon icon-name="utility:block_visitor" alternative-text="Risky Beneficiary" size="medium" class="slds-m-right_small"></lightning-icon>
+                    <h1 class="slds-text-heading_medium">Risky Beneficiaries</h1>
+                </div>
+            </div>
+        </div>
+
+
+    <div class="table-container" data-id="table-container" style="overflow-x:auto;">
+    <template if:true={items}>
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered table-bordered">
+            <thead>
+                <tr class="slds-text-title_caps slds-hint-parent">
+                    <th scope="col" class="slds-text-align_left">
+                        <button class="custom-header-button slds-button" data-column="benType" onclick={sortByColumn}>
+                            Ben Type
+                            <lightning-icon icon-name={benTypeSortIcon} size=" x-small"></lightning-icon>
+                        </button>
+                    </th>
+                    <th scope="col" class="slds-text-align_left">
+                        <button class="custom-header-button slds-button" data-column="benIdentifier" onclick={sortByColumn}>
+                            Ben Identifier
+                            <lightning-icon icon-name={benIdentifierSortIcon} size=" x-small"></lightning-icon>
+                        </button>
+                    </th>
+                    <th scope="col" class="slds-text-align_left">
+                        <button class="custom-header-button slds-button" data-column="createDate" onclick={sortByColumn}>
+                            Create Date
+                            <lightning-icon icon-name={createDateSortIcon} size=" x-small"></lightning-icon>
+                        </button>
+                    </th>
+                    <th scope="col" class="slds-text-align_left">
+                        <button class="custom-header-button slds-button" data-column="updatedDate" onclick={sortByColumn}>
+                            Updated Date
+                            <lightning-icon icon-name={updatedDateSortIcon} size=" x-small"></lightning-icon>
+                        </button>
+                    </th>
+                    <th scope="col" class="slds-text-align_left">
+                        <button class="custom-header-button slds-button" data-column="institution" onclick={sortByColumn}>
+                            Institution
+                            <lightning-icon icon-name={institutionSortIcon} size=" x-small"></lightning-icon>
+                        </button>
+                    </th>
+                    <th scope="col" class="slds-text-align_left">
+                        <button class="custom-header-button slds-button" data-column="ageInMonths" onclick={sortByColumn}>
+                            Age In Months
+                            <lightning-icon icon-name={ageInMonthsSortIcon} size=" x-small"></lightning-icon>
+                        </button>
+                    </th>
+                    <th scope="col" class="slds-text-align_left">
+                        <button class="custom-header-button slds-button" data-column="numberOfPayments" onclick={sortByColumn}>
+                            Number of Payments
+                            <lightning-icon icon-name={numberOfPaymentsSortIcon} size=" x-small"></lightning-icon>
+                        </button>
+                    </th>
+                    <th scope="col" class="slds-text-align_left">
+                        <button class="custom-header-button slds-button" data-column="turnover" onclick={sortByColumn}>
+                            Turnover
+                            <lightning-icon icon-name={turnoverSortIcon} size=" x-small"></lightning-icon>
+                        </button>
+                    </th>
+                    <th scope="col" class="slds-text-align_left">
+                        <button class="custom-header-button slds-button" data-column="badBenStatus" onclick={sortByColumn}>
+                            Beneficiary Status
+                            <lightning-icon icon-name={badBenStatusSortIcon} size=" x-small"></lightning-icon>
+                        </button>
+                    </th>
+                    <th scope="col" class="slds-text-align_left">
+                        <button class="custom-header-button slds-button" data-column="riskScore" onclick={sortByColumn}>
+                            Risk Score
+                            <lightning-icon icon-name={riskScoreSortIcon} size=" x-small"></lightning-icon>
+                        </button>
+                    </th>
+                    <th scope="col" class="slds-text-align_left">
+                        <button class="custom-header-button slds-button" data-column="caseCount" onclick={sortByColumn}>
+                            Case Count
+                            <lightning-icon icon-name={caseCountSortIcon} size=" x-small"></lightning-icon>
+                        </button>
+                    </th>
+                 </tr>
+            </thead>
+            <tbody>
+                <template for:each={items} for:item="item" for:index="index" data-id="full-table">
+                    <tr key={item.id} data-id="table-tr">
+                        <td class="slds-text-align_left tdformat">{item.benType}</td>
+                        <td class="slds-text-align_left tdformat">{item.benIdentifier}</td>
+                        <td class="slds-text-align_left tdformat">{item.createDate}</td>
+                        <td class="slds-text-align_left tdformat">{item.updatedDate}</td>
+                        <td class="slds-text-align_left tdformat">{item.institution}</td>
+                        <td class="slds-text-align_left tdformat">{item.ageInMonths}</td>
+                        <td class="slds-text-align_left tdformat">{item.numberOfPayments}</td>
+                        <td class="slds-text-align_left tdformat">{item.turnover}</td>
+                        <td class="slds-text-align_left tdformat">
+                            <lightning-combobox
+                                value={item.badBenStatus}
+                                placeholder="Select Status"
+                                options={badBenStatusOptions}
+                                data-id={item.benIdentifier}
+                                onchange={handleStatusChange}
+                                variant="label-hidden">
+                            </lightning-combobox>
+                        </td>
+                        <td class="slds-text-align_left tdformat">{item.riskScore}</td>
+                        <td class="slds-text-align_left tdformat">{item.caseCount}</td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+    </template>
+    </div>
+      <br/> <br/>
+
+
+    <div class="pagination-container slds-m-top_medium slds-grid slds-wrap slds-grid_vertical-align-center">
+        <div class="slds-col slds-size_2-of-7 slds-text-align_right">
+             <lightning-button class="slds-m-right_small" 
+                          onclick={handlePreviousPage} 
+                          icon-name="utility:back" 
+                          icon-size="medium" 
+                          alternative-text="Previous">
+            </lightning-button>
+
+        </div>
+        <div class="slds-col slds-size_1-of-7 slds-text-align_center">    
+            <!-- Page Selection Dropdown -->
+            <lightning-combobox 
+               variant="label-hidden"
+                placeholder="Select Page" 
+                value={currentPage} 
+                options={pageOptions} 
+                onchange={handlePageChange}
+                class="slds-m-horizontal_medium slds-text-align_center"
+                >
+            </lightning-combobox>
+         </div>   
+        <div class="slds-col slds-size_2-of-7 slds-text-align_left"> 
+            <!--<lightning-button class="slds-m-left_small" label="Next" onclick={handleNextPage}></lightning-button>-->
+            <lightning-button class="slds-m-left_small" 
+                          onclick={handleNextPage} 
+                          icon-name="utility:forward" 
+                          icon-size="medium" 
+                          alternative-text="Next">
+            </lightning-button>
+
+         </div>
+        </div>
+
+        <div class="slds-col slds-size_1-of-1 slds-text-align_center slds-m-top_medium">
+            <p>Page {currentPage} of {totalPages}</p>
+        </div>
+    </div>
+</template>

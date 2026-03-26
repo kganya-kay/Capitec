@@ -1,0 +1,98 @@
+<!--
+ - Created by Pako on 12.02.2024.
+ -->
+
+<!-- Capitec Fraud Transaction History V 2 -->
+<template>
+
+    <div class="main-container slds-m-top_medium" data-id="main-container">
+        <template lwc:if={showSpinner}>
+            <div class="slds-m-top_medium" data-id="spinner">
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </div>
+        </template>
+        <div class="full-width slds-m-bottom_x-small date-input-flex">
+            <button class="slds-button slds-button_brand flag-button" onclick={getLast7Dates} data-id="flag-button">
+                Last 7 days
+            </button>
+            <button class="slds-button slds-button_brand flag-button" onclick={getLast30Dates} data-id="flag-button">
+                Last 30 days
+            </button>
+        </div>
+        <div class="date-input-flex"><!--Section added for ticket FFSF-461, new date filters-->
+            <lightning-input class="slds-m-right_medium" type="date" name="input1" data-id="startDateInput" label="From Date" value={startDate} ></lightning-input>
+            <lightning-input class="slds-m-right_medium" type="date" name="input1" data-id="endDateInput" label="To Date" value={endDate} ></lightning-input>
+            <lightning-combobox class="slds-m-right_medium combobox-custom-width" label="Account Number" value={comboboxValue} options={financialAccountsNumbers} data-id="combobox-fin-id"></lightning-combobox>
+            <button class="slds-button slds-button_brand slds-m-top_medium" onclick={handleGetTransactions} data-id="refresh-button">
+                Get Transactions
+            </button>
+        </div>
+        <div class="full-width slds-m-top_medium date-input-flex">
+            <!--button class="slds-button slds-button_brand slds-m-top_medium flag-button" disabled onclick={handleSaveCSV} data-id="flag-button">
+                Save As CSV
+            </button-->
+            <button class="slds-button slds-button_brand slds-m-top_medium flag-button" disabled={disableActions} onclick={handleFlagToCase} data-id="flag-button">
+                Flag to case
+            </button>
+            <!--FFSF-407 - Chase Flag moved to fire under the Apply Actions Button-->
+            <!--<button class="slds-button slds-button_destructive slds-m-top_medium justify-left flag-button" disabled={disableActions} onclick={handlePostChased} data-id="flag-button">
+                Chase
+            </button>-->
+        </div>
+        <div class="table-container " data-id="table-container">
+            <template if:true={itemsToDisplay}>
+                <table class="table"> <!--As part of FFSF470, replaced css by border-right-custom and header is splitted into 2 lines-->
+                    <thead>
+                        <tr>
+                            <th class=border-right-custom>Flag</th>
+                            <!--th class=border-right-custom>Hold<br/>Inflow</th>
+                            <th class=border-right-custom>Chase</th-->
+                            <th class=border-right-custom>Account<br/>Number</th>
+                            <th class=border-right-custom>Transaction<br/>Date</th>
+                            <th class=border-right-custom>Statement<br/>Description</th>
+                            <th class=border-right-custom>Amount</th>
+                            <th class=border-right-custom>Balance</th>
+                            <th class=border-right-custom>Transaction<br/>Code</th>
+                            <th class=border-right-custom>Transaction<br/>Description</th>
+                            <!--<th class=border-right-custom>Branch<br/>Name</th>-->  <!--Commented as part of FFSF-493-->
+                            <!--<th class=border-right-custom>Teller<br/>Name</th>--> <!--Commented as part of FFSF-493-->
+                            <!--th class=border-right-custom>SpendGroup</th-->
+                            <th class=border-right-custom>Inflow</th>
+                            <!--<th class=border-right-custom>Transfer<br/>Account<br/>Number</th>--> <!--Commented as part of FFSF-493-->
+                            <!--<th class=border-right-custom>Transfer<br/>Product</th>--> <!--Commented as part of FFSF-493-->
+                            <!--<th class=border-right-custom>Channel</th>--> <!--Commented as part of FFSF-493-->
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <template for:each={itemsToDisplay} for:item="item" for:index="index" data-id='full-table' >
+                        <tr key={item.id} data-id="table-tr">
+                            <!--td class=border-right-custom><lightning-input type="checkbox" checked={item.fraudFlagged} disabled={item.disableFlag} onchange={handleFlag} data-item-id={index} data-id={index}></lightning-input></td-->
+                            <td class=border-right-custom><lightning-input type="checkbox" onchange={handleFlag} data-item-id={index} data-id={index}></lightning-input></td>
+                            <!--td class=border-right-custom><lightning-input type="checkbox" checked={item.holdFlagged} disabled={item.disableHold} onchange={handleHold} data-item-id={index} data-id={index}></lightning-input></td>
+                            <td class="border-right-custom help-text-parent"><lightning-input type="checkbox" checked={item.chaseFlagged} disabled={item.disableChase} onchange={handleChase} data-item-id={index} data-id={index}></lightning-input>
+                                <template lwc:if={item.showHelpText}>
+                                    <lightning-helptext class="help-text" content={item.popUpLabel}>{item.popUpLabel}</lightning-helptext>
+                                </template>
+                            </td-->
+                            <td class=border-right-custom>{item.account}</td>
+                            <td class=border-right-custom>{item.transactionDate}</td>
+                            <td class=border-right-custom>{item.statementDescription}</td>
+                            <td class=border-right-custom>{item.amount}</td>
+                            <td class=border-right-custom>{item.balance}</td>
+                            <td class=border-right-custom>{item.tranCode}</td>
+                            <td class=border-right-custom>{item.originalDescription}</td>
+                            <!--<td class=border-right-custom>{item.branch}</td>--> <!--Commented as part of FFSF-493-->
+                            <!--<td class=border-right-custom>{item.teller}</td>--> <!--Commented as part of FFSF-493-->
+                            <!--td class=border-right-custom>{item.spendGroup}</td-->
+                            <td class=border-right-custom>{item.moneyIn}</td>
+                            <!--<td class=border-right-custom>{item.toAccount}</td>--> <!--Commented as part of FFSF-493-->
+                            <!--<td class=border-right-custom>{item.transTypeDesc}</td>--> <!--Commented as part of FFSF-493-->
+                            <!--<td class=border-right-custom>{item.channel}</td>--> <!--Commented as part of FFSF-493-->
+                        </tr>
+                    </template>
+                    </tbody>
+                </table>
+            </template>
+        </div>
+    </div>
+</template>

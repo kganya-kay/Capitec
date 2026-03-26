@@ -1,0 +1,40 @@
+<!--
+  @description       : 
+  @author            : Samiirah.A@bsky.co.za
+  @group             : 
+  @last modified on  : 10-29-2024
+  @last modified by  : Samiirah.A@bsky.co.za
+-->
+<template> 
+    <article class="slds-card slds-card_boundary">
+      <div class="slds-page-header">
+        <div class="slds-page-header__row">
+          <div class="slds-page-header__col-title">
+            <div class="slds-media">
+            <div class="slds-media__figure" style="border: 1px solid #747E96; border-radius: 5px;">
+                <span class="slds-icon">
+                    <lightning-icon icon-name="utility:custom_apps" size="small" style="fill:white;"></lightning-icon>
+                </span>
+            </div>
+              <div class="slds-media__body">
+                <div class="slds-page-header__name">
+                  <div class="slds-page-header__name-title">
+                    <h1>
+                      <span class="slds-page-header__title slds-truncate" title="Lives Assured">Segments ({size})</span>
+                      <span>{size} items</span>
+                    </h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <lightning-datatable
+              key-field="Id"
+              data={segmentsTodisplay}
+              columns={columns}
+              hide-checkbox-column>
+      </lightning-datatable>
+    </article>
+  </template>

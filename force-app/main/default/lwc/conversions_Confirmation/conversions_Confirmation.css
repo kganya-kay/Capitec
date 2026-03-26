@@ -1,0 +1,10 @@
+.custom-header {
+    background: repeating-linear-gradient(
+        -45deg,
+        #f3f3f3,
+        #f3f3f3 10px,
+        #ebebeb 10px,
+        #ebebeb 20px
+    );
+    border-bottom: 1px solid #dddbda;
+}

@@ -1,0 +1,57 @@
+<!--
+  @description       : LWC Pop up confirmation 
+  @author            : Samiirah Aujub
+  @group             : Central Conversions
+  @last modified on  : 02-25-2026
+  @last modified by  : Samiirah Aujub
+-->
+<template>
+    <div class="slds-modal__header slds-theme_shade slds-theme_alert-texture slds-text-align_center">
+            <h2 class="slds-text-heading_medium slds-truncate" title="Return Case to Awaiting DOI Confirmation">
+                Return Case to Awaiting DOI Confirmation
+            </h2>
+    </div>
+    <template if:true={isLoading}>
+            <div class="slds-p-around_medium">
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </div>
+    </template>
+    <lightning-quick-action-panel header="">
+        <template if:false={isLoading}>
+            <div class="slds-p-around_medium">
+                <template if:true={alreadyInQueue}>
+                    <p>
+                        This case is already assigned to the
+                        <strong> Awaiting DOI Confirmation</strong> queue. <br />
+                        No further action is required.
+                    </p>
+                </template>
+
+                <template if:false={alreadyInQueue}>
+                    <p>
+                        Are you sure you want to move this case back to awaiting DOI confirmation?
+                        <br />
+                        Please verify your changes before proceeding.
+                    </p>
+                </template>
+            </div>
+
+            <div slot="footer">
+                <lightning-button
+                    variant="neutral"
+                    label="Cancel"
+                    onclick={handleCancel}>
+                </lightning-button>
+
+                <template if:false={alreadyInQueue}>
+                    <lightning-button class="slds-m-left_small"
+                                      variant="brand"
+                                      label="Submit"
+                                      onclick={handleSubmit}
+                                      disabled={isLoading}>
+                    </lightning-button>
+                </template>
+            </div>
+        </template>
+    </lightning-quick-action-panel>
+</template>

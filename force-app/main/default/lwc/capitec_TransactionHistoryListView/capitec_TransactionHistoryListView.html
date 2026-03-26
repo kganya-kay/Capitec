@@ -1,0 +1,60 @@
+<!--
+ - Created by dawid on 13.04.2023.
+ -->
+
+<!-- Capitec Transaction History List View -->
+<template>
+
+    <div class="main-container slds-m-top_medium" data-id="main-container">
+        <div class="slds-m-top_medium" data-id="spinner">
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </div>
+        <div class="date-input-flex">
+            <lightning-input class="slds-m-right_medium" type="date" name="input1" label="From Date" value={startDate} onchange={handleStartDateChange}></lightning-input>
+            <lightning-input class="slds-m-right_medium" type="date" name="input1" label="To Date" value={endDate} onchange={handleEndDateChange}></lightning-input>
+            <lightning-combobox class="slds-m-right_medium" label="Account Number" value={comboboxValue} options={financialAccountsNumbers} data-id="combobox-fin-id"></lightning-combobox>
+            <button class="slds-button slds-button_brand slds-m-top_medium" onclick={refreshComponent} data-id="refresh-button">
+                Get Transactions
+            </button>
+        </div>
+        <div class="full-width slds-m-top_medium">
+            <button class="slds-button slds-button_brand slds-m-top_medium flag-button" onclick={handleSaveCSV} data-id="flag-button" if:true={showTable}>
+                Save As CSV
+            </button>
+            <button class="slds-button slds-button_brand slds-m-top_medium flag-button" onclick={handleFlagButton} data-id="flag-button" if:true={showTable}>
+                Apply Actions
+            </button>
+        </div>
+
+        <div class="table-container " data-id="table-container" if:true={showTable}>
+            <table class="transactions-table" data-id="transactions-table">
+                <tr>
+                    <th class=slds-border_right>Account Number</th>
+                    <th class=slds-border_right>Transaction Date</th>
+                    <th class=slds-border_right>Transaction Code</th>
+                    <th class=slds-border_right>Transaction Description</th>
+                    <th class=slds-border_right>Teller Name</th>
+                    <th class=slds-border_right>Value Inwards</th>
+                    <th class=slds-border_right>Balance</th>
+                    <th class=slds-border_right>Transfer account number</th>
+                    <th class=slds-border_right>Transfer Product</th>
+                    <th class=slds-border_right>Statement Description</th>
+                    <th class=slds-border_right>Branch Name</th>
+                    <th class=slds-border_right>Amount</th>
+                    <th class=slds-border_right>Channel</th>
+                    <th class=slds-border_right>Flag Transaction</th>
+<!--                    <th class=slds-border_right>Hold Funds</th>-->
+<!--                    <th>Block Account</th>-->
+                </tr>
+            </table>
+        </div>
+        <div data-id="error-container" class="slds-m-top_large" if:true={showError}>
+
+        </div>
+
+
+    </div>
+
+
+
+</template>

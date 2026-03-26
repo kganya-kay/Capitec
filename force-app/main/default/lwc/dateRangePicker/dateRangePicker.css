@@ -1,0 +1,104 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.date-range-group {
+    display: flex;
+    flex-direction: row;
+}
+.table-container {
+    display: flex;
+    margin-top: 24px;
+    max-height: 500px;
+}
+.details-label {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px Solid #C9C9C9;
+    min-height: 24px;
+}
+.detail-key {
+    width: 40%;
+    font-size: 0.75rem;
+    color: #444444;
+}
+.item-padding {
+    padding: 8px 8px;
+}
+.message-error {
+    font-size: 0.85rem;
+    color: #b90f0f;
+}
+.message-info {
+    font-size: 0.95rem;
+    color: #232fb4;
+}
+.message-success {
+    font-size: 0.85rem;
+    color: #23b442;
+}
+.btn-get-incidents {
+    margin-top: 21px;
+}
+.btn-add-incidents {
+    margin-top: 21px;
+    margin-left: 16px;
+}
+.slds-button_neutral {
+    height: 40px; /* Adjust as needed */
+    padding: 8px 16px; /* Ensure consistent padding */
+    font-size: 0.875rem; /* Match text size */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 21px;
+}
+
+
+.slds-modal__container {
+    max-width: 50rem;
+    min-width: 30rem;
+}
+
+.custom-tabset {
+    margin-top: 1rem;
+}
+
+.details-label {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.item-padding {
+    padding: 1rem;
+}
+
+.detail-key {
+    font-size: 0.875rem;
+    color: #5c5c5c;
+}
+
+.details-container {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.detail-item {
+    margin-bottom: 1rem; /* Space between each item */
+}
+
+.detail-label {
+    font-weight: bold;
+    margin-bottom: 0.5rem; /* Space between label and value */
+}
+
+.detail-value {
+    margin-left: 0;
+    color: #555; /* Optional: Adds a bit of contrast */
+}
+
+.btn-open-strack {
+    margin-top: 21px;
+}

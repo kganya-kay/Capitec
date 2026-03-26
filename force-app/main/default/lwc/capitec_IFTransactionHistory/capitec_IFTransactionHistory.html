@@ -1,0 +1,104 @@
+<template>
+    <div class="main-container slds-m-top_medium" data-id="main-container">
+        <template lwc:if={showSpinner}>
+            <div class="slds-m-top_medium" data-id="spinner">
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <!-- Filters Section -->
+        <div class="slds-grid slds-gutters slds-align_absolute-center slds-grid_vertical-align-center slds-m-bottom_x-small" data-id="main-container" style='width:100%'>
+            <!-- Label and Last 7 Days Button -->
+            <div class="slds-col slds-size_2-of-10">
+                <label class="slds-form-element__label" for="last7DaysButton">Select</label>
+                <button id="last7DaysButton" class="slds-button slds-button_neutral slds-button_stretch" onclick={getLast7Dates} data-id="flag-button">
+                    Last 7 days
+                </button>
+            </div>
+
+            <!-- Last 30 Days Button -->
+            <div class="slds-col slds-size_2-of-10">
+                <label class="slds-form-element__label" for="last30DaysButton">Select</label>
+                <button id="last30DaysButton" class="slds-button slds-button_neutral slds-button_stretch" onclick={getLast30Dates} data-id="flag-button">
+                    Last 30 days
+                </button>
+            </div>
+
+            <!-- From Date Input -->
+            <div class="slds-col slds-size_2-of-10">
+                <lightning-input type="date" name="input1" data-id="startDateInput" label="From Date" value={startDate}></lightning-input>
+            </div>
+
+            <!-- To Date Input -->
+            <div class="slds-col slds-size_2-of-10">
+                <lightning-input type="date" name="input2" data-id="endDateInput" label="To Date" value={endDate}></lightning-input>
+            </div>
+            <div class="slds-col slds-size_2-of-10">
+                <lightning-combobox label="Account Number" value={comboboxValue} options={financialAccountsNumbers} data-id="combobox-fin-id"></lightning-combobox>
+            </div>
+            
+        </div>
+
+        <!-- Page Header Section -->
+        <div class="slds-page-header slds-m-top_medium slds-p-around_small border-header">
+            <div class="slds-page-header__row slds-align_absolute-center">
+                <div class="slds-page-header__col-title">
+                    <div class="slds-media slds-align_absolute-center">
+                        <div class="slds-media__figure">
+                            <lightning-icon icon-name="standard:account" alternative-text="Account" size="medium"></lightning-icon>
+                        </div>
+                        <div class="slds-media__body slds-p-left_small">
+                            <h1 class="slds-page-header__title slds-truncate" title="Account">
+                                Account
+                            </h1>
+                            <p class="slds-text-body_small slds-page-header__info">Transaction History</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-page-header__col-actions slds-grid slds-align-center slds-grid_vertical-align-center">
+                    <button class="slds-button slds-button_brand slds-m-right_small" onclick={handleGetTransactions} data-id="refresh-button">
+                        Get Transactions
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table Section -->
+        <div class="table-container" data-id="table-container">
+            <template if:true={itemsToDisplay}>
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered table-bordered"> 
+                    <thead>
+                        <tr class="slds-hint-parent">
+                            <!-- Removed Flag, Hold, and Chase columns -->
+                            <th class="slds-text-align_left">Account<br/>Number</th>
+                            <th class="slds-text-align_left">Transaction<br/>Date</th>
+                            <th class="slds-text-align_left">Statement<br/>Description</th>
+                            <th class="slds-text-align_left">Amount</th>
+                            <th class="slds-text-align_left">Balance</th>
+                            <th class="slds-text-align_left">Transaction<br/>Code</th>
+                            <th class="slds-text-align_left">Transaction<br/>Description</th>
+                            <th class="slds-text-align_left">Branch</th>
+                            <th class="slds-text-align_left">Teller</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={itemsToDisplay} for:item="item" for:index="index" data-id='full-table'>
+                            <tr key={item.id} data-id="table-tr">
+                                <!-- Removed Flag, Hold, and Chase columns -->
+                                <td class="slds-text-align_left tdformat">{item.accountNr}</td>
+                                <td class="slds-text-align_left tdformat">{item.newtransactionDate}</td>
+                                <td class="slds-text-align_left tdformat">{item.statementDesc}</td>
+                                <td class="slds-text-align_left tdformat">{item.amount}</td>
+                                <td class="slds-text-align_left tdformat">{item.balance}</td>
+                                <td class="slds-text-align_left tdformat">{item.tranCode}</td>
+                                <td class="slds-text-align_left tdformat">{item.originalDesc}</td>
+                                <td class="slds-text-align_left tdformat">{item.branch}</td>
+                                <td class="slds-text-align_left tdformat">{item.teller}</td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </template>
+        </div>
+    </div>
+</template>

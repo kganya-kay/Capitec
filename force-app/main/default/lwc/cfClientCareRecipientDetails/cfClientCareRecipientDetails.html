@@ -1,0 +1,57 @@
+<template>
+            <div class="slds-grid slds-wrap slds-is-relative ">
+            <div style="position: fixed;z-index: 999999;top: 0;right: 0;">
+  <omnistudio-toast class="flexcard-toast-element" theme="slds" title="" message="" styletype=""> </omnistudio-toast>
+</div>
+            <div if:true={showLoader} class="slds-is-absolute vloc-loader_override" style="height: 100%; width: 100%; min-height:50px; background: transparent; z-index: 99;">
+  <div>
+   <omnistudio-spinner
+      variant="brand"
+      alternative-text="Loading content..."
+      size="medium"
+      theme="slds"
+      ></omnistudio-spinner>
+  </div>
+</div>
+            <template if:false={hasPermission}>
+              You don't have required permissions to view this card.
+            </template>
+            <template if:true={hasPermission}>
+              <template if:true={hasRecords}>
+                        <template for:each={_records} for:item="record" for:index="rindex">
+                            <omnistudio-flex-card-state if:true={record}  key={record._flex.uniqueKey} data-recordid={record.Id} record={record} data-statue="true"  data-index="0" data-rindex={rindex} class="cf-vlocity-state-0 cf-vlocity-state slds-size_12-of-12"  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-bottom_x-small" style="">
+          <div data-style-id="state0element0" class="slds-col  slds-text-align_center  slds-size_1-of-12  " data-rindex={rindex} style="      
+         " ><omnistudio-flex-icon data-style-id="state0element0_child"   card={card}  record={record}  icon-type="Salesforce SVG"  icon-name="standard:client"  size="large"  extraclass="slds-icon_container slds-icon-standard-client"  variant="inverse"  imgsrc=""  theme="slds"  ></omnistudio-flex-icon>
+      </div><div data-style-id="state0element1" class="slds-col   slds-size_2-of-12  " data-rindex={rindex} style="" ><omnistudio-output-field data-style-id="state0element1_child"   card={card}  record={record}  merge-field="%3Cdiv%3E%3Cspan%20style=%22font-family:%20tahoma;%22%3ECapitec%20Client%3C/span%3E%3C/div%3E%0A%3Ch1%20class=%22slds-text-heading_large%22%3E%3Cspan%20class=%22slds-text-heading_medium%22%20style=%22font-family:%20tahoma;%22%3ERecipient%20details%3C/span%3E%3C/h1%3E"  theme="slds"  ></omnistudio-output-field>
+      </div><div data-style-id="state0element2" class="slds-col   slds-size_12-of-12 " data-rindex={rindex} style="" ><omnistudio-flex-datatable data-style-id="state0element2_child"   card={card}  record={record}  issearchavailable="false"  issortavailable="true"  cell-level-edit="true"  pagelimit="3"  group-order="asc"  columns='\[{"fieldName":"Name","label":"Name and Surname","searchable":false,"sortable":true,"type":"text"},{"fieldName":"ContactNumber","label":"Contact Number","searchable":false,"sortable":true,"type":"text"},{"fieldName":"AccountName","label":"Account Type","searchable":false,"sortable":true,"type":"text"},{"fieldName":"AvailableBalance","label":"Available Balance","searchable":false,"sortable":true,"type":"text"},{"fieldName":"Status","label":"Status","searchable":false,"sortable":true,"type":"text"}]'  records={records}  theme="slds"  ></omnistudio-flex-datatable>
+      </div>
+        </div>
+      </omnistudio-flex-card-state>
+                        </template>
+                      </template>
+                      <template if:false={hasRecords}>
+                            <omnistudio-flex-card-state  record={record} data-statue="false"  data-index="0" data-rindex={rindex} class="cf-vlocity-state-0 cf-vlocity-state slds-size_12-of-12"  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-bottom_x-small" style="">
+          <div data-style-id="state0element0" class="slds-col  slds-text-align_center  slds-size_1-of-12  " data-rindex={rindex} style="      
+         " ><omnistudio-flex-icon data-style-id="state0element0_child"   card={card}  record={record}  icon-type="Salesforce SVG"  icon-name="standard:client"  size="large"  extraclass="slds-icon_container slds-icon-standard-client"  variant="inverse"  imgsrc=""  theme="slds"  ></omnistudio-flex-icon>
+      </div><div data-style-id="state0element1" class="slds-col   slds-size_2-of-12  " data-rindex={rindex} style="" ><omnistudio-output-field data-style-id="state0element1_child"   card={card}  record={record}  merge-field="%3Cdiv%3E%3Cspan%20style=%22font-family:%20tahoma;%22%3ECapitec%20Client%3C/span%3E%3C/div%3E%0A%3Ch1%20class=%22slds-text-heading_large%22%3E%3Cspan%20class=%22slds-text-heading_medium%22%20style=%22font-family:%20tahoma;%22%3ERecipient%20details%3C/span%3E%3C/h1%3E"  theme="slds"  ></omnistudio-output-field>
+      </div><div data-style-id="state0element2" class="slds-col   slds-size_12-of-12 " data-rindex={rindex} style="" ><omnistudio-flex-datatable data-style-id="state0element2_child"   card={card}  record={record}  issearchavailable="false"  issortavailable="true"  cell-level-edit="true"  pagelimit="3"  group-order="asc"  columns='\[{"fieldName":"Name","label":"Name and Surname","searchable":false,"sortable":true,"type":"text"},{"fieldName":"ContactNumber","label":"Contact Number","searchable":false,"sortable":true,"type":"text"},{"fieldName":"AccountName","label":"Account Type","searchable":false,"sortable":true,"type":"text"},{"fieldName":"AvailableBalance","label":"Available Balance","searchable":false,"sortable":true,"type":"text"},{"fieldName":"Status","label":"Status","searchable":false,"sortable":true,"type":"text"}]'  records={records}  theme="slds"  ></omnistudio-flex-datatable>
+      </div>
+        </div>
+      </omnistudio-flex-card-state>
+                      </template>
+            </template>
+            <template if:true={hasError}>
+            {error}
+            </template>
+            
+      <omnistudio-action action-wrapperclass="slds-hide" re-render-flyout class="action-trigger slds-col" onupdateos={updateOmniscript} onselectcards={updateSelectedCards} onsetvalue={updateAction} onfireactionevent={actionEvtHandler}>
+      
+      </omnistudio-action>
+  
+            <omnistudio-action class="execute-action" re-render-flyout action-wrapperclass="slds-hide" onupdateos={updateOmniscript} onselectcards={updateSelectedCards} onsetvalue={updateAction} onfireactionevent={actionEvtHandler}>
+            
+            </omnistudio-action>
+            </div>
+          </template>

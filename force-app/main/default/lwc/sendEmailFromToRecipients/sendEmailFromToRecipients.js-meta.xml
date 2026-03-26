@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <description>Handles selection of sender address and email recipients, including contacts and external emails.
+    </description>
+    <isExposed>true</isExposed>
+    <masterLabel>Send Email From To Recipients</masterLabel>
+</LightningComponentBundle>

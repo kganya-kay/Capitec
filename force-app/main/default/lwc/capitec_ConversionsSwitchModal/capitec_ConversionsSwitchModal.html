@@ -1,0 +1,188 @@
+<!--
+  @description       : 
+  @author            : Samiirah.A@bsky.co.za
+  @group             : 
+  @last modified on  : 06-18-2025
+  @last modified by  : Samiirah.A@bsky.co.za
+-->
+<template>
+    <template if:true={isOpen}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <button class="slds-button slds-modal__close slds-button_icon" title="Close" onclick={handleClose}>
+                    <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                </button>
+                <header class="slds-modal__header">
+                    <h2 class="slds-modal__title"><b>Confirm Debit Order Details</b></h2>
+                </header>
+
+                <div class="slds-p-around_small" style="background-color: white;">
+                    <lightning-progress-indicator current-step={currentStep} type="path" variant="base">
+                        <lightning-progress-step label="Confirm Debit Order Details" value="step1"></lightning-progress-step>
+                        <lightning-progress-step label="Complete the..." value="step2"></lightning-progress-step>
+                        <lightning-progress-step label="Outcome" value="step3"></lightning-progress-step>
+                        <lightning-progress-step label="Summary" value="step4"></lightning-progress-step>
+                    </lightning-progress-indicator>
+
+                    <!--FIRST SCREEN, to move to child component-->
+                    <template lwc:if={showScreen1}>
+                        <div class="slds-p-around_small" style="background-color: white;">
+                            <div class="slds-box slds-theme_shade slds-m-vertical_medium">
+                                    Include task-specific instructions for agents here.
+                            </div>
+
+                            <lightning-card title="Bank 1 Debit Order">
+                                <div class="slds-grid slds-wrap slds-p-around_medium">
+                                    <div class="slds-col slds-size_1-of-2 slds-p-right_small">
+                                        <lightning-combobox
+                                            label="From Account"
+                                            value={fromAccount}
+                                            options={fromAccountOptions}
+                                            onchange={handleFromAccountChange}>
+                                        </lightning-combobox>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-p-left_small">
+                                        <lightning-combobox
+                                            label="To Capitec Account"
+                                            value={toAccount}
+                                            options={toAccountOptions}
+                                            onchange={handleToAccountChange}>
+                                        </lightning-combobox>
+                                    </div>
+
+                                    <div class="slds-col slds-size_1-of-2 slds-p-right_small slds-m-top_medium">
+                                        <lightning-input
+                                            label="Debit Order Initiator"
+                                            value={initiator}
+                                            onchange={handleInitiatorChange}>
+                                        </lightning-input>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-p-left_small slds-m-top_medium">
+                                        <lightning-input
+                                            label="Reference Number"
+                                            value={referenceNumber}
+                                            onchange={handleReferenceChange}>
+                                        </lightning-input>
+                                    </div>
+
+                                    <div class="slds-col slds-size_1-of-2 slds-p-right_small slds-m-top_medium">
+                                        <lightning-input
+                                            type="currency"
+                                            label="Amount"
+                                            value={amount}
+                                            onchange={handleAmountChange}>
+                                        </lightning-input>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-p-left_small slds-m-top_medium">
+                                        <lightning-input
+                                            type="date"
+                                            label="Payment Date"
+                                            value={paymentDate}
+                                            onchange={handlePaymentDateChange}>
+                                        </lightning-input>
+                                    </div>
+
+                                    <div class="slds-col slds-size_1-of-1 slds-m-top_medium">
+                                        <lightning-input
+                                            type="date"
+                                            label="Future Dated Payment"
+                                            value={futureDate}
+                                            onchange={handleFutureDateChange}>
+                                        </lightning-input>
+                                    </div>
+                                </div>
+                            </lightning-card>   
+                        </div>
+                    </template>
+
+                    <!--SECOND SCREEN-->
+                    <template lwc:if={showScreen2}>
+                        <div class="slds-p-around_small" style="background-color: white;">
+                            <lightning-card>
+                                <div class="slds-grid slds-wrap slds-p-around_medium">
+                                    
+                                    <div class="slds-size_1-of-1 slds-m-bottom_small">
+                                        <b>Description Information</b>
+                                    </div>
+
+                                    <div class="slds-col slds-size_1-of-2 slds-p-right_small">
+                                        <lightning-input
+                                            label="Subject"
+                                            value={subject}
+                                            onchange={handleSubjectChange}
+                                            required
+                                            field-level-help="Summary of request">
+                                        </lightning-input>
+                                    </div>
+                                     <div class="slds-col slds-size_1-of-2 slds-p-right_small">
+                                     </div>
+
+                                    <div class="slds-col slds-size_1-of-2 slds-p-right_small">
+                                        <lightning-textarea
+                                            label="Description"
+                                            value={description}
+                                            onchange={handleDescriptionChange}
+                                            required
+                                            placeholder="Enter description"
+                                            field-level-help="Include relevant account and request details">
+                                        </lightning-textarea>
+                                    </div>
+
+                                    <div class="slds-size_1-of-1 slds-m-top_large slds-m-bottom_small">
+                                        <b>Taxonomy</b>
+                                    </div>
+
+                                    <div class="slds-col slds-size_1-of-2 slds-p-right_small">
+                                        <lightning-combobox
+                                            label="Primary Need"
+                                            value={primaryNeed}
+                                            options={primaryNeedOptions}
+                                            onchange={handlePrimaryNeedChange}
+                                            required>
+                                        </lightning-combobox>
+                                    </div>
+
+                                    <div class="slds-col slds-size_1-of-2 slds-p-left_small">
+                                        <lightning-combobox
+                                            label="Channel"
+                                            value={channel}
+                                            options={channelOptions}
+                                            onchange={handleChannelChange}
+                                            required>
+                                        </lightning-combobox>
+                                    </div>
+
+                                    <div class="slds-col slds-size_1-of-2 slds-p-right_small slds-m-top_medium">
+                                        <lightning-combobox
+                                            label="Specific Need"
+                                            value={specificNeed}
+                                            options={specificNeedOptions}
+                                            onchange={handleSpecificNeedChange}
+                                            required>
+                                        </lightning-combobox>
+                                    </div>
+                                    
+                                    <div class="slds-col slds-size_1-of-2 slds-p-left_small slds-m-top_medium">
+                                        <lightning-combobox
+                                            label="Product"
+                                            value={product}
+                                            options={productOptions}
+                                            onchange={handleProductChange}
+                                            required>
+                                        </lightning-combobox>
+                                    </div>
+                                </div>
+                            </lightning-card>
+                        </div>
+                    </template>
+
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button label="Close" onclick={handleClose}></lightning-button>
+                    <lightning-button label="Next" variant="brand" onclick={handleNext}></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

@@ -1,0 +1,28 @@
+<!--
+ - Created by dawid on 16.04.2023.
+ -->
+
+<template>
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_large"
+             aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+
+
+        <div class="slds-modal__container">
+            <template if:true={showModal}>
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">{header}</h2>
+                </header>
+            </template>
+            <template if:true={showModal}>
+                <div class="slds-modal__content slds-p-around_medium modal-body c" id="modal-content-id-1">
+                    <h1 class="slds-text-heading_large slds-align_absolute-center">{content}</h1>
+                    <div class="slds-align-bottom slds-float_right">
+                        <button class="slds-button slds-button_brand" onclick={handleClose}>
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </section>
+</template>

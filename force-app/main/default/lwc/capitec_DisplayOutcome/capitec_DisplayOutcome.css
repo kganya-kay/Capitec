@@ -1,0 +1,31 @@
+/**
+ * Created by dawid on 28.03.2023.
+ */
+
+.main-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.headline-section{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: 10px auto 0 0;
+    padding: 5px 0 5px 0;
+    background-color:  #f4f4f5;
+}
+
+.main-container .headline-section:nth-of-type(2n){
+    background-color: white;
+}
+
+.headline-col{
+    width: 45%;
+    margin-right: 30px;
+}
+
+
+.headline-text{
+    font-weight: bold;
+}

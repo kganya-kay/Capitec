@@ -1,0 +1,89 @@
+<template>
+            <div class="slds-grid slds-wrap slds-is-relative ">
+            <div style="position: fixed;z-index: 999999;top: 0;right: 0;">
+  <omnistudio-toast class="flexcard-toast-element" theme="slds" title="" message="" styletype=""> </omnistudio-toast>
+</div>
+            <div if:true={showLoader} class="slds-is-absolute vloc-loader_override" style="height: 100%; width: 100%; min-height:50px; background: transparent; z-index: 99;">
+  <div>
+   <omnistudio-spinner
+      variant="brand"
+      alternative-text="Loading content..."
+      size="medium"
+      theme="slds"
+      ></omnistudio-spinner>
+  </div>
+</div>
+            <template if:false={hasPermission}>
+              You don't have required permissions to view this card.
+            </template>
+            <template if:true={hasPermission}>
+              <template if:true={hasRecords}>
+                        <template for:each={_records} for:item="record" for:index="rindex">
+                            <omnistudio-flex-card-state if:true={record}  key={record._flex.uniqueKey} data-recordid={record.Id} record={record} data-statue="true"  data-index="0" data-rindex={rindex} class="cf-vlocity-state-0 cf-vlocity-state slds-size_12-of-12 "  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap " style="      
+         ">
+          <div data-style-id="state0element0" class="slds-col   slds-theme_default slds-border_top slds-border_right slds-border_bottom slds-border_left  slds-large-size_12-of-12 slds-medium-size_12-of-12 slds-small-size_12-of-12 slds-size_12-of-12  " data-rindex={rindex} style="background-color:#FFFFFF;  background-repeat:repeat;   border-top: #D3D3D3 1px solid;border-right: #D3D3D3 1px solid;border-bottom: #D3D3D3 1px solid;border-left: #D3D3D3 1px solid; 
+    border-radius:1;  min-height:60px;  color:#FFFFFF; " >
+    <omnistudio-block data-style-id="state0element0_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Card Holdings for parent account"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element0" class="slds-col  slds-text-align_left slds-p-around_medium  slds-large-size_1-of-12 slds-medium-size_1-of-12 slds-small-size_2-of-12 slds-size_2-of-12  " data-rindex={rindex} style="background-color:#FFFFFF;  background-repeat:repeat;    
+     height:auto; min-height:60px;   " ><omnistudio-flex-action data-style-id="state0element0block_element0_child"  tracking-obj={_childCardTrackingObj}  class= "state0element0block_element0_child flexActionElement" 
+        data-action-element-class="state0element0block_element0_child" data-action-key="state0element0block_element0" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="cardholdingsblockaction7"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"draggable":false,"isOpen":true,"key":"1713942470220-7m2ovi1d9","label":"","stateAction":{"Web Page":{"targetName":"/apex"},"eventName":"selectcards","id":"flex-action-1713942521985","openUrlIn":"Current Window","targetType":"Web Page","type":"cardAction"}}]'  aria-label=""  flyout-details='\{}'  icon-name="standard-default"  label=" "  styles='\{"label":{"textAlign":""}}'  theme="slds"  ></omnistudio-flex-action>
+      </div><div data-style-id="state0element0block_element1" class="slds-col  slds-text-align_left  slds-p-around_small  slds-large-size_2-of-12 slds-medium-size_2-of-12 slds-small-size_4-of-12 slds-size_4-of-12  " data-rindex={rindex} style="background-color:#FFFFFF;  background-repeat:repeat;    
+      min-height:60px;   " ><omnistudio-output-field data-style-id="state0element0block_element1_child"   record={record}  card={card}  field-name="cardNumber__c"  label="Card Number"  labelclass=""  placeholder=""  styles='\{"label":{"color":"#808080","textAlign":"left"},"value":{"color":"#006AFF","textAlign":"left"}}'  type="text"  valueclass=""  theme="slds"  ></omnistudio-output-field>
+      </div><div data-style-id="state0element0block_element2" class="slds-col  slds-text-align_left  slds-p-around_small  slds-large-size_3-of-12 slds-medium-size_3-of-12 slds-small-size_4-of-12 slds-size_4-of-12  " data-rindex={rindex} style="background-color:#FFFFFF;  background-repeat:repeat;    
+      min-height:60px;   " ><omnistudio-output-field data-style-id="state0element0block_element2_child"   record={record}  card={card}  field-name="cardType__c"  label="Card Type"  placeholder=""  styles='\{"label":{"color":"#808080","fontFamily":"","textAlign":"left"},"value":{"color":"#000000","fontFamily":"","textAlign":"left"}}'  type="text"  valueclass="value-spacing"  theme="slds"  ></omnistudio-output-field>
+      </div><div data-style-id="state0element0block_element3" class="slds-col  slds-text-align_left  slds-p-around_small  slds-large-size_2-of-12 slds-medium-size_2-of-12 slds-small-size_3-of-12 slds-size_3-of-12  " data-rindex={rindex} style="background-color:#FFFFFF;  background-repeat:repeat;    
+      min-height:60px;   " ><omnistudio-output-field data-style-id="state0element0block_element3_child"   record={record}  card={card}  currency="ZAR"  field-name="cardStopDate__c"  format="DD-MM-YYYY hh:mm"  label="Card Stop Date"  locale="en-ZA"  mask="#,##0.###"  placeholder=""  styles='\{"label":{"color":"#808080","textAlign":"left"},"value":{"color":"#000000","textAlign":"left"}}'  type="date"  valueclass="value-spacing"  theme="slds"  ></omnistudio-output-field>
+      </div><div data-style-id="state0element0block_element4" class="slds-col  slds-text-align_left  slds-p-around_small  slds-large-size_2-of-12 slds-medium-size_2-of-12 slds-small-size_3-of-12 slds-size_3-of-12  " data-rindex={rindex} style="      
+      min-height:60px;   " ><omnistudio-output-field data-style-id="state0element0block_element4_child"   record={record}  card={card}  field-name="cardholderId__c"  label="Cardholder ID"  placeholder=""  styles='\{"label":{"color":"#808080","fontFamily":"","textAlign":"left"},"value":{"color":"#000000","fontFamily":"","textAlign":"left"}}'  type="text"  valueclass="value-spacing"  theme="slds"  ></omnistudio-output-field>
+      </div><div data-style-id="state0element0block_element5" class="slds-col  slds-text-align_left slds-p-around_small  slds-large-size_2-of-12 slds-medium-size_3-of-12 slds-small-size_5-of-12 slds-size_6-of-12  " data-rindex={rindex} style="background-color:#FFFFFF;  background-repeat:repeat;    
+      min-height:60px;   " ><omnistudio-output-field data-style-id="state0element0block_element5_child"   record={record}  card={card}  field-name="cardStatus__c"  label="Status"  labelclass=""  placeholder=""  styles='\{"label":{"color":"#808080","fontFamily":"","textAlign":"left"},"value":{"color":"#FFFFFF","fontFamily":"","textAlign":"left"}}'  type="text"  valueclass="active-container"  theme="slds"  ></omnistudio-output-field>
+      </div>
+        </div></omnistudio-block>
+    </div>
+        </div>
+      </omnistudio-flex-card-state>
+                        </template>
+                      </template>
+                      <template if:false={hasRecords}>
+                            <omnistudio-flex-card-state  record={record} data-statue="false"  data-index="0" data-rindex={rindex} class="cf-vlocity-state-0 cf-vlocity-state slds-size_12-of-12 "  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap " style="      
+         ">
+          <div data-style-id="state0element0" class="slds-col   slds-theme_default slds-border_top slds-border_right slds-border_bottom slds-border_left  slds-large-size_12-of-12 slds-medium-size_12-of-12 slds-small-size_12-of-12 slds-size_12-of-12  " data-rindex={rindex} style="background-color:#FFFFFF;  background-repeat:repeat;   border-top: #D3D3D3 1px solid;border-right: #D3D3D3 1px solid;border-bottom: #D3D3D3 1px solid;border-left: #D3D3D3 1px solid; 
+    border-radius:1;  min-height:60px;  color:#FFFFFF; " >
+    <omnistudio-block data-style-id="state0element0_child"  record={record}  card={card}  collapsed-by-default="false"  collapsible="false"  label="Card Holdings for parent account"  theme="slds"  ><div class="slds-grid slds-wrap">
+          <div data-style-id="state0element0block_element0" class="slds-col  slds-text-align_left slds-p-around_medium  slds-large-size_1-of-12 slds-medium-size_1-of-12 slds-small-size_2-of-12 slds-size_2-of-12  " data-rindex={rindex} style="background-color:#FFFFFF;  background-repeat:repeat;    
+     height:auto; min-height:60px;   " ><omnistudio-flex-action data-style-id="state0element0block_element0_child"  tracking-obj={_childCardTrackingObj}  class= "state0element0block_element0_child flexActionElement" 
+        data-action-element-class="state0element0block_element0_child" data-action-key="state0element0block_element0" onexecuteaction={performAction} data-show-spinner="false"
+        data-element-label="cardholdingsblockaction7"   state-obj={record}  record={record}  card={card}  action-list='\[{"actionIndex":0,"draggable":false,"isOpen":true,"key":"1713942470220-7m2ovi1d9","label":"","stateAction":{"Web Page":{"targetName":"/apex"},"eventName":"selectcards","id":"flex-action-1713942521985","openUrlIn":"Current Window","targetType":"Web Page","type":"cardAction"}}]'  aria-label=""  flyout-details='\{}'  icon-name="standard-default"  label=" "  styles='\{"label":{"textAlign":""}}'  theme="slds"  ></omnistudio-flex-action>
+      </div><div data-style-id="state0element0block_element1" class="slds-col  slds-text-align_left  slds-p-around_small  slds-large-size_2-of-12 slds-medium-size_2-of-12 slds-small-size_4-of-12 slds-size_4-of-12  " data-rindex={rindex} style="background-color:#FFFFFF;  background-repeat:repeat;    
+      min-height:60px;   " ><omnistudio-output-field data-style-id="state0element0block_element1_child"   record={record}  card={card}  field-name="cardNumber__c"  label="Card Number"  labelclass=""  placeholder=""  styles='\{"label":{"color":"#808080","textAlign":"left"},"value":{"color":"#006AFF","textAlign":"left"}}'  type="text"  valueclass=""  theme="slds"  ></omnistudio-output-field>
+      </div><div data-style-id="state0element0block_element2" class="slds-col  slds-text-align_left  slds-p-around_small  slds-large-size_3-of-12 slds-medium-size_3-of-12 slds-small-size_4-of-12 slds-size_4-of-12  " data-rindex={rindex} style="background-color:#FFFFFF;  background-repeat:repeat;    
+      min-height:60px;   " ><omnistudio-output-field data-style-id="state0element0block_element2_child"   record={record}  card={card}  field-name="cardType__c"  label="Card Type"  placeholder=""  styles='\{"label":{"color":"#808080","fontFamily":"","textAlign":"left"},"value":{"color":"#000000","fontFamily":"","textAlign":"left"}}'  type="text"  valueclass="value-spacing"  theme="slds"  ></omnistudio-output-field>
+      </div><div data-style-id="state0element0block_element3" class="slds-col  slds-text-align_left  slds-p-around_small  slds-large-size_2-of-12 slds-medium-size_2-of-12 slds-small-size_3-of-12 slds-size_3-of-12  " data-rindex={rindex} style="background-color:#FFFFFF;  background-repeat:repeat;    
+      min-height:60px;   " ><omnistudio-output-field data-style-id="state0element0block_element3_child"   record={record}  card={card}  currency="ZAR"  field-name="cardStopDate__c"  format="DD-MM-YYYY hh:mm"  label="Card Stop Date"  locale="en-ZA"  mask="#,##0.###"  placeholder=""  styles='\{"label":{"color":"#808080","textAlign":"left"},"value":{"color":"#000000","textAlign":"left"}}'  type="date"  valueclass="value-spacing"  theme="slds"  ></omnistudio-output-field>
+      </div><div data-style-id="state0element0block_element4" class="slds-col  slds-text-align_left  slds-p-around_small  slds-large-size_2-of-12 slds-medium-size_2-of-12 slds-small-size_3-of-12 slds-size_3-of-12  " data-rindex={rindex} style="      
+      min-height:60px;   " ><omnistudio-output-field data-style-id="state0element0block_element4_child"   record={record}  card={card}  field-name="cardholderId__c"  label="Cardholder ID"  placeholder=""  styles='\{"label":{"color":"#808080","fontFamily":"","textAlign":"left"},"value":{"color":"#000000","fontFamily":"","textAlign":"left"}}'  type="text"  valueclass="value-spacing"  theme="slds"  ></omnistudio-output-field>
+      </div><div data-style-id="state0element0block_element5" class="slds-col  slds-text-align_left slds-p-around_small  slds-large-size_2-of-12 slds-medium-size_3-of-12 slds-small-size_5-of-12 slds-size_6-of-12  " data-rindex={rindex} style="background-color:#FFFFFF;  background-repeat:repeat;    
+      min-height:60px;   " ><omnistudio-output-field data-style-id="state0element0block_element5_child"   record={record}  card={card}  field-name="cardStatus__c"  label="Status"  labelclass=""  placeholder=""  styles='\{"label":{"color":"#808080","fontFamily":"","textAlign":"left"},"value":{"color":"#FFFFFF","fontFamily":"","textAlign":"left"}}'  type="text"  valueclass="active-container"  theme="slds"  ></omnistudio-output-field>
+      </div>
+        </div></omnistudio-block>
+    </div>
+        </div>
+      </omnistudio-flex-card-state>
+                      </template>
+            </template>
+            <template if:true={hasError}>
+            {error}
+            </template>
+            
+      <omnistudio-action action-wrapperclass="slds-hide" re-render-flyout class="action-trigger slds-col" onupdateos={updateOmniscript} onselectcards={updateSelectedCards} onsetvalue={updateAction} onfireactionevent={actionEvtHandler}>
+      
+      </omnistudio-action>
+  
+            <omnistudio-action class="execute-action" re-render-flyout action-wrapperclass="slds-hide" onupdateos={updateOmniscript} onselectcards={updateSelectedCards} onsetvalue={updateAction} onfireactionevent={actionEvtHandler}>
+            
+            </omnistudio-action>
+            </div>
+          </template>

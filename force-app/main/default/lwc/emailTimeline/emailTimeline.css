@@ -1,0 +1,21 @@
+/* Container that scrolls vertically, used for the entire timeline list */
+.email-timeline-scroll {
+    max-height: 70vh; /* Limits height to 70% of the viewport height */
+    overflow-y: auto; /* Enables vertical scrolling when content exceeds max height */
+}
+
+/* Read-only email body container styling */
+.email-body-readonly {
+    min-height: 6rem; /* Ensures a minimum height for body content */
+    background-color: #ffffff; /* Sets background to white for contrast */
+    border: 1px solid #dddbda; /* Light grey border to match Salesforce design */
+    border-radius: 0.25rem; /* Rounded corners for soft visual appearance */
+    padding: 0.5rem; /* Inner spacing for content padding */
+    cursor: not-allowed; /* Indicates the field is not editable */
+}
+
+/* Style to center and pad the empty state illustration */
+.slds-illustration {
+    margin: 2rem auto;
+    text-align: center;
+}

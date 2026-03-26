@@ -1,0 +1,31 @@
+<!--
+  @description       : LWC Component to update Sub Status
+  @author            : Samiirah.A@bsky.co.za
+  @group             : 
+  @last modified on  : 10-17-2025
+  @last modified by  : Samiirah.A@bsky.co.za
+-->
+<template>
+	<lightning-card>
+		<template if:true={showSpinner}>
+			<lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+		</template>
+		<div class="slds-grid slds-gutters slds-align_absolute-center">
+			<div class="slds-col slds-size_3-of-5">
+				<lightning-combobox
+                        name="subStatus"
+                        label="Sub-Status"
+                        value={selectedSubStatus}
+                        options={options}
+                        onchange={handleChange}></lightning-combobox>
+			</div>
+			<div class="slds-col slds-size_2-of-5 slds-p-left_small slds-m-top_large slds-grid slds-grid_align-center">
+				<lightning-button
+                        variant="brand"
+                        label="Update Status"
+                        onclick={handleClick}
+                        disabled={disableButton}></lightning-button>
+			</div>
+		</div>
+	</lightning-card>
+</template>

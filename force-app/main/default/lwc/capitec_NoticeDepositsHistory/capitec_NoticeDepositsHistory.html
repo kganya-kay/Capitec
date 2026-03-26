@@ -1,0 +1,77 @@
+<!--
+  @description       : LWC component to retrieve and display notices
+  @author            : Samiirah Aujub
+  @group             : 
+  @last modified on  : 26-07-2024
+  @last modified by  : Cornelia Smit, CE
+-->
+<template>
+    <div class="main-container slds-m-top_medium" data-id="main-container">
+        <template lwc:if={showSpinner}>
+            <div class="slds-m-top_medium" data-id="spinner">
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </div>
+        </template>
+        <div class="table-container slds-m-top_medium" data-id="table-container">
+            <template if:true={noticeHistories.length}>
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th scope="col" class="border-right-custom">Notice given date</th>
+                            <th scope="col" class="border-right-custom">Notice period</th>
+                            <th scope="col" class="border-right-custom">Payout date</th>
+                            <th scope="col" class="border-right-custom">Status</th>
+                            <th scope="col" class="border-right-custom">Withdrawal amount</th>
+                            <th scope="col" class="border-right-custom">Select</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={noticeHistories} for:item="item" for:index="index">
+                            <template if:true={item.showNotice}>
+                                <tr key={item.id} data-id="table-tr">
+                                    <td class="border-right-custom">{item.noticeDate}</td>
+                                    <td class="border-right-custom">{noticePeriod}</td>
+                                    <td class="border-right-custom">{item.paymentDate}</td>
+                                    <td class={item.statusClass}>{item.noticeStatus}</td><!--CECSF-201 - add colour to status text-->
+                                    <td class="border-right-custom">R{item.noticeAmount}</td>
+                                    <td class="border-right-custom"><!--CECSF-201 - remove 'Update' checkbox column and combine logic with 'Select' column-->
+                                        <lightning-input type="checkbox" 
+                                                        checked={item.selectedCheckbox} 
+                                                        onchange={handleFlag} 
+                                                        data-item-id={item.noticeReferenceId}
+                                                        data-status={item.noticeStatus}
+                                                        disabled={item.disabled}>
+                                        </lightning-input>
+                                    </td>
+                                </tr>
+                            </template>
+                        </template>
+                    </tbody>
+                </table>
+            </template>
+        </div> 
+        <div class="slds-m-top_medium slds-grid slds-grid_align-end slds-grid_vertical-align-center">
+            <div class="slds-col slds-size_1-of-12"></div> 
+            <div class="slds-col slds-size_11-of-12 slds-text-align_right">
+                <!--CECSF-201 - remove Invalid Request button-->
+                <!--<lightning-button variant="outline-brand" style="padding-right: 10px;" label="Invalid Request" disabled={disableInvalidBtn} title="Invalid" onclick={handleInvalidRequest}></lightning-button>-->
+                <lightning-button variant="brand" label="Continue" title="Continue" onclick={handleContinue}></lightning-button>
+            </div>
+        </div>
+    </div>
+  <!--Confirmation modal-->
+    <c-capitec-_-notice-deposit-modal 
+		is-show-modal={isShowModal} 
+		record-id={recordId}
+        show-email ={sendEmail}
+        onshowemail={handleShowEmail}>
+	</c-capitec-_-notice-deposit-modal>
+    <!--Email component -->
+    <template if:true={showEmailOnParent}>
+        <c-noticedeposit-email-quick-action 
+                    record-id={recordId} 
+                    data-id="emailQuickAction">
+        </c-noticedeposit-email-quick-action>
+    </template>
+   
+</template>

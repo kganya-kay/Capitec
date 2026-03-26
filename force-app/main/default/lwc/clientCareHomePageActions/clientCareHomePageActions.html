@@ -1,0 +1,46 @@
+<!--
+  @description       : 
+  @author            : Cornelia Smit
+  @group             : 
+  @last modified on  : 30-01-2025
+  @last modified by  : Cornelia Smit
+-->
+<template>
+    <!-- Display the home page action buttons if OmniScript is not shown -->
+    <div class="slds-card slds-p-around_medium slds-size_1-of-1">
+        <div class="slds-card__header slds-grid slds-page-header">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <label class="slds-card__header-link slds-truncate" title="Actions">
+                            <span>Actions</span>
+                        </label>
+                    </h2>
+                </div>
+            </header>
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+            <template if:false={hideActions}>
+                <div class="slds-button-group">
+                    <div class="button-group">
+                        <lightning-button label="Non-client case" icon-name="utility:money" alternative-text="Non-client case"
+                            title="Non-client case" onclick={handleNonClientClick}></lightning-button>
+                    </div>
+                </div>
+            </template>
+            <!-- Display the Non-Client OmniScript -->
+            <template if:true={showNonClientOmniscript}>
+                <ul class="slds-tabs_default__nav" role="tablist">
+                    <li class="slds-tabs_default__item slds-is-active" title="Non-client case" role="presentation">
+                      <a class="slds-tabs_default__link" href="#" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-default-1" id="tab-default-1__item">Non-client case</a>
+                    </li>
+                </ul>
+                <div id="tab-default-1" class="slds-tabs_default__content slds-show" role="tabpanel" aria-labelledby="tab-default-1__item">
+                <c-client-care-home-page--cash-dispute-non-client-english
+                    layout="lightning">
+                </c-client-care-home-page--cash-dispute-non-client-english>
+                </div>
+            </template>
+        </div>
+    </div>
+</template>

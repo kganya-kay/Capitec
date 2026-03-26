@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>61.0</apiVersion>
+    <description>Ic Record Banner</description>
+    <isExposed>true</isExposed>
+    <masterLabel>Ic Record Banner</masterLabel>
+    <targets>
+        <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <property name="iconName" label="The Lightning Design System Icon Name" type="String" default="standard:people"/>
+            <property name="recordTitle" label="The title that will be displayed next to the icon" type="String" default="Default Title"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

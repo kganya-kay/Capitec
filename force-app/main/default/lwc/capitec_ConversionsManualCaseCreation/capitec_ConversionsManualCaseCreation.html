@@ -1,0 +1,78 @@
+<template>
+    <div class="container">
+        <!-- Sidebar Steps -->
+        <div class="sidebar">
+            <template for:each={stepList} for:item="step">
+                <div key={step.id} class={step.class} data-id={step.id} onclick={handleStepClick}>
+                    {step.label}
+                </div>
+            </template>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+
+            <!-- Step 1: Client Identification -->
+            <template if:true={isStep1}>
+                <c-conversion-client-identification-l-w-c lwc:ref="clientIdentification"></c-conversion-client-identification-l-w-c>
+            </template>
+
+            <!-- Step 2: Consent Form -->
+            <template if:true={isStep2}>
+                <h2>Consent Form</h2>
+                <p>Consent Form Placeholder</p>
+            </template>
+
+            <!-- Step 3: Case Information -->
+            <template if:true={isStep3}>
+                <h2>Case Information</h2>
+                <p>Case Information Placeholder</p>
+            </template>
+
+            <!-- Step 4: Debit Order / Related List -->
+            <template if:true={isStep4}>
+                <c-conversions-debit-orders-list-l-w-c lwc:ref="relatedList"></c-conversions-debit-orders-list-l-w-c>
+            </template>
+
+            <!-- Step 5: Summary -->
+            <template if:true={isStep5}>
+                <c-conversion-manual-case-summary-l-w-c
+                    lwc:ref="summary"
+                    caseorigin={summaryData.caseorigin}
+                    issue={summaryData.issue}
+                    cif-number={summaryData.cifNumber}
+                    id-number={summaryData.idNumber}
+                    passport-number={summaryData.passportNumber}
+                    salutation={summaryData.salutation}
+                    first-name={summaryData.firstName}
+                    last-name={summaryData.lastName}
+                    primary-number={summaryData.primaryNumber}
+                    secondary-number={summaryData.secondaryNumber}
+                    mobile-number={summaryData.mobileNumber}
+                    email={summaryData.email}
+                    preferred-contact-time={summaryData.preferredContactTime}
+                    old-branch-code={summaryData.oldBranchCode}
+                    old-bank-name={summaryData.oldBankName}
+                    old-account-number={summaryData.oldAccountNumber}
+                    debit-orders={summaryData.debitOrders}
+                    additional-comments={summaryData.additionalComments}>
+                </c-conversion-manual-case-summary-l-w-c>
+            </template>
+
+            <!-- Footer Buttons -->
+            <div class="footer">
+                <lightning-button label="Cancel" onclick={handleCancel}></lightning-button>
+                <template if:false={isFirstStep}>
+                    <lightning-button label="Previous" onclick={handlePrevious}></lightning-button>
+                </template>
+                <template if:false={isLastStep}>
+                    <lightning-button variant="brand" label="Next" onclick={handleNext}></lightning-button>
+                </template>
+                <template if:true={isLastStep}>
+                    <lightning-button variant="brand" label="Submit" onclick={handleSubmit}></lightning-button>
+                </template>
+            </div>
+
+        </div>
+    </div>
+</template>

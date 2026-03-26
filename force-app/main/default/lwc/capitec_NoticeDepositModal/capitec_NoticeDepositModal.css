@@ -1,0 +1,15 @@
+/**capitec_NoticeDepositModal.css 
+*  Created by Cornelia on 31.07.2024 for CECSF-201, CE
+*/
+.spinner-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8); /* Light white background to cover modal */
+    z-index: 999; /* Ensure it's above other modal content */
+}

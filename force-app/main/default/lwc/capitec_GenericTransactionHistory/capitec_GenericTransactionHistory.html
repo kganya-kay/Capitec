@@ -1,0 +1,187 @@
+<!--
+  @description       : Cloned and updated from capitec_FraudTransactionHistoryV2, by Dawid Kuczer
+                       Displays a table of transaction history lines with button actions
+  @author            : Cornelia Smit
+  @group             : 
+  @last modified on  : 22-10-2024
+  @last modified by  : Cornelia Smit
+  Modifications Log 
+  Ver   Date         Author                     Modification
+  1.0   03-11-2024   Cornelia Smit              Initial Version
+-->
+<template>
+  <div class="main-container slds-m-top_medium" data-id="main-container">
+    <template lwc:if={showSpinner}>
+      <div class="slds-m-top_medium" data-id="spinner">
+        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+      </div>
+    </template>
+
+    <div
+      class="slds-grid slds-gutters slds-align_absolute-center slds-grid_vertical-align-center slds-m-bottom_x-small"
+      data-id="main-container" style='width:100%'>
+      <!-- Label and Last 7 Days Button -->
+      <div class="slds-col slds-size_1-of-6">
+        <label class="slds-form-element__label" for="last7DaysButton">Select</label>
+        <button id="last7DaysButton" class="slds-button slds-button_neutral slds-button_stretch"
+                onclick={getLast7Dates}
+                data-id="flag-button">
+          Last 7 days
+        </button>
+      </div>
+
+      <!-- Last 30 Days Button -->
+      <div class="slds-col slds-size_1-of-6">
+        <label class="slds-form-element__label" for="last30DaysButton">Select</label>
+        <button id="last30DaysButton" class="slds-button slds-button_neutral slds-button_stretch"
+                onclick={getLast30Dates} data-id="flag-button">
+          Last 30 days
+        </button>
+      </div>
+
+      <!-- From Date Input -->
+      <div class="slds-col slds-size_1-of-6">
+        <lightning-input type="date" name="input1" data-id="startDateInput" label="From Date"
+                         value={startDate}></lightning-input>
+      </div>
+
+      <!-- To Date Input -->
+      <div class="slds-col slds-size_1-of-6">
+        <lightning-input type="date" name="input2" data-id="endDateInput" label="To Date"
+                         value={endDate}></lightning-input>
+      </div>
+
+      <!-- Account Number Combobox -->
+      <div class="slds-col slds-size_2-of-6">
+        <lightning-combobox label="Account Number" value={comboboxValue} options={financialAccountsNumbers}
+                            data-id="combobox-fin-id"></lightning-combobox>
+      </div>
+    </div>
+
+    <div class="slds-page-header slds-m-top_medium slds-p-around_small border-header">
+      <div class="slds-page-header__row slds-align_absolute-center">
+        <div class="slds-page-header__col-title">
+          <div class="slds-media slds-align_absolute-center">
+            <!-- Account Icon -->
+            <div class="slds-media__figure">
+              <lightning-icon icon-name="custom:custom41" alternative-text="Account" size="medium"></lightning-icon>
+            </div>
+
+            <!-- Header and Subheader -->
+            <div class="slds-media__body slds-p-left_small">
+              <h1 class="slds-page-header__title slds-truncate" title="Financial Account">
+                Financial Account
+              </h1>
+              <p class="slds-text-body_small slds-page-header__info">Transaction History</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Button Section, Center-Aligned Vertically -->
+        <div class="slds-page-header__col-actions slds-grid slds-align-center slds-grid_vertical-align-center">
+          <!-- Get Transactions Button -->
+          <button
+            class="slds-button slds-button_brand slds-m-right_small"
+            onclick={handleGetTransactions}
+            data-id="refresh-button">
+            Get Transactions
+          </button>
+
+          <!-- Apply Actions Button -->
+          <button
+            class="slds-button slds-button_brand"
+            disabled={disableActions}
+            onclick={handleFlagToCase}
+            data-id="flag-button">
+            Flag to Case
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-container" data-id="table-container">
+      <template if:true={itemsToDisplay}>
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered table-bordered">
+          <thead>
+          <tr class="slds-hint-parent">
+            <th class="slds-text-align_left" scope="col">
+              <div class="" title="Flag">Flag</div>
+            </th>
+            <th class="slds-text-align_left" scope="col">
+              <div class="" title="Account">Account</div>
+            </th>
+            <th class="slds-text-align_left" scope="col">
+              <div class="" title="Date">Date</div>
+            </th>
+            <th class="slds-text-align_left" scope="col">
+              <div class="wrap-header" title="Statement Description">Statement Description</div>
+            </th>
+            <th class="slds-text-align_right" scope="col">
+              <div class="" title="Amount">Amount</div>
+            </th>
+            <th class="slds-text-align_right" scope="col">
+              <div class="" title="Balance">Balance</div>
+            </th>
+            <th class="slds-text-align_left" scope="col">
+              <div class="wrap-header" title="Journal Number">Journal Number</div>
+            </th>
+            <th class="slds-text-align_left" scope="col">
+              <div class="wrap-header" title="Transaction Code">Transaction Code</div>
+            </th>
+            <th class="slds-text-align_left" scope="col">
+              <div class="wrap-header" title="Transaction Description">Transaction Description</div>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <template for:each={itemsToDisplay} for:item="item" for:index="index" data-id='full-table'>
+            <tr key={item.id} data-id="table-tr">
+              <td class="slds-text-align_left tdformat" data-label="Flag">
+                <lightning-input type="checkbox"
+                                 checked={item.fraudFlagged}
+                                 disabled={item.disableFlag}
+                                 onchange={handleFlag}
+                                 data-item-id={index}
+                                 data-id={index}
+                                 label="Flagged"
+                                 variant="label-hidden">
+                </lightning-input>
+              </td>
+              <td class="slds-text-align_left tdformat" data-label="Account">
+                {item.accountNr}
+              </td>
+              <td class="slds-text-align_left tdformat" data-label="Date">
+                <div class="slds-truncate">
+                  {item.transactionDateFormatted}
+                </div>
+              </td>
+              <td class="slds-text-align_left tdformat" data-label="Statement Description">
+                <div class="wrap-cell">
+                  {item.statementDesc}
+                </div>
+              </td>
+              <td class="slds-text-align_right tdformat" data-label="Amount">
+                {item.amount}
+              </td>
+              <td class="slds-text-align_right tdformat" data-label="Balance">
+                {item.balance}
+              </td>
+              <td class="slds-text-align_left tdformat" data-label="Journal Number">
+                {item.journalNr}
+              </td>
+              <td class="slds-text-align_left tdformat" data-label="Transaction Code">
+                {item.tranCode}
+              </td>
+              <td class="slds-text-align_left tdformat" data-label="Transaction Description">
+                <div class="wrap-cell">
+                  {item.originalDesc}
+                </div>
+              </td>
+            </tr>
+          </template>
+          </tbody>
+        </table>
+      </template>
+    </div>
+  </div>
+</template>

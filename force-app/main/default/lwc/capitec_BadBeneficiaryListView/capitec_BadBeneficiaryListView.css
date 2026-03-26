@@ -1,0 +1,175 @@
+.slds-page-header .slds-col {
+    display: flex; /* Flexbox for alignment */
+    align-items: center; /* Center vertically */
+}
+
+.slds-page-header lightning-icon {
+    margin-right: 0.5rem; /* Space between icon and text */
+}
+
+.table-container table {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+th {
+    background-color:  #FAFAF9 !important; /* White background to match Salesforce */
+    color: #444444; /* Black text color */
+    font-family: "Salesforce Sans", Arial, sans-serif; /* Use Salesforce's font */
+    font-weight: 600; /* Use semi-bold to match list view headers */
+    padding: 10px; /* Consistent padding */
+    border-bottom: 2px solid #d8dde6; /* Light gray bottom border */
+    position: sticky; /* Keep header sticky */
+    top: 0; /* Stick to the top when scrolling */
+    z-index: 3; /* Overlay on other content */
+    vertical-align: top;
+}
+
+.custom-header-button {
+    border: none; /* Remove default border */
+    color: #444444 !important; /* Black text color */
+    font-weight: 700; /* Bold text */
+    font-size: 13px;
+    padding: 0; /* Remove padding */
+    cursor: pointer; /* Indicate it's clickable */
+    display: flex;
+    text-align: left;
+}
+
+.border-none{
+    border:none;
+}
+
+.buttonformat{
+    font-family: lato, sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    height: 2.5rem;
+}
+
+.table-bordered {
+    border-collapse: collapse; /* Ensures borders are collapsed into a single border */
+}
+
+.tdformat{
+    font-family: lato, sans-serif;
+    size: 13px;
+    font-weight: 400;
+    color: #181818;
+}
+
+.slds-text-heading_medium, .slds-text-heading--medium {
+    line-height: 20px;
+    font-size: 20px;
+    font-weight: 400;
+    font-family: "Salesforce Sans", Arial, sans-serif;
+    color: #000000;
+}
+
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #d8dde6; /* Light gray border for each cell */
+}
+
+.custom-header-button:hover {
+    color: #000000 !important; /* Maintain black text on hover */
+}
+
+.custom-header-button:focus {
+    outline: none; /* Remove focus outline */
+}
+
+.custom-header-button lightning-icon {
+    margin-left: 0.5rem; /* Space between text and icon */
+}
+
+.custom-header-button .slds-button__icon {
+    fill: #000000 !important; /* Ensure the icon is black */
+}
+
+.slds-hint-parent {
+    cursor: pointer; /* Indicate that the header is clickable */
+}
+
+/* Additional styles for the buttons inside the header */
+.header-button .slds-button {
+    color: #000000 !important; /* Force button text color to black */
+    background-color: transparent !important; /* Ensure the background is transparent */
+    border: none !important; /* Remove any border styles */
+    font-weight: 600; /* Maintain boldness */
+}
+
+.header-button:hover {
+    color: #000000 !important; /* Maintain black color on hover */
+}
+
+.header-button:focus {
+    outline: none; /* Remove focus outline */
+}
+
+td :last-of-type {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    background-color: white; /* Add background color */
+    padding: 15px; /* Add padding */
+    border-radius: 4px; /* Rounded corners */
+}
+
+.table-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    background-color: #ffffff; /* Add background color */
+}
+
+.justify-center {
+    text-align: center;
+}
+
+.slds-dropdown {
+    text-align: left;
+}
+
+.pagination-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: var(--slds-m-top_medium); /* Maintain spacing */
+}
+
+.date-input-flex {
+    display: flex;
+    flex-direction: row;
+    background-color: #e0e0e0;
+    padding: 10px; /* Add padding */
+    border-radius: 8px; /* Rounded corners */
+}
+
+.flag-button {
+    margin-right: 20px; /* Maintain right margin */
+}
+
+.border-right-custom {
+    border-right: 2px solid !important;
+    border-right-color: rgb(229, 229, 229) !important;
+    text-align: center;
+}
+
+.help-text-parent {
+    position: relative;
+}
+
+.help-text {
+    position: absolute;
+    top: 9px;
+    left: 33px;
+}
+
+.justify-left {
+    margin-left: auto;
+}

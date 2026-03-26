@@ -1,0 +1,27 @@
+<!--
+ - Created by Sebastian on 20.03.2023.
+ -->
+
+<!-- capitec_MediaSearchComponent -->
+<template>
+    <div>
+        <div class="slds-card slds-has-bottom-magnet">
+            <div class="slds-p-around_medium">
+                <h1 style="font-size: 200%; text-align: center;">
+                    Adverse Media Check
+                    <lightning-button variant="brand" label="Open URL" title="Open URL" onclick={handleOnClick} class="slds-m-left_x-small"></lightning-button>
+                </h1>
+            </div>
+        </div>
+        <div class="slds-card slds-has-top-magnet">
+            <div class="slds-p-around_medium">
+                <lightning-datatable
+                        key-field="id"
+                        data={dataToDisplay.data}
+                        columns={columns}
+                        hide-checkbox-column>
+                </lightning-datatable>
+            </div>
+        </div>
+    </div>
+</template>

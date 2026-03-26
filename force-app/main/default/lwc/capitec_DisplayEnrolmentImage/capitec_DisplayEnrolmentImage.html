@@ -1,0 +1,22 @@
+<template>
+    <lightning-card class="custom-card">
+        <div class="custom-header slds-p-horizontal_small slds-p-vertical_x-small slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+            <div class="slds-grid slds-grid_vertical-align-center">
+                <lightning-icon 
+                    icon-name="custom:custom100" 
+                    alternative-text="Enrolment Icon" 
+                    class="slds-m-right_x-small custom-icon">
+                </lightning-icon>
+                <span class="custom-title">Enrolment Image</span>
+            </div>
+        </div>
+        <div class="slds-align_absolute-center slds-p-around_medium">
+            <template if:true={imageUrl}>
+                <img src={imageUrl} alt="Account Image" class="account-image bordered-image" />
+            </template>
+            <template if:false={imageUrl}>
+                <p>No image available for this Account.</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

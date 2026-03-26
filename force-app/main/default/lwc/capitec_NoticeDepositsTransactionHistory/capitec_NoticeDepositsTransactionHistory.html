@@ -1,0 +1,86 @@
+<template>
+    <div class="main-container slds-m-top_medium" data-id="main-container">
+        <template lwc:if={showSpinner}>
+            <div class="slds-m-top_medium" data-id="spinner">
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </div>
+        </template>
+        <div class="full-width slds-m-bottom_x-small date-input-flex">
+            <button class="slds-button slds-button_brand flag-button" onclick={getLast7Dates} data-id="flag-button">
+                Last 7 days
+            </button>
+            <button class="slds-button slds-button_brand flag-button" onclick={getLast30Dates} data-id="flag-button">
+                Last 30 days
+            </button>
+        </div>
+        <div class="date-input-flex"><!--Section added for ticket FFSF-461, new date filters-->
+            <lightning-input class="slds-m-right_medium" type="date" name="input1" data-id="startDateInput" label="From Date" value={startDate}></lightning-input>
+            <lightning-input class="slds-m-right_medium" type="date" name="input1" data-id="endDateInput" label="To Date" value={endDate}></lightning-input>
+            <lightning-combobox class="slds-m-right_medium combobox-custom-width" label="Account Number" value={comboboxValue} options={financialAccountsNumbers} data-id="combobox-fin-id"></lightning-combobox>
+            <!--CECSF-195 conditionally render the button-->
+            <button class="slds-button slds-button_brand slds-m-top_medium" disabled={noAccountOptions} onclick={handleGetTransactions} data-id="refresh-button">
+                Get Transactions
+            </button>
+        </div>
+        <div class="full-width slds-m-top_medium date-input-flex">
+            <!--<button class="slds-button slds-button_brand slds-m-top_medium flag-button" disabled onclick={handleSaveCSV} data-id="flag-button">
+                Save As CSV
+            </button>-->
+            <button class="slds-button slds-button_brand slds-m-top_medium flag-button" disabled={disableActions} onclick={handleFlagToCase} data-id="flag-button">
+                Flag to case
+            </button>
+            <!--FFSF-407 - Chase Flag moved to fire under the Apply Actions Button-->
+            <!--<button class="slds-button slds-button_destructive slds-m-top_medium justify-left flag-button" disabled={disableActions} onclick={handlePostChased} data-id="flag-button">
+                Chase
+            </button>-->
+        </div>
+        <!--CECSF-195 show message if no records-->
+        <template if:true={noRecordsMessage}>
+            <div class="slds-text-heading_medium" style="text-align: center; padding: 10px;">
+                {noRecordsMessage}
+            </div>
+        </template>                       
+        <div class="table-container " data-id="table-container">
+            <template if:true={itemsToDisplay}>
+                <table class="table"> <!--As part of FFSF470, replaced css by border-right-custom and header is splitted into 2 lines-->
+                    <thead>
+                        <tr>
+                            <th class=border-right-custom>Select Transaction</th>
+                            <th class=border-right-custom>Account Number</th>
+                            <th class=border-right-custom>Transaction Date</th>
+                            <th class=border-right-custom>Statement Description</th>
+                            <th class=border-right-custom>Transaction Code</th>
+                            <th class=border-right-custom>Journal Nr</th>
+                            <th class=border-right-custom>Amount</th>
+                            <th class=border-right-custom>Transaction Description</th>
+                            <th class=border-right-custom>Balance</th>
+                            <th class=border-right-custom>Transfer Account Number</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <template for:each={itemsToDisplay} for:item="item" for:index="index" data-id='full-table'>
+                        <tr key={item.id} data-id="table-tr">
+                            <td class=border-right-custom><lightning-input type="checkbox" checked={item.fraudFlagged} disabled={item.disableFlag} onchange={handleFlag} data-item-id={index} data-id={index}></lightning-input></td>
+                            <!--td class=border-right-custom><lightning-input type="checkbox" checked={item.holdFlagged} disabled={item.disableHold} onchange={handleHold} data-item-id={index} data-id={index}></lightning-input></td>
+                            <td class="border-right-custom help-text-parent"><lightning-input type="checkbox" checked={item.chaseFlagged} disabled={item.disableChase} onchange={handleChase} data-item-id={index} data-id={index}></lightning-input>
+                                <template lwc:if={item.showHelpText}>
+                                    <lightning-helptext class="help-text" content={item.popUpLabel}>{item.popUpLabel}</lightning-helptext>
+                                </template>
+                            </td-->
+                            <td class=border-right-custom>{item.account}</td>
+                            <td class=border-right-custom>{item.formattedTransactionDate}</td><!--CECSF-280 format date for display only-->
+                            <td class=border-right-custom>{item.statementDescription}</td>
+                            <td class=border-right-custom>{item.tranCode}</td>
+                            <td class=border-right-custom>{item.journalNr}</td>
+                            <td class=border-right-custom>{item.amount}</td>
+                            <td class=border-right-custom>{item.transactionTypeDescription}</td>
+                            <td class=border-right-custom>{item.balance}</td>
+                            <td class=border-right-custom>{item.toAccount}</td>
+                        </tr>
+                    </template>
+                    </tbody>
+                </table>
+            </template>
+        </div>
+    </div>
+</template>

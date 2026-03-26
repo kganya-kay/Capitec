@@ -1,0 +1,22 @@
+<!--
+ - Created by Pako on 16.02.2024.
+ -->
+
+<!-- Capitec Fraud Modal -->
+<template>
+    <lightning-modal-header label={header}></lightning-modal-header>
+    <lightning-modal-body>
+        <div class="modal-body-box">
+            <h1>Additional information:</h1>
+            <lightning-formatted-text class="message" value={content}></lightning-formatted-text>
+        </div>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <button class="slds-button slds-button_brand slds-m-top_medium flag-button" onclick={handleOkay}>
+            Confirm
+        </button>
+        <button class="slds-button slds-button_destructive slds-m-top_medium justify-left flag-button" onclick={handleCancel}>
+            Cancel
+        </button>
+    </lightning-modal-footer>
+</template>

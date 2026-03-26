@@ -1,0 +1,7 @@
+.container { display: flex; height: 100%; }
+.sidebar { width: 250px; border-right: 1px solid #ddd; padding: 10px; background: #f9f9f9; }
+.step { padding: 12px; cursor: pointer; border-radius: 6px; margin-bottom: 5px; }
+.step:hover { background: #e0e0e0; }
+.step.active { background: #0176d3; color: white; font-weight: bold; }
+.content { flex: 1; padding: 20px; }
+.footer { margin-top: 30px; display: flex; gap: 10px; }
