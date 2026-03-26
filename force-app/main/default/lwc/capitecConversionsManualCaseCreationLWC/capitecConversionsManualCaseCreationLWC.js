@@ -86,6 +86,9 @@ export default class CapitecConversionsManualCaseCreationLWC extends NavigationM
     // ─── Debit order search filter ───────────────────────────────────────────
     @track debitOrderSearch = '';
 
+    // ─── Cancel confirmation modal ───────────────────────────────────────────
+    @track showCancelConfirm = false;
+
     // ─── New debit order modal ───────────────────────────────────────────────
     @track showNewDebitOrderForm = false;
     @track newDebitOrder = this._emptyDebitOrder();
@@ -415,12 +418,20 @@ export default class CapitecConversionsManualCaseCreationLWC extends NavigationM
     // EVENT HANDLERS – Navigation
     // =========================================================================
 
-    async handleCancel() {
-        // 1. Dispatch event – caught by the Aura wrapper (Quick Action context)
-        //    to fire force:closeQuickAction
+    /** Shows the cancel confirmation modal */
+    handleCancelClick() {
+        this.showCancelConfirm = true;
+    }
+
+    /** User chose "Go Back" – dismiss the modal, stay on the wizard */
+    handleDismissCancel() {
+        this.showCancelConfirm = false;
+    }
+
+    /** User confirmed cancel – close modal then navigate away */
+    async handleConfirmCancel() {
+        this.showCancelConfirm = false;
         this.dispatchEvent(new CustomEvent('cancel'));
-        // 2. In console, open list view and close current tab.
-        //    Outside console, do normal list navigation.
         await this._returnToListAndCloseCurrentTabIfConsole();
     }
 

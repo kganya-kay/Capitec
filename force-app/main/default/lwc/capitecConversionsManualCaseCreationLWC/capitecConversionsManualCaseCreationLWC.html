@@ -67,7 +67,7 @@
                 </div>
 
                 <div class="action-buttons">
-                    <lightning-button label="Cancel" onclick={handleCancel}></lightning-button>
+                    <lightning-button label="Cancel" onclick={handleCancelClick}></lightning-button>
                     <lightning-button variant="brand" label="Next" onclick={handleNext}></lightning-button>
                 </div>
             </template>
@@ -173,7 +173,7 @@
                 </div>
 
                 <div class="action-buttons">
-                    <lightning-button label="Cancel" onclick={handleCancel}></lightning-button>
+                    <lightning-button label="Cancel" onclick={handleCancelClick}></lightning-button>
                     <div class="right-buttons">
                         <lightning-button label="Previous" onclick={handlePrevious} class="slds-m-right_small"></lightning-button>
                         <lightning-button variant="brand" label="Next" onclick={handleNext}></lightning-button>
@@ -310,7 +310,7 @@
                 </div>
 
                 <div class="action-buttons">
-                    <lightning-button label="Cancel" onclick={handleCancel}></lightning-button>
+                    <lightning-button label="Cancel" onclick={handleCancelClick}></lightning-button>
                     <div class="right-buttons">
                         <lightning-button label="Previous" onclick={handlePrevious} class="slds-m-right_small"></lightning-button>
                         <lightning-button variant="brand" label="Next" onclick={handleNext}></lightning-button>
@@ -377,7 +377,6 @@
                     </div>
                 </div>
 
-                <!-- Old Bank Information -->
                 <div class="section-card">
                     <div class="section-header">
                         <lightning-icon icon-name="utility:chevrondown" size="x-small"></lightning-icon>
@@ -565,7 +564,7 @@
                 </template>
 
                 <div class="action-buttons">
-                    <lightning-button label="Cancel" onclick={handleCancel}></lightning-button>
+                    <lightning-button label="Cancel" onclick={handleCancelClick}></lightning-button>
                     <div class="right-buttons">
                         <lightning-button label="Previous" onclick={handlePrevious} class="slds-m-right_small"></lightning-button>
                         <lightning-button variant="brand" label="Next" onclick={handleNext}></lightning-button>
@@ -719,7 +718,7 @@
                 </div>
 
                 <div class="action-buttons">
-                    <lightning-button label="Cancel" onclick={handleCancel}></lightning-button>
+                    <lightning-button label="Cancel" onclick={handleCancelClick}></lightning-button>
                     <div class="right-buttons">
                         <lightning-button label="Previous" onclick={handlePrevious} class="slds-m-right_small"></lightning-button>
                         <lightning-button variant="brand" label="Submit" onclick={handleSubmit}></lightning-button>
@@ -729,4 +728,38 @@
 
         </div>
     </div>
+
+    <!-- ================================================================
+         CANCEL CONFIRMATION MODAL (shared across all steps)
+    ================================================================ -->
+    <template if:true={showCancelConfirm}>
+        <section class="slds-modal slds-fade-in-open" role="dialog" aria-modal="true" aria-labelledby="cancelModalTitle">
+            <div class="slds-modal__container">
+                <div class="slds-modal__header">
+                    <lightning-icon icon-name="utility:warning" size="small" variant="inverse" class="slds-m-right_x-small"></lightning-icon>
+                    <h2 id="cancelModalTitle" class="slds-modal__title">Cancel Case ?</h2>
+                </div>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <p class="slds-text-align_center slds-m-bottom_none">
+                        Are you sure you want to cancel this case ? All captured information will be lost.
+                    </p>
+                </div>
+                <div class="slds-modal__footer">
+                    <lightning-button
+                        label="Go Back"
+                        variant="neutral"
+                        onclick={handleDismissCancel}
+                        class="slds-m-right_small">
+                    </lightning-button>
+                    <lightning-button
+                        label="Yes Cancel"
+                        variant="destructive"
+                        onclick={handleConfirmCancel}>
+                    </lightning-button>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
 </template>
