@@ -1,0 +1,621 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>This object represent the debit order detail related to a Debit Order Switch for the Conversion team.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>false</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>Amount__c</fullName>
+        <label>Amount</label>
+        <precision>17</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Case__c</fullName>
+        <description>Case Record Id related to the Debit Order Detail record</description>
+        <label>Case</label>
+        <referenceTo>Case</referenceTo>
+        <relationshipName>Debit_Order_Details</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Category__c</fullName>
+        <label>Category</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>FD Debit Order Switch</fullName>
+                    <default>false</default>
+                    <label>FD Debit Order Switch</label>
+                </value>
+                <value>
+                    <fullName>WS debit Order Switch</fullName>
+                    <default>false</default>
+                    <label>WS debit Order Switch</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Confirmation_Cause_Code__c</fullName>
+        <label>Confirmation Cause Code</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Account Closed</fullName>
+                    <default>false</default>
+                    <label>Account Closed</label>
+                </value>
+                <value>
+                    <fullName>Account Handover/Debt Review</fullName>
+                    <default>false</default>
+                    <label>Account Handover/Debt Review</label>
+                </value>
+                <value>
+                    <fullName>Action Required From Client</fullName>
+                    <default>false</default>
+                    <label>Action Required From Client</label>
+                </value>
+                <value>
+                    <fullName>Bank Details Already Updated</fullName>
+                    <default>false</default>
+                    <label>Bank Details Already Updated</label>
+                </value>
+                <value>
+                    <fullName>Cash payer customer</fullName>
+                    <default>false</default>
+                    <label>Cash payer customer</label>
+                </value>
+                <value>
+                    <fullName>Client Not Contactable</fullName>
+                    <default>false</default>
+                    <label>Client Not Contactable</label>
+                </value>
+                <value>
+                    <fullName>Client Not Interested</fullName>
+                    <default>false</default>
+                    <label>Client Not Interested</label>
+                </value>
+                <value>
+                    <fullName>Client to Contact DOI</fullName>
+                    <default>false</default>
+                    <label>Client to Contact DOI</label>
+                </value>
+                <value>
+                    <fullName>Confirmation via SMS Required</fullName>
+                    <default>false</default>
+                    <label>Confirmation via SMS Required</label>
+                </value>
+                <value>
+                    <fullName>Debit Order/Policy Cancelled</fullName>
+                    <default>false</default>
+                    <label>Debit Order/Policy Cancelled</label>
+                </value>
+                <value>
+                    <fullName>Details Not Found/Invalid Details</fullName>
+                    <default>false</default>
+                    <label>Details Not Found/Invalid Details</label>
+                </value>
+                <value>
+                    <fullName>No active debit orders</fullName>
+                    <default>false</default>
+                    <label>No active debit orders</label>
+                </value>
+                <value>
+                    <fullName>Paid up</fullName>
+                    <default>false</default>
+                    <label>Paid up</label>
+                </value>
+                <value>
+                    <fullName>Policy lapsed/frozen</fullName>
+                    <default>false</default>
+                    <label>Policy lapsed/frozen</label>
+                </value>
+                <value>
+                    <fullName>Successfully Confirmed</fullName>
+                    <default>false</default>
+                    <label>Successfully Confirmed</label>
+                </value>
+                <value>
+                    <fullName>Confirmation via email required</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Confirmation via email required</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>DOI_Sub_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>DOI Sub Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DO_Issue__c</fullName>
+        <label>DO Issue</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Reference number unclear</fullName>
+                    <default>false</default>
+                    <label>Reference number unclear</label>
+                </value>
+                <value>
+                    <fullName>Incomplete reference number</fullName>
+                    <default>false</default>
+                    <label>Incomplete reference number</label>
+                </value>
+                <value>
+                    <fullName>Invalid Reference number</fullName>
+                    <default>false</default>
+                    <label>Invalid Reference number</label>
+                </value>
+                <value>
+                    <fullName>Invalid or incomplete debit order info</fullName>
+                    <default>false</default>
+                    <label>Invalid or incomplete debit order info</label>
+                </value>
+                <value>
+                    <fullName>No amount provided</fullName>
+                    <default>false</default>
+                    <label>No amount provided</label>
+                </value>
+                <value>
+                    <fullName>Client unreachable/ no response</fullName>
+                    <default>false</default>
+                    <label>Client unreachable/ no response</label>
+                </value>
+                <value>
+                    <fullName>Requested Debit order does not reflect on the statement</fullName>
+                    <default>false</default>
+                    <label>Requested Debit order does not reflect on the statement</label>
+                </value>
+                <value>
+                    <fullName>DOA missing</fullName>
+                    <default>false</default>
+                    <label>DOA missing</label>
+                </value>
+                <value>
+                    <fullName>DOA invalid</fullName>
+                    <default>false</default>
+                    <label>DOA invalid</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Debit_OrderDate__c</fullName>
+        <label>Debit Order Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Debit_Order_Date__c</fullName>
+        <label>Debit Order Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Debit_Order_Initiator__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <label>DOI Name</label>
+        <referenceTo>Debit_Order_Initiator__c</referenceTo>
+        <relationshipLabel>Debit Orders</relationshipLabel>
+        <relationshipName>Debit_Orders</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>External_Debit_Order_Initiator_ID__c</fullName>
+        <externalId>false</externalId>
+        <label>External Debit Order Initiator ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>External_Debit_Order_Initiator_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>External Debit Order Initiator Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>From_Account_Formula__c</fullName>
+        <externalId>false</externalId>
+        <formula>Case__r.Conversion__r.Old_Account_Number__c</formula>
+        <label>From Account</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>From_Account__c</fullName>
+        <externalId>false</externalId>
+        <label>From Account</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>No_of_Debit_Orders__c</fullName>
+        <externalId>false</externalId>
+        <label>No of Debit Orders</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Not_yet_onboarded__c</fullName>
+        <externalId>false</externalId>
+        <label>DOI not Onboarded</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Other_Debit_Order_Issue__c</fullName>
+        <externalId>false</externalId>
+        <label>Other Debit Order Issue</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Preferred_Comms__c</fullName>
+        <externalId>false</externalId>
+        <label>Preferred Comms</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reviewed__c</fullName>
+        <defaultValue>false</defaultValue>
+        <label>Reviewed</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Submission_Date__c</fullName>
+        <label>Submission Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Submitted_Cause_Code__c</fullName>
+        <label>Submitted Cause Code</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Client to Action</fullName>
+                    <default>false</default>
+                    <label>Client to Action</label>
+                </value>
+                <value>
+                    <fullName>No Client Action</fullName>
+                    <default>true</default>
+                    <label>No Client Action</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>TECH_CB_To_Email__c</fullName>
+        <formula>IF(
+    TEXT(Debit_Order_Initiator__r.Preferred_Comms__c) = &apos;CB To Email&apos;,
+    TRUE,
+    FALSE
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CB To Email?</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>To_Capitec_Account__c</fullName>
+        <externalId>false</externalId>
+        <label>To Capitec Account</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Withdrawn_Cause_Code__c</fullName>
+        <label>Withdrawn Cause Code</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Agent Capturing Error</fullName>
+                    <default>false</default>
+                    <label>Agent Capturing Error</label>
+                </value>
+                <value>
+                    <fullName>Branch advised to ignore request</fullName>
+                    <default>false</default>
+                    <label>Branch advised to ignore request</label>
+                </value>
+                <value>
+                    <fullName>Client cancelled request</fullName>
+                    <default>false</default>
+                    <label>Client cancelled request</label>
+                </value>
+                <value>
+                    <fullName>Client requested to switch for next month</fullName>
+                    <default>false</default>
+                    <label>Client requested to switch for next month</label>
+                </value>
+                <value>
+                    <fullName>Employer does not accept Capitec Banking details</fullName>
+                    <default>false</default>
+                    <label>Employer does not accept Capitec Banking details</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <label>Debit Order</label>
+    <nameField>
+        <label>DO Reference Number</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Debit Orders</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Amount_cannot_be_negative</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(
+   NOT(ISBLANK(Amount__c)),  
+   Amount__c &lt;= 0
+)</errorConditionFormula>
+        <errorMessage>Amount must be greater than zero.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Confirmed_Cause_Code_Rule</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(
+    NOT(ISNEW()), 
+    ISPICKVAL(Case__r.Status, &quot;Submitted&quot;),
+    ISBLANK(TEXT(Confirmation_Cause_Code__c))
+)</errorConditionFormula>
+        <errorMessage>Please enter Confirmation Cause Code before saving.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Other_Debit_Issue_Field_is_blank</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(
+				NOT($Setup.Bypass_Configurations__c.Bypass_Validation_Rules__c),
+    INCLUDES(DO_Issue__c, &quot;Other&quot;),
+    ISBLANK(Other_Debit_Order_Issue__c)
+)</errorConditionFormula>
+        <errorMessage>Please specify the Other Debit Order Issue.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Submitted_and_Withdrawn_Cause_Code_Rule</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(
+    NOT(ISNEW()), 
+    ISPICKVAL(Case__r.Status, &quot;In Progress&quot;),
+    ISBLANK(TEXT(Submitted_Cause_Code__c)),
+    ISBLANK(TEXT(Withdrawn_Cause_Code__c))
+)</errorConditionFormula>
+        <errorMessage>Please enter Submitted Cause Code OR Withdrawn Cause Code before saving.</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+</CustomObject>

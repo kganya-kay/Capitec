@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>Central Conversions Team Leader</name>
+    <queueMembers>
+        <publicGroups>
+            <publicGroup>Conversions_Team_Leaders</publicGroup>
+        </publicGroups>
+    </queueMembers>
+    <queueRoutingConfig>Conversions_Team_Leader</queueRoutingConfig>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

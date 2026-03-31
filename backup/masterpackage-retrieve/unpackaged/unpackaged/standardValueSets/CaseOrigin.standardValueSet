@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>Existing Client Review</fullName>
+        <default>true</default>
+        <label>Existing Client Review</label>
+    </standardValue>
+    <standardValue>
+        <fullName>New Client Review</fullName>
+        <default>false</default>
+        <label>New Client Review</label>
+    </standardValue>
+    <standardValue>
+        <fullName>External Bank</fullName>
+        <default>false</default>
+        <label>External Bank</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Monitoring</fullName>
+        <default>false</default>
+        <label>Monitoring</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Chase</fullName>
+        <default>false</default>
+        <label>Chase</label>
+    </standardValue>
+    <standardValue>
+        <fullName>App</fullName>
+        <default>false</default>
+        <label>App</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Branch</fullName>
+        <default>false</default>
+        <label>Branch</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Client Care</fullName>
+        <default>false</default>
+        <label>Client Care</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Email</fullName>
+        <default>false</default>
+        <label>Email</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Manual</fullName>
+        <default>false</default>
+        <label>Manual</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Walk-in</fullName>
+        <default>false</default>
+        <label>Walk-in</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Website</fullName>
+        <default>false</default>
+        <label>Website</label>
+    </standardValue>
+    <standardValue>
+        <fullName>WhatsApp</fullName>
+        <default>false</default>
+        <label>WhatsApp</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Branch Email</fullName>
+        <default>false</default>
+        <label>Branch Email</label>
+    </standardValue>
+    <standardValue>
+        <fullName>NBS</fullName>
+        <default>false</default>
+        <label>NBS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>USSD</fullName>
+        <default>false</default>
+        <label>USSD</label>
+    </standardValue>
+    <standardValue>
+        <fullName>System originated</fullName>
+        <default>false</default>
+        <label>System originated</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Data Wash</fullName>
+        <default>false</default>
+        <label>Data Wash</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Deceased Estates</fullName>
+        <default>false</default>
+        <label>Deceased Estates</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Email - Retail Complaints</fullName>
+        <default>false</default>
+        <label>Email - Retail Complaints</label>
+    </standardValue>
+    <standardValue>
+        <fullName>ADR Agent</fullName>
+        <default>false</default>
+        <label>ADR Agent</label>
+    </standardValue>
+    <standardValue>
+        <fullName>BSC Management</fullName>
+        <default>false</default>
+        <label>BSC Management</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Card disputes</fullName>
+        <default>false</default>
+        <label>Card disputes</label>
+    </standardValue>
+    <standardValue>
+        <fullName>CAT</fullName>
+        <default>false</default>
+        <label>CAT</label>
+    </standardValue>
+    <standardValue>
+        <fullName>CCS</fullName>
+        <default>false</default>
+        <label>CCS</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Centriq</fullName>
+        <default>false</default>
+        <label>Centriq</label>
+    </standardValue>
+    <standardValue>
+        <fullName>CEO&apos;s Office</fullName>
+        <default>false</default>
+        <label>CEO&apos;s Office</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Client</fullName>
+        <default>false</default>
+        <label>Client</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Client Care Admin</fullName>
+        <default>false</default>
+        <label>Client Care Admin</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Social Media</fullName>
+        <default>false</default>
+        <label>Social Media</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Collections</fullName>
+        <default>false</default>
+        <label>Collections</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Complaints Call</fullName>
+        <default>false</default>
+        <label>Complaints Call</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Consumer Office</fullName>
+        <default>false</default>
+        <label>Consumer Office</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Direct Loans</fullName>
+        <default>false</default>
+        <label>Direct Loans</label>
+    </standardValue>
+    <standardValue>
+        <fullName>EPDM</fullName>
+        <default>false</default>
+        <label>EPDM</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Forensics</fullName>
+        <default>false</default>
+        <label>Forensics</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Forex</fullName>
+        <default>false</default>
+        <label>Forex</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Finance</fullName>
+        <default>false</default>
+        <label>Finance</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Hello Peter</fullName>
+        <default>false</default>
+        <label>Hello Peter</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Helpdesk</fullName>
+        <default>false</default>
+        <label>Helpdesk</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Interbank</fullName>
+        <default>false</default>
+        <label>Interbank</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Attorneys</fullName>
+        <default>false</default>
+        <label>Attorneys</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Media</fullName>
+        <default>false</default>
+        <label>Media</label>
+    </standardValue>
+    <standardValue>
+        <fullName>National Consumer Tribunal</fullName>
+        <default>false</default>
+        <label>National Consumer Tribunal</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Non-ADR Agent</fullName>
+        <default>false</default>
+        <label>Non-ADR Agent</label>
+    </standardValue>
+    <standardValue>
+        <fullName>FAIS Ombudsman</fullName>
+        <default>false</default>
+        <label>FAIS Ombudsman</label>
+    </standardValue>
+    <standardValue>
+        <fullName>National Financial Ombuds Scheme (NFO)</fullName>
+        <default>false</default>
+        <label>National Financial Ombuds Scheme (NFO)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>National Financial Ombuds Scheme (NFO – RFI)</fullName>
+        <default>false</default>
+        <label>National Financial Ombuds Scheme (NFO – RFI)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>National Credit Regulator</fullName>
+        <default>false</default>
+        <label>National Credit Regulator</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Operations Manager</fullName>
+        <default>false</default>
+        <label>Operations Manager</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Regional Manager</fullName>
+        <default>false</default>
+        <label>Regional Manager</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Service Recovery</fullName>
+        <default>false</default>
+        <label>Service Recovery</label>
+    </standardValue>
+    <standardValue>
+        <fullName>UTD</fullName>
+        <default>false</default>
+        <label>UTD</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Other</fullName>
+        <default>false</default>
+        <label>Other</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Forensic Investigation</fullName>
+        <default>false</default>
+        <label>Forensic Investigation</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Branch Bypass</fullName>
+        <default>false</default>
+        <label>Branch Bypass</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Internal Fraud Daily Audit</fullName>
+        <default>false</default>
+        <label>Internal Fraud Daily Audit</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Mule Monitoring</fullName>
+        <default>false</default>
+        <label>Mule Monitoring</label>
+    </standardValue>
+    <standardValue>
+        <fullName>External Monitoring</fullName>
+        <default>false</default>
+        <label>External Monitoring</label>
+    </standardValue>
+    <standardValue>
+        <fullName>AML SI</fullName>
+        <default>false</default>
+        <label>AML SI</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Branch Verifications</fullName>
+        <default>false</default>
+        <label>Branch Verifications</label>
+    </standardValue>
+    <standardValue>
+        <fullName>External Verifications</fullName>
+        <default>false</default>
+        <label>External Verifications</label>
+    </standardValue>
+</StandardValueSet>

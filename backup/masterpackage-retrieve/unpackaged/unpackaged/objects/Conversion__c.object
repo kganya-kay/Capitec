@@ -1,0 +1,1144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>This object is used to store all the information related to conversion cases [Debit Order Switch]</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>false</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>Additional_Comments__c</fullName>
+        <label>Additional Comments</label>
+        <length>4000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Assigned_Agent__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <label>Assigned Agent</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Conversion</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Branch_ID__c</fullName>
+        <externalId>false</externalId>
+        <label>Branch ID</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Case_Closure_Reason__c</fullName>
+        <label>Case Closure Reason</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Branch indicate - Ignore request</fullName>
+                    <default>false</default>
+                    <label>Branch indicate - Ignore request</label>
+                </value>
+                <value>
+                    <fullName>Client Cancelled Request</fullName>
+                    <default>false</default>
+                    <label>Client Cancelled Request</label>
+                </value>
+                <value>
+                    <fullName>Client Did not agree to switch</fullName>
+                    <default>false</default>
+                    <label>Client Did not agree to switch</label>
+                </value>
+                <value>
+                    <fullName>Client will submit</fullName>
+                    <default>false</default>
+                    <label>Client will submit</label>
+                </value>
+                <value>
+                    <fullName>Invalid - Agreement not setup</fullName>
+                    <default>false</default>
+                    <label>Invalid - Agreement not setup</label>
+                </value>
+                <value>
+                    <fullName>Invalid - Duplicate</fullName>
+                    <default>false</default>
+                    <label>Invalid - Duplicate</label>
+                </value>
+                <value>
+                    <fullName>Invalid - No active debit orders</fullName>
+                    <default>false</default>
+                    <label>Invalid - No active debit orders</label>
+                </value>
+                <value>
+                    <fullName>Invalid - Request for Savings Plan</fullName>
+                    <default>false</default>
+                    <label>Invalid - Request for Savings Plan</label>
+                </value>
+                <value>
+                    <fullName>Invalid Bank Statement Request</fullName>
+                    <default>false</default>
+                    <label>Invalid Bank Statement Request</label>
+                </value>
+                <value>
+                    <fullName>Invalid Payslip Request – Invalid Reference number/No Amount</fullName>
+                    <default>false</default>
+                    <label>Invalid Payslip Request – Invalid Reference number/No Amount</label>
+                </value>
+                <value>
+                    <fullName>Invalid Payslip Request – No Payslip attached</fullName>
+                    <default>false</default>
+                    <label>Invalid Payslip Request – No Payslip attached</label>
+                </value>
+                <value>
+                    <fullName>Invalid Request - Bank Statement Older than 3 months</fullName>
+                    <default>false</default>
+                    <label>Invalid Request - Bank Statement Older than 3 months</label>
+                </value>
+                <value>
+                    <fullName>Invalid SMS Request – Incomplete or Invalid Reference/no amount</fullName>
+                    <default>false</default>
+                    <label>Invalid SMS Request – Incomplete or Invalid Reference/no amount</label>
+                </value>
+                <value>
+                    <fullName>Missing Bank Statement/No Comments</fullName>
+                    <default>false</default>
+                    <label>Missing Bank Statement/No Comments</label>
+                </value>
+                <value>
+                    <fullName>Refund Processed</fullName>
+                    <default>false</default>
+                    <label>Refund Processed</label>
+                </value>
+                <value>
+                    <fullName>No attachment/invalid attachment</fullName>
+                    <default>false</default>
+                    <label>No attachment/invalid attachment</label>
+                </value>
+                <value>
+                    <fullName>Query not related to switch</fullName>
+                    <default>false</default>
+                    <label>Query not related to switch</label>
+                </value>
+                <value>
+                    <fullName>Auto Close</fullName>
+                    <default>false</default>
+                    <label>Auto Close</label>
+                </value>
+                <value>
+                    <fullName>Auto Close - No Client feedback</fullName>
+                    <default>false</default>
+                    <label>Auto Close - No Client feedback</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Case_Escalated_to_Mgr__c</fullName>
+        <defaultValue>false</defaultValue>
+        <label>Case Escalated to Mgr?</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Case_Escalated_to_TL__c</fullName>
+        <defaultValue>false</defaultValue>
+        <label>Case Escalated to TL?</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Case__c</fullName>
+        <description>The master case created for conversion request [Debit Order Switch</description>
+        <label>Case</label>
+        <referenceTo>Case</referenceTo>
+        <relationshipLabel>Conversion</relationshipLabel>
+        <relationshipName>Conversion</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>DEPRECATED_Preferred_Contact_Time__c</fullName>
+        <label>DEPRECATED Preferred Contact Time</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Days_Scheduled__c</fullName>
+        <label>Days Scheduled</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>7</fullName>
+                    <default>false</default>
+                    <label>7</label>
+                </value>
+                <value>
+                    <fullName>14</fullName>
+                    <default>false</default>
+                    <label>14</label>
+                </value>
+                <value>
+                    <fullName>18</fullName>
+                    <default>false</default>
+                    <label>18</label>
+                </value>
+                <value>
+                    <fullName>21</fullName>
+                    <default>false</default>
+                    <label>21</label>
+                </value>
+                <value>
+                    <fullName>25</fullName>
+                    <default>false</default>
+                    <label>25</label>
+                </value>
+                <value>
+                    <fullName>40</fullName>
+                    <default>false</default>
+                    <label>40</label>
+                </value>
+                <value>
+                    <fullName>90</fullName>
+                    <default>false</default>
+                    <label>90</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Future_Dated_Case__c</fullName>
+        <defaultValue>false</defaultValue>
+        <label>Future Dated Case</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Issue__c</fullName>
+        <label>Issue</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Bank statement and Bureau - WS Debit Order Switch Request</fullName>
+                    <default>false</default>
+                    <label>Bank statement and Bureau - WS Debit Order Switch Request</label>
+                </value>
+                <value>
+                    <fullName>Bank Statement and Payslip – WS Debit Order Switch Request</fullName>
+                    <default>false</default>
+                    <label>Bank Statement and Payslip – WS Debit Order Switch Request</label>
+                </value>
+                <value>
+                    <fullName>Bureau Details -WS Debit Order Switch Request</fullName>
+                    <default>false</default>
+                    <label>Bureau Details -WS Debit Order Switch Request</label>
+                </value>
+                <value>
+                    <fullName>CAPFUNERAL – WS Debit Order Switch Request</fullName>
+                    <default>false</default>
+                    <label>CAPFUNERAL – WS Debit Order Switch Request</label>
+                </value>
+                <value>
+                    <fullName>DL Lead - WS Debit Order Switch Request</fullName>
+                    <default>false</default>
+                    <label>DL Lead - WS Debit Order Switch Request</label>
+                </value>
+                <value>
+                    <fullName>Mercantile - Debit Order Switch Request</fullName>
+                    <default>false</default>
+                    <label>Mercantile - Debit Order Switch Request</label>
+                </value>
+                <value>
+                    <fullName>Mercantile - Website Debit Order Switch Request</fullName>
+                    <default>false</default>
+                    <label>Mercantile - Website Debit Order Switch Request</label>
+                </value>
+                <value>
+                    <fullName>SMS &amp; Bureau - WS Debit Order Switch Request</fullName>
+                    <default>false</default>
+                    <label>SMS &amp; Bureau - WS Debit Order Switch Request</label>
+                </value>
+                <value>
+                    <fullName>SMS - WS Debit Order Switch Request</fullName>
+                    <default>false</default>
+                    <label>SMS - WS Debit Order Switch Request</label>
+                </value>
+                <value>
+                    <fullName>Website - WS Debit Order Switch Request</fullName>
+                    <default>false</default>
+                    <label>Website - WS Debit Order Switch Request</label>
+                </value>
+                <value>
+                    <fullName>WhatsApp - Debit Order Switch Request</fullName>
+                    <default>false</default>
+                    <label>WhatsApp - Debit Order Switch Request</label>
+                </value>
+                <value>
+                    <fullName>APP Debit Order Switch Request</fullName>
+                    <default>false</default>
+                    <label>APP Debit Order Switch Request</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Manual_Case__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Flag to define if the case was created manually</description>
+        <label>Manual Case?</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Non_Client__c</fullName>
+        <defaultValue>false</defaultValue>
+        <label>Non-Client</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Old_Account_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Account Number</label>
+        <length>25</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Old_Bank_Name__c</fullName>
+        <label>Bank Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>20TWENTY</fullName>
+                    <default>false</default>
+                    <label>20TWENTY</label>
+                </value>
+                <value>
+                    <fullName>ABN AMRO BANK</fullName>
+                    <default>false</default>
+                    <label>ABN AMRO BANK</label>
+                </value>
+                <value>
+                    <fullName>ABSA BANK</fullName>
+                    <default>false</default>
+                    <label>ABSA BANK</label>
+                </value>
+                <value>
+                    <fullName>ACCESS BANK (SOUTH AFRICA) LTD</fullName>
+                    <default>false</default>
+                    <label>ACCESS BANK (SOUTH AFRICA) LTD</label>
+                </value>
+                <value>
+                    <fullName>AFRICAN BANK</fullName>
+                    <default>false</default>
+                    <label>AFRICAN BANK</label>
+                </value>
+                <value>
+                    <fullName>ALBARAKA BANK</fullName>
+                    <default>false</default>
+                    <label>ALBARAKA BANK</label>
+                </value>
+                <value>
+                    <fullName>BANK WINDHOEK</fullName>
+                    <default>false</default>
+                    <label>BANK WINDHOEK</label>
+                </value>
+                <value>
+                    <fullName>BANK ZERO MUTUAL BANK</fullName>
+                    <default>false</default>
+                    <label>BANK ZERO MUTUAL BANK</label>
+                </value>
+                <value>
+                    <fullName>BIDVEST BANK</fullName>
+                    <default>false</default>
+                    <label>BIDVEST BANK</label>
+                </value>
+                <value>
+                    <fullName>BNP PARIBAS SA SOUTH AFRICA</fullName>
+                    <default>false</default>
+                    <label>BNP PARIBAS SA SOUTH AFRICA</label>
+                </value>
+                <value>
+                    <fullName>CAPITEC BANK</fullName>
+                    <default>false</default>
+                    <label>CAPITEC BANK</label>
+                </value>
+                <value>
+                    <fullName>CITI BANK</fullName>
+                    <default>false</default>
+                    <label>CITI BANK</label>
+                </value>
+                <value>
+                    <fullName>DISCOVERY BANK</fullName>
+                    <default>false</default>
+                    <label>DISCOVERY BANK</label>
+                </value>
+                <value>
+                    <fullName>FBC FIDELITY BANK</fullName>
+                    <default>false</default>
+                    <label>FBC FIDELITY BANK</label>
+                </value>
+                <value>
+                    <fullName>FINBOND MUTUAL BANK</fullName>
+                    <default>false</default>
+                    <label>FINBOND MUTUAL BANK</label>
+                </value>
+                <value>
+                    <fullName>FIRST NATIONAL BANK</fullName>
+                    <default>false</default>
+                    <label>FIRST NATIONAL BANK</label>
+                </value>
+                <value>
+                    <fullName>FIRST NATIONAL BANK LESOTHO</fullName>
+                    <default>false</default>
+                    <label>FIRST NATIONAL BANK LESOTHO</label>
+                </value>
+                <value>
+                    <fullName>FIRST NATIONAL BANK NAMIBIA</fullName>
+                    <default>false</default>
+                    <label>FIRST NATIONAL BANK NAMIBIA</label>
+                </value>
+                <value>
+                    <fullName>FIRST NATIONAL BANK SWAZILAND</fullName>
+                    <default>false</default>
+                    <label>FIRST NATIONAL BANK SWAZILAND</label>
+                </value>
+                <value>
+                    <fullName>GRINDROD BANK</fullName>
+                    <default>false</default>
+                    <label>GRINDROD BANK</label>
+                </value>
+                <value>
+                    <fullName>HABIB OVERSEAS BANK</fullName>
+                    <default>false</default>
+                    <label>HABIB OVERSEAS BANK</label>
+                </value>
+                <value>
+                    <fullName>HBZ BANK</fullName>
+                    <default>false</default>
+                    <label>HBZ BANK</label>
+                </value>
+                <value>
+                    <fullName>HSBC</fullName>
+                    <default>false</default>
+                    <label>HSBC</label>
+                </value>
+                <value>
+                    <fullName>INVESTEC BANK</fullName>
+                    <default>false</default>
+                    <label>INVESTEC BANK</label>
+                </value>
+                <value>
+                    <fullName>ITHALA ABSA</fullName>
+                    <default>false</default>
+                    <label>ITHALA ABSA</label>
+                </value>
+                <value>
+                    <fullName>JP MORGAN CHASE BANK</fullName>
+                    <default>false</default>
+                    <label>JP MORGAN CHASE BANK</label>
+                </value>
+                <value>
+                    <fullName>MEEG BANK</fullName>
+                    <default>false</default>
+                    <label>MEEG BANK</label>
+                </value>
+                <value>
+                    <fullName>MERCANTILE BANK</fullName>
+                    <default>false</default>
+                    <label>MERCANTILE BANK</label>
+                </value>
+                <value>
+                    <fullName>MTN BANKING</fullName>
+                    <default>false</default>
+                    <label>MTN BANKING</label>
+                </value>
+                <value>
+                    <fullName>NEDBANK</fullName>
+                    <default>false</default>
+                    <label>NEDBANK</label>
+                </value>
+                <value>
+                    <fullName>NEDBANK BOND OR LOAN ACCOUNTS</fullName>
+                    <default>false</default>
+                    <label>NEDBANK BOND OR LOAN ACCOUNTS</label>
+                </value>
+                <value>
+                    <fullName>NEDBANK CORPORATE SAVER</fullName>
+                    <default>false</default>
+                    <label>NEDBANK CORPORATE SAVER</label>
+                </value>
+                <value>
+                    <fullName>NEDBANK LESOTHO</fullName>
+                    <default>false</default>
+                    <label>NEDBANK LESOTHO</label>
+                </value>
+                <value>
+                    <fullName>NEDBANK LTD INC BOE BANK</fullName>
+                    <default>false</default>
+                    <label>NEDBANK LTD INC BOE BANK</label>
+                </value>
+                <value>
+                    <fullName>NEDBANK LTD INC PEP BANK</fullName>
+                    <default>false</default>
+                    <label>NEDBANK LTD INC PEP BANK</label>
+                </value>
+                <value>
+                    <fullName>NEDBANK NAMIBIA</fullName>
+                    <default>false</default>
+                    <label>NEDBANK NAMIBIA</label>
+                </value>
+                <value>
+                    <fullName>NEDBANK PEOPLES MORTAGES LTD</fullName>
+                    <default>false</default>
+                    <label>NEDBANK PEOPLES MORTAGES LTD</label>
+                </value>
+                <value>
+                    <fullName>NEDBANK SWAZILAND</fullName>
+                    <default>false</default>
+                    <label>NEDBANK SWAZILAND</label>
+                </value>
+                <value>
+                    <fullName>OLYMPUS MOBILE</fullName>
+                    <default>false</default>
+                    <label>OLYMPUS MOBILE</label>
+                </value>
+                <value>
+                    <fullName>PEOPLE BANK LTD INC PEP BANK</fullName>
+                    <default>false</default>
+                    <label>PEOPLE BANK LTD INC PEP BANK</label>
+                </value>
+                <value>
+                    <fullName>PEOPLES BANK LTD INC NBS</fullName>
+                    <default>false</default>
+                    <label>PEOPLES BANK LTD INC NBS</label>
+                </value>
+                <value>
+                    <fullName>PERMANENT BANK</fullName>
+                    <default>false</default>
+                    <label>PERMANENT BANK</label>
+                </value>
+                <value>
+                    <fullName>RAND MERCHANT BANK</fullName>
+                    <default>false</default>
+                    <label>RAND MERCHANT BANK</label>
+                </value>
+                <value>
+                    <fullName>SA BANK OF ATHENS</fullName>
+                    <default>false</default>
+                    <label>SA BANK OF ATHENS</label>
+                </value>
+                <value>
+                    <fullName>SA POST OFFICE</fullName>
+                    <default>false</default>
+                    <label>SA POST OFFICE</label>
+                </value>
+                <value>
+                    <fullName>SA RESERVE BANK</fullName>
+                    <default>false</default>
+                    <label>SA RESERVE BANK</label>
+                </value>
+                <value>
+                    <fullName>SASFIN BANK</fullName>
+                    <default>false</default>
+                    <label>SASFIN BANK</label>
+                </value>
+                <value>
+                    <fullName>STANDARD BANK</fullName>
+                    <default>false</default>
+                    <label>STANDARD BANK</label>
+                </value>
+                <value>
+                    <fullName>STANDARD BANK LESOTHO</fullName>
+                    <default>false</default>
+                    <label>STANDARD BANK LESOTHO</label>
+                </value>
+                <value>
+                    <fullName>STANDARD BANK NAMIBIA</fullName>
+                    <default>false</default>
+                    <label>STANDARD BANK NAMIBIA</label>
+                </value>
+                <value>
+                    <fullName>STANDARD BANK SWAZILAND</fullName>
+                    <default>false</default>
+                    <label>STANDARD BANK SWAZILAND</label>
+                </value>
+                <value>
+                    <fullName>STANDARD CHARTERED BANK</fullName>
+                    <default>false</default>
+                    <label>STANDARD CHARTERED BANK</label>
+                </value>
+                <value>
+                    <fullName>STATE BANK OF INDIA</fullName>
+                    <default>false</default>
+                    <label>STATE BANK OF INDIA</label>
+                </value>
+                <value>
+                    <fullName>TYME BANK LIMITED</fullName>
+                    <default>false</default>
+                    <label>TYME BANK LIMITED</label>
+                </value>
+                <value>
+                    <fullName>TYMEDIGITAL BY CBSA</fullName>
+                    <default>false</default>
+                    <label>TYMEDIGITAL BY CBSA</label>
+                </value>
+                <value>
+                    <fullName>UBANK</fullName>
+                    <default>false</default>
+                    <label>UBANK</label>
+                </value>
+                <value>
+                    <fullName>VBS MUTUAL BANK</fullName>
+                    <default>false</default>
+                    <label>VBS MUTUAL BANK</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Old_Branch_Code__c</fullName>
+        <label>Branch Code</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>170305</fullName>
+                    <default>false</default>
+                    <label>170305</label>
+                </value>
+                <value>
+                    <fullName>198765</fullName>
+                    <default>false</default>
+                    <label>198765</label>
+                </value>
+                <value>
+                    <fullName>250655</fullName>
+                    <default>false</default>
+                    <label>250655</label>
+                </value>
+                <value>
+                    <fullName>255050</fullName>
+                    <default>false</default>
+                    <label>255050</label>
+                </value>
+                <value>
+                    <fullName>280061</fullName>
+                    <default>false</default>
+                    <label>280061</label>
+                </value>
+                <value>
+                    <fullName>280164</fullName>
+                    <default>false</default>
+                    <label>280164</label>
+                </value>
+                <value>
+                    <fullName>282672</fullName>
+                    <default>false</default>
+                    <label>282672</label>
+                </value>
+                <value>
+                    <fullName>350005</fullName>
+                    <default>false</default>
+                    <label>350005</label>
+                </value>
+                <value>
+                    <fullName>400001</fullName>
+                    <default>false</default>
+                    <label>400001</label>
+                </value>
+                <value>
+                    <fullName>410105</fullName>
+                    <default>false</default>
+                    <label>410105</label>
+                </value>
+                <value>
+                    <fullName>430000</fullName>
+                    <default>false</default>
+                    <label>430000</label>
+                </value>
+                <value>
+                    <fullName>431010</fullName>
+                    <default>false</default>
+                    <label>431010</label>
+                </value>
+                <value>
+                    <fullName>432000</fullName>
+                    <default>false</default>
+                    <label>432000</label>
+                </value>
+                <value>
+                    <fullName>450105</fullName>
+                    <default>false</default>
+                    <label>450105</label>
+                </value>
+                <value>
+                    <fullName>460005</fullName>
+                    <default>false</default>
+                    <label>460005</label>
+                </value>
+                <value>
+                    <fullName>462005</fullName>
+                    <default>false</default>
+                    <label>462005</label>
+                </value>
+                <value>
+                    <fullName>470010</fullName>
+                    <default>false</default>
+                    <label>470010</label>
+                </value>
+                <value>
+                    <fullName>490991</fullName>
+                    <default>false</default>
+                    <label>490991</label>
+                </value>
+                <value>
+                    <fullName>51001</fullName>
+                    <default>false</default>
+                    <label>51001</label>
+                </value>
+                <value>
+                    <fullName>580105</fullName>
+                    <default>false</default>
+                    <label>580105</label>
+                </value>
+                <value>
+                    <fullName>584000</fullName>
+                    <default>false</default>
+                    <label>584000</label>
+                </value>
+                <value>
+                    <fullName>585001</fullName>
+                    <default>false</default>
+                    <label>585001</label>
+                </value>
+                <value>
+                    <fullName>587000</fullName>
+                    <default>false</default>
+                    <label>587000</label>
+                </value>
+                <value>
+                    <fullName>588000</fullName>
+                    <default>false</default>
+                    <label>588000</label>
+                </value>
+                <value>
+                    <fullName>589000</fullName>
+                    <default>false</default>
+                    <label>589000</label>
+                </value>
+                <value>
+                    <fullName>632005</fullName>
+                    <default>false</default>
+                    <label>632005</label>
+                </value>
+                <value>
+                    <fullName>634721</fullName>
+                    <default>false</default>
+                    <label>634721</label>
+                </value>
+                <value>
+                    <fullName>678910</fullName>
+                    <default>false</default>
+                    <label>678910</label>
+                </value>
+                <value>
+                    <fullName>679000</fullName>
+                    <default>false</default>
+                    <label>679000</label>
+                </value>
+                <value>
+                    <fullName>683000</fullName>
+                    <default>false</default>
+                    <label>683000</label>
+                </value>
+                <value>
+                    <fullName>688000</fullName>
+                    <default>false</default>
+                    <label>688000</label>
+                </value>
+                <value>
+                    <fullName>720026</fullName>
+                    <default>false</default>
+                    <label>720026</label>
+                </value>
+                <value>
+                    <fullName>730020</fullName>
+                    <default>false</default>
+                    <label>730020</label>
+                </value>
+                <value>
+                    <fullName>740000</fullName>
+                    <default>false</default>
+                    <label>740000</label>
+                </value>
+                <value>
+                    <fullName>760005</fullName>
+                    <default>false</default>
+                    <label>760005</label>
+                </value>
+                <value>
+                    <fullName>800000</fullName>
+                    <default>false</default>
+                    <label>800000</label>
+                </value>
+                <value>
+                    <fullName>801000</fullName>
+                    <default>false</default>
+                    <label>801000</label>
+                </value>
+                <value>
+                    <fullName>87373</fullName>
+                    <default>false</default>
+                    <label>87373</label>
+                </value>
+                <value>
+                    <fullName>888000</fullName>
+                    <default>false</default>
+                    <label>888000</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Preferred_Contact_Method__c</fullName>
+        <label>Preferred Contact Method</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Phone</fullName>
+                    <default>false</default>
+                    <label>Phone</label>
+                </value>
+                <value>
+                    <fullName>SMS</fullName>
+                    <default>false</default>
+                    <label>SMS</label>
+                </value>
+                <value>
+                    <fullName>Email</fullName>
+                    <default>false</default>
+                    <label>Email</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Preferred_Contact_Time__c</fullName>
+        <label>Preferred Contact Time</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Time</type>
+    </fields>
+    <fields>
+        <fullName>Preferred_Language__c</fullName>
+        <label>Preferred Language</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>English</fullName>
+                    <default>false</default>
+                    <label>English</label>
+                </value>
+                <value>
+                    <fullName>Afrikaans</fullName>
+                    <default>false</default>
+                    <label>Afrikaans</label>
+                </value>
+                <value>
+                    <fullName>Sapedi</fullName>
+                    <default>false</default>
+                    <label>Sapedi</label>
+                </value>
+                <value>
+                    <fullName>Setswana</fullName>
+                    <default>false</default>
+                    <label>Setswana</label>
+                </value>
+                <value>
+                    <fullName>Sesotho</fullName>
+                    <default>false</default>
+                    <label>Sesotho</label>
+                </value>
+                <value>
+                    <fullName>siSwati</fullName>
+                    <default>false</default>
+                    <label>siSwati</label>
+                </value>
+                <value>
+                    <fullName>Tshivenda</fullName>
+                    <default>false</default>
+                    <label>Tshivenda</label>
+                </value>
+                <value>
+                    <fullName>Xitsonga</fullName>
+                    <default>false</default>
+                    <label>Xitsonga</label>
+                </value>
+                <value>
+                    <fullName>isiNdebele</fullName>
+                    <default>false</default>
+                    <label>isiNdebele</label>
+                </value>
+                <value>
+                    <fullName>isiXhosa</fullName>
+                    <default>false</default>
+                    <label>isiXhosa</label>
+                </value>
+                <value>
+                    <fullName>isiZulu</fullName>
+                    <default>false</default>
+                    <label>isiZulu</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Referral_Reason__c</fullName>
+        <label>Referral Reason</label>
+        <length>4000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Resolution_Comments_Manager__c</fullName>
+        <label>Resolution Comments Manager</label>
+        <length>4000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Resolution_Comments_Team_Leader__c</fullName>
+        <label>Resolution Comments Team Leader</label>
+        <length>4000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Transfer_Reason_to_Manager__c</fullName>
+        <label>Transfer Reason to Manager</label>
+        <length>4000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Transfer_Reason_to_Team_Leader__c</fullName>
+        <label>Transfer Reason to Team Leader</label>
+        <length>4000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>X3_Days_Check_Done__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>COCONV-1738 - Send client comms after 3 days &amp; close case after 7 days</description>
+        <label>3 Days Check Done?</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Conversion</label>
+    <nameField>
+        <label>Conversion Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Conversion</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

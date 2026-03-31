@@ -1,0 +1,38 @@
+<!--
+  @description       : Apex component for Client Info for email templates
+  @author            : Samiirah.A@bsky.co.za
+  @group             : 
+  @last modified on  : 01-28-2026
+  @last modified by  : Samiirah Aujub
+-->
+<apex:component controller="Conversions_EmailTemplatesController" access="global">
+    <apex:attribute name="caseId" description="Id of the Case" type="Id" assignTo="{!caseRecordId}"/>
+    <apex:attribute name="compactView" type="Boolean" description="Flag for partial case details" default="false"/>
+
+    <apex:outputPanel id="caseInfo">
+        <ul>
+            <li>Client Name &amp; Surname: {!caseRecord.Account.Name}</li>
+            <li>ID Number: {!caseRecord.ID_Number__c}</li>
+
+            <apex:outputPanel rendered="{!compactView}">
+                <li>Contact number: {!caseRecord.Account.PersonMobilePhone}</li>
+            </apex:outputPanel>
+
+            <li>
+                Date Created:&nbsp;
+                <apex:outputText value="{0,date,dd/MM/yyyy hh:mm a}">
+                    <apex:param value="{!caseRecord.CreatedDate}" />
+                </apex:outputText>
+            </li>
+
+            <apex:outputPanel rendered="{!NOT(compactView)}">
+                <li>Preferred Contact Time: {!conversion.Preferred_Contact_Time__c}</li>
+                <li>Service Consultant: {!caseRecord.Owner.Name}</li>
+                <li>Branch: {!caseRecord.Branch_Code__c}</li>
+            </apex:outputPanel>
+        </ul>
+        <span style="color:#ffffff; font-size:1px; line-height:1px;">
+            {!emailThreadId}
+        </span>
+    </apex:outputPanel>
+</apex:component>

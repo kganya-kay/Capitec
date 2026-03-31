@@ -1,0 +1,47 @@
+<messaging:emailTemplate subject=" Invalid SMS Request Template – #{!relatedTo.CaseNumber}" 
+    recipientType="Contact" 
+    relatedToType="Case">
+
+    <messaging:htmlEmailBody >
+
+        <p>Good Day Branch Manager</p>
+
+        <p>
+            A debit order switch intent has been received by your branch.<br/><br/>
+            Please be advised the comments provided in the intent contain debit order/s 
+            that cannot be switched by Central Conversions as: reference is invalid / 
+            reference number is incomplete / No Amount provided.
+        </p>
+
+        <p>Below are the Debit order/s affected:</p>
+            <ul>
+                <li></li>
+            </ul>
+        <p><br/><br/></p>
+
+        <p>
+            In order for Central Conversions to Switch all the Debit Orders please call the client 
+            and request a complete bank statement / have the client provide the correct information 
+            telephonically and email feedback to <a href="mailto:conversions@capitecbank.co.za">conversions@capitecbank.co.za</a>. If the client is unable 
+            to provide the requested information, please ask the client to directly contact the initiator/s 
+            to update the banking details.
+        </p>
+
+        <p><strong>Client Details:</strong></p>
+
+        <c:Conversions_ClientInfo caseId="{!relatedTo.Id}" />
+
+        <p><strong>IMPORTANT:</strong></p>
+
+        <ul>
+            <li>The Branch Manager/Assistant Branch Manager must reply to the initial email received from Central Conversions (from the email address <a href="mailto:conversions@capitecbank.co.za">conversions@capitecbank.co.za</a>)</li>
+            <li>DO NOT change the subject line of the email (changing the subject will prevent proper routing)</li>
+        </ul>
+
+        <p>For any queries you can contact Central Conversions on 0860667713</p>
+
+        <p>Kind Regards<br/>Central Conversion Team</p>
+
+    </messaging:htmlEmailBody>
+
+</messaging:emailTemplate>

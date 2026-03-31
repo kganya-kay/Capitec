@@ -1,0 +1,7 @@
+.flagIcon {
+  --slds-c-icon-color-foreground-default: #f59e0b;
+}
+
+.flagIcon svg {
+  fill: #f59e0b !important;
+}

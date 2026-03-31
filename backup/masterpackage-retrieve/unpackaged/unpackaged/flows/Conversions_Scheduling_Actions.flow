@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Assign_2_days</name>
+        <label>Assign 2 days</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <actionName>Conversions_ScheduleAutoClose</actionName>
+        <actionType>apex</actionType>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>caseId</name>
+            <value>
+                <elementReference>caseRecord.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>days</name>
+            <value>
+                <numberValue>2.0</numberValue>
+            </value>
+        </inputParameters>
+        <nameSegment>Conversions_ScheduleAutoClose</nameSegment>
+        <offset>0</offset>
+    </actionCalls>
+    <actionCalls>
+        <name>Schedule_Next_Check</name>
+        <label>Schedule Next Check</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <actionName>Conversions_ScheduleAutoClose</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Trigger_Comms_Event</targetReference>
+        </connector>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>caseId</name>
+            <value>
+                <elementReference>caseRecord.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>days</name>
+            <value>
+                <elementReference>Additional_Days_Check</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>Conversions_ScheduleAutoClose</nameSegment>
+        <offset>0</offset>
+    </actionCalls>
+    <apiVersion>66.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <name>Assign_3_days_Check</name>
+        <label>Assign 3 days Check</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>Get_Conversion_Record.X3_Days_Check_Done__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Conversion_Record</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Case_Values</name>
+        <label>Assign Case &amp; Conversion Values</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>caseRecord.Status</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Closed</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Get_Conversion_Record.Case_Closure_Reason__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Auto Close</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Case</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Case_Values2</name>
+        <label>Assign Case &amp; Conversion Values</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>caseRecord.Status</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Closed</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Get_Conversion_Record.Case_Closure_Reason__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Auto Close - No Client feedback</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Copy_1_of_Update_Case</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Conversion_Values</name>
+        <label>Assign Conversion Values</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>Get_Conversion_Record.Days_Scheduled__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>New_Check_To_Schedule</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Conversion_Record1</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>Trigger_Comms_Event</name>
+        <label>Trigger Comms Event?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>Assign_Conversion_Values</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>1 AND (2 OR 3 OR 4)</conditionLogic>
+            <conditions>
+                <leftValueReference>Additional_Days_Check</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <numberValue>0.0</numberValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Days_Scheduled</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <numberValue>7.0</numberValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Days_Scheduled</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <numberValue>40.0</numberValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Days_Scheduled</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <numberValue>90.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Trigger_Comms_Event_1</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Verify_Case_Values</name>
+        <label>Verify Case Values</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Status_Submitted</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>caseRecord.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Submitted</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Verify_Scheduled_Days</targetReference>
+            </connector>
+            <label>Status Submitted</label>
+        </rules>
+        <rules>
+            <name>Sub_Status_Awaiting</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>caseRecord.Sub_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Awaiting information - Client</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>caseRecord.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>In Progress</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Verify_Scheduling</targetReference>
+            </connector>
+            <label>Sub Status Awaiting Info</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Verify_Scheduled_Days</name>
+        <label>Verify Scheduled Days</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Default</defaultConnectorLabel>
+        <rules>
+            <name>Scheduling_Required</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>Additional_Days_Check</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <numberValue>0.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Schedule_Next_Check</targetReference>
+            </connector>
+            <label>Scheduling Required</label>
+        </rules>
+        <rules>
+            <name>Auto_Close_Case</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Conversion_Record.Days_Scheduled__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>40</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Conversion_Record.Days_Scheduled__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>90</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Case_Values</targetReference>
+            </connector>
+            <label>Auto Close Case</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Verify_Scheduling</name>
+        <label>Verify Scheduling</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>X3_days</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Conversion_Record.X3_Days_Check_Done__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Trigger_Platform_Event_3_days</targetReference>
+            </connector>
+            <label>3 days Reached</label>
+        </rules>
+        <rules>
+            <name>X5_days_Reached</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Conversion_Record.X3_Days_Check_Done__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Case_Values2</targetReference>
+            </connector>
+            <label>5 days Reached</label>
+        </rules>
+    </decisions>
+    <description>1735 - Determine the actions that needs to be completed after scheduled check based on conditions</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Number of days to schedule the next check
+Date since case = submitted == Day 1</description>
+        <name>Additional_Days_Check</name>
+        <dataType>Number</dataType>
+        <expression>IF(
+  TEXT({!caseRecord.Status}) = &quot;Submitted&quot;,
+  CASE(
+    TEXT({!Get_Conversion_Record.Days_Scheduled__c}),
+    &quot;&quot;, 7,
+    &quot;7&quot;, 7,
+    &quot;14&quot;, 7,
+    &quot;21&quot;, 4,
+    &quot;25&quot;, IF({!Get_Conversion_Record.Future_Dated_Case__c} == true, 65, 15),
+    0
+  ),
+  0
+)</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <name>Days_Scheduled</name>
+        <dataType>Number</dataType>
+        <expression>CASE(
+  TEXT({!Get_Conversion_Record.Days_Scheduled__c}),
+  &quot;7&quot;, 7,
+  &quot;14&quot;,14,
+  &quot;21&quot;, 21,
+  &quot;25&quot;, 25,
+  &quot;40&quot;, 40,
+  &quot;90&quot;, 90,
+  0
+)</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <name>New_Check_To_Schedule</name>
+        <dataType>Number</dataType>
+        <expression>CASE(
+  TEXT({!Get_Conversion_Record.Days_Scheduled__c}),
+  &quot;7&quot;, 14,
+  &quot;14&quot;,21,
+  &quot;21&quot;, 25,
+  &quot;25&quot;, IF({!Get_Conversion_Record.Future_Dated_Case__c}, 90, 40),
+  0
+)</expression>
+        <scale>0</scale>
+    </formulas>
+    <interviewLabel>Conversions {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Conversions_Scheduling Actions</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>Trigger_Comms_Event_1</name>
+        <label>Trigger Comms Event</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Assign_Conversion_Values</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Case_Status__c</field>
+            <value>
+                <elementReference>caseRecord.Status</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Case__c</field>
+            <value>
+                <elementReference>caseRecord.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Days_Elapsed__c</field>
+            <value>
+                <elementReference>Days_Scheduled</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>EventName__c</field>
+            <value>
+                <stringValue>Conversion Comms</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Type__c</field>
+            <value>
+                <stringValue>Awaiting Response Reminder</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Conversion_Comms__e</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <name>Trigger_Platform_Event_3_days</name>
+        <label>Trigger Comms Event 3 days</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Assign_3_days_Check</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Case_Status__c</field>
+            <value>
+                <elementReference>caseRecord.Status</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Case__c</field>
+            <value>
+                <elementReference>caseRecord.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Days_Elapsed__c</field>
+            <value>
+                <numberValue>3.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>EventName__c</field>
+            <value>
+                <stringValue>Conversion Comms</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Type__c</field>
+            <value>
+                <stringValue>DOI No Response Reminder</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Conversion_Comms__e</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordLookups>
+        <name>Get_Conversion_Record</name>
+        <label>Get Conversion Record</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Verify_Case_Values</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Case__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>caseRecord.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Conversion__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Copy_1_of_Update_Case</name>
+        <label>Update Case</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Copy_1_of_Update_Conversion</targetReference>
+        </connector>
+        <inputReference>caseRecord</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Copy_1_of_Update_Conversion</name>
+        <label>Update Conversion</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputReference>Get_Conversion_Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Case</name>
+        <label>Update Case</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Update_Conversion</targetReference>
+        </connector>
+        <inputReference>caseRecord</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Conversion</name>
+        <label>Update Conversion</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputReference>Get_Conversion_Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Conversion_Record</name>
+        <label>Update Conversion Record</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Assign_2_days</targetReference>
+        </connector>
+        <inputReference>Get_Conversion_Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Conversion_Record1</name>
+        <label>Update Conversion Record</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputReference>Get_Conversion_Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Conversion_Record</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>caseRecord</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Case</objectType>
+    </variables>
+</Flow>

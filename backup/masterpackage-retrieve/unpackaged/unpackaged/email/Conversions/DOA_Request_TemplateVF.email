@@ -1,0 +1,27 @@
+<messaging:emailTemplate subject="DOA Request Template – #{!relatedTo.CaseNumber}" 
+    recipientType="Contact" 
+    relatedToType="Case">
+
+    <messaging:htmlEmailBody >
+        <p>Good Day Branch Manager</p>
+
+        <p>We have received a Debit Order Intent from your Branch via the Banking System. We require the Debit Order Authorisation agreement for the following client:</p>
+        <c:Conversions_ClientInfo caseId="{!relatedTo.Id}" compactView="true"/>
+
+        <p><strong>IMPORTANT:</strong></p>
+        <p>Please ensure that the following information is adhered to when sending the Bank Statement to Central Conversions:</p>
+
+        <ul>
+            <li>The Branch Manager/Assistant Branch Manager must reply to the initial email received from Central Conversions (from the email address <a href="mailto:conversions@capitecbank.co.za">conversions@capitecbank.co.za</a>)</li>
+            <li>Attach the Bank Statement to the initial email</li>
+            <li>DO NOT change the subject line of the email (if the subject line is changed, the email will not be routed correctly and Central Conversions will not receive it)</li>
+            <li>Only the requested Bank Statement must be sent with the responding email</li>
+            <li>Do not attach more than one Client’s Bank Statement to the responding email</li>
+        </ul>
+
+        <p>For any queries you can contact Central Conversions on 0860667713</p>
+
+        <p>Kind Regards<br/>Central Conversion Team</p>
+    </messaging:htmlEmailBody>
+
+</messaging:emailTemplate>

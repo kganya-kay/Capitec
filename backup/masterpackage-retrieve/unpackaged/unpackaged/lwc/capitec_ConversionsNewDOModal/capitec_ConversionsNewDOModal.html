@@ -1,0 +1,292 @@
+<!--
+  @description       : Modal to Create/Edit a Debit Order
+  @author            : Samiirah.A@bsky.co.za
+  @group             : 
+  @last modified on  : 03-30-2026
+  @last modified by  : Samiirah Aujub
+-->
+<template>
+        <!-- MODAL FOR NEW DEBIT ORDER -->
+    <template if:true={showModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+
+                <header class="slds-modal__header">
+                    <lightning-button-icon icon-name="utility:close" 
+                                           onclick={closeModal} 
+                                           class="slds-modal__close" 
+                                           alternative-text="Close">
+                    </lightning-button-icon>
+                    <h2 class="slds-modal__title">{modalTitle}</h2>
+                </header>
+
+                <div class="slds-modal__content slds-p-around_medium">
+                    <template if:true={showSpinner}>
+                        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                    </template>
+                    <lightning-record-edit-form object-api-name="Debit_Order__c" 
+                                                onsuccess={handleSuccess} 
+                                                onerror={handleError}
+                                                onsubmit={handleSubmit}
+                                                record-id={selectedDebitOrderId}>
+
+                        <div class="slds-box slds-theme--shade">
+                            <p>
+                                <lightning-icon icon-name="utility:info" alternative-text="Info" size="x-small"></lightning-icon>&nbsp;{modalInstruction}
+                            </p>
+                        </div>
+
+                        <div class="slds-text-color_error slds-m-bottom_small slds-m-top_small">
+                            Fields marked with * are required.
+                        </div>
+
+                        <template if:true={showErr}>
+                            <div class="slds-text-color_error slds-m-bottom_small slds-m-top_small" style="font-weight: bold;">
+                                {errorMessage}
+                            </div>
+                        </template>
+
+                        <div class="slds-theme--shade">
+                             <h3 class="slds-text-heading_small slds-m-top_medium slds-m-bottom_x-small">Debit Order Information</h3>
+                        </div>
+
+                        <div class="slds-grid slds-wrap slds-gutters">
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input label="From Account"
+                                                 value={fromAccountValue}
+                                                 type="text"
+                                                 required
+                                                 disabled>
+                                </lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="To_Capitec_Account__c" 
+                                                      required 
+                                                      disabled={editDO}>
+                                </lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Category__c" 
+                                                      required 
+                                                      onchange={handleCategoryChanged}
+                                                      disabled={disableCategory}>
+                                </lightning-input-field>
+                            </div>
+                            <template if:false={futureDated}>
+                                 <div class="slds-col slds-size_1-of-2"></div>
+                            </template>
+                            <template if:true={futureDated}>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <lightning-input-field field-name="Submission_Date__c"
+                                                           required
+                                                           onchange={handleSubmissionChanged}
+                                                           disabled={disableSubmissionDate}
+                                                           min={today}>
+                                    </lightning-input-field>
+                                </div>
+                            </template>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Name" 
+                                                      required 
+                                                      disabled={deactivateFields}>
+                                </lightning-input-field>
+                            </div>
+                            <!--<div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Debit_Order_Initiator__c"
+                                                       onchange={handleDOIChange}
+                                                       disabled={disableDOI}>
+                                </lightning-input-field>
+                            </div> <div style="position: relative; overflow: visible;">-->
+                            <!--Search bar Starts-->
+                            <div class="slds-col slds-size_1-of-2">
+                                <div style="position: relative;">
+                                    <lightning-input
+                                        label="DOI Name"
+                                        value={selectedDOIName}
+                                        placeholder="Search for Debit Order Initiator"
+                                        icon-name="utility:search"
+                                        onkeydown={handleSearchDOI}
+                                        disabled={disableDOI}>
+                                    </lightning-input>
+
+                                    <template if:true={searchResults.length}>
+                                        <div
+                                            style="position: absolute; top: 100%; left: 0; right: 0; z-index: 9999; background: white; border: 1px solid #d8dde6; border-radius: 0.25rem; max-height: 200px; overflow-y: auto;">
+                                            <ul class="slds-listbox slds-listbox_vertical">
+                                                <template for:each={searchResults} for:item="item">
+                                                    <li
+                                                        key={item.Id}
+                                                        onclick={handleSelect}
+                                                        data-id={item.Id}
+                                                        data-name={item.Name}
+                                                        data-email={item.DOI_Contact_Email__c}
+                                                        data-comms={item.Preferred_Comms__c}
+                                                        style="padding: 0.5rem; cursor: pointer;">
+                                                        {item.Name}
+                                                    </li>
+                                                </template>
+                                            </ul>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                            <!--Search Bar Ends-->
+                            <div class="slds-col slds-size_1-of-2">
+                               <lightning-input-field field-name="DOI_Sub_Name__c"
+                                                       disabled={disableDOI}>
+                               </lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                 <lightning-input-field field-name="Preferred_Comms__c" 
+                                                        value={initiatorPreferredComms}
+                                                        disabled>
+                                </lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                 <lightning-input-field field-name="Not_yet_onboarded__c"
+                                                        data-id="notOnboarded" 
+                                                        disabled>
+                                </lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input
+                                    label="DOI Contact Email"
+                                    type="text"
+                                    value={initiatorEmail}
+                                    style="padding-left: 4px;"
+                                    disabled
+                                ></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Amount__c" 
+                                                       required
+                                                       disabled={deactivateFields}>
+                                </lightning-input-field>
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-2">
+                               <lightning-input-field field-name="Debit_OrderDate__c" 
+                                                       disabled={deactivateFields}>
+                                </lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Withdrawn_Cause_Code__c" 
+                                                       disabled={disableWithdrawnCode}  
+                                                       onchange={handleWithdrawnChange}>
+                                </lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Submitted_Cause_Code__c" 
+                                                       value={submittedCauseCode}
+                                                       disabled={disableSubmittedCode} 
+                                                       onchange={handleSubmittedChange}>
+                                </lightning-input-field>
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Confirmation_Cause_Code__c" 
+                                                       disabled={disableCauseCode}
+                                                       onchange={handleConfirmationChange}>
+                                </lightning-input-field>
+                            </div>
+                             <div class="slds-col slds-size_1-of-2">
+                                <lightning-input-field field-name="Case__c" 
+                                                       data-id="caseField"
+                                                       value={recordId} 
+                                                       disabled="true"
+                                                       required>
+                                </lightning-input-field>
+                            </div>
+                             <div class="slds-col slds-size_1-of-2" style="padding-top: 10px;">
+                                <lightning-input-field field-name="Reviewed__c"
+                                                       disabled={disableDOI}>
+                                </lightning-input-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input
+                                    type="checkbox"
+                                    label="Report Issues on Debit Order"
+                                    checked={flagIssue}
+                                    onchange={handleFlagIssueChange}
+                                    disabled={disableDOI}>
+                                </lightning-input>
+                            </div>
+                            <!--DO Issue field-->
+                            <template if:true ={flagIssue}>
+                                <div class="slds-col slds-size_2-of-2">
+                                    <lightning-input-field field-name="DO_Issue__c"
+                                                        data-id="doIssue"
+                                                        onchange={handleDOIssueChange}
+                                                        disabled={disableDOI}>
+                                    </lightning-input-field>
+                                </div>
+                                <template if:true={showOtherIssue}>
+                                    <div class="slds-col slds-size_2-of-2">
+                                        <lightning-input-field field-name="Other_Debit_Order_Issue__c"
+                                                            required
+                                                            disabled={disableDOI}>
+                                    </lightning-input-field>
+                                    </div>
+                                </template>
+                            </template>
+                            <!--Footer-->
+                           <div class="slds-col slds-size_2-of-2 slds-grid slds-grid_align-end slds-p-top_medium slds-border_top">
+                                <lightning-button 
+                                    label="Cancel" 
+                                    variant="neutral" 
+                                    onclick={closeModal}>
+                                </lightning-button>
+
+                                <lightning-button 
+                                    label="Save"
+                                    variant="brand"
+                                    type="submit"
+                                    onclick={handleSave}
+                                    style="padding-left: 10px;">
+                                </lightning-button>
+
+                                <template if:false={editDO}>
+                                    <lightning-button 
+                                        label="Save & New"
+                                        variant="neutral"
+                                        type="submit"
+                                        onclick={handleSaveAndNew}
+                                        style="padding-left: 10px;">
+                                    </lightning-button>
+                                </template>
+                            </div>
+
+                        </div>
+                    </lightning-record-edit-form>
+                </div>
+
+                 <!--<footer class="slds-modal__footer slds-grid slds-grid_align-end slds-p-horizontal_medium">
+                 <div>
+                    <lightning-button label="Cancel" 
+                                      variant="neutral" 
+                                      onclick={closeModal}>
+                    </lightning-button>
+                    </div>
+                    <div>
+                        <lightning-button label="Save"
+                                        variant="brand"
+                                        type="submit"
+                                        onclick={handleSave}>
+                        </lightning-button>
+                        <template if:false={editDO}>
+                            <lightning-button label="Save & New"
+                                        variant="neutral"
+                                        type="submit"
+                                        onclick={handleSaveAndNew}>
+                            </lightning-button>
+                        </template>
+                    </div>
+                </footer>-->
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

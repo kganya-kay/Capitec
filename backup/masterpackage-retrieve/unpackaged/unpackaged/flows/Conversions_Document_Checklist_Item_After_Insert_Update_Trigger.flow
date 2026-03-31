@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>66.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <decisions>
+        <name>Create_Update</name>
+        <label>Create / Update?</label>
+        <locationX>386</locationX>
+        <locationY>587</locationY>
+        <defaultConnector>
+            <targetReference>Logics_To_Execute</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default</defaultConnectorLabel>
+        <rules>
+            <name>Create</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record__Prior</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.IC_ExternalContentDocumentId__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Init_Create_Event</targetReference>
+            </connector>
+            <label>Create</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Logics_To_Execute</name>
+        <label>Logics To Execute</label>
+        <locationX>386</locationX>
+        <locationY>887</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Reactivate_Case</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Case_Record.Sub_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Awaiting information - Client</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Reactivate_Case2</targetReference>
+            </connector>
+            <label>Reactivate Case</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>COCONV-1738</description>
+        <name>Verify_if_parent_is_a_case</name>
+        <label>Verify if parent is a case</label>
+        <locationX>584</locationX>
+        <locationY>371</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Case</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.ParentRecordId</leftValueReference>
+                <operator>StartsWith</operator>
+                <rightValue>
+                    <stringValue>500</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Case_Record</targetReference>
+            </connector>
+            <label>Case</label>
+        </rules>
+    </decisions>
+    <description>COCONV-1738 : Reactivate Case when a document is uploaded
+Trigger events upon creation / deletion</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>DocumentCreateJSON</name>
+        <dataType>String</dataType>
+        <expression>&quot;{&quot;
+&amp; &quot;\&quot;ActionType\&quot;:\&quot;&quot; &amp; &quot;Create&quot; &amp; &quot;\&quot;,&quot;
+&amp; &quot;\&quot;DocumentId\&quot;:\&quot;&quot; &amp; {!$Record.IC_ExternalContentDocumentId__c}  &amp; &quot;\&quot;,&quot;
+&amp; &quot;\&quot;DocumentName\&quot;:\&quot;&quot; &amp; {!$Record.Name} &amp; &quot;\&quot;,&quot;
+&amp; &quot;\&quot;DocumentType\&quot;:\&quot;&quot; &amp; TEXT({!$Record.CON_Document_Type__c}) &amp; &quot;\&quot;,&quot;
+&amp; &quot;\&quot;SFdocumentId\&quot;:\&quot;&quot; &amp; {!$Record.Id} &amp; &quot;\&quot;,&quot;
+&amp; &quot;\&quot;CaseId\&quot;:\&quot;&quot; &amp; {!Get_Case_Record.Id} &amp; &quot;\&quot;&quot;
+&amp; &quot;}&quot;</expression>
+    </formulas>
+    <formulas>
+        <name>DocumentUpdateJSON</name>
+        <dataType>String</dataType>
+        <expression>&quot;{&quot;
+&amp; &quot;\&quot;ActionType\&quot;:\&quot;&quot; &amp; &quot;Update&quot; &amp; &quot;\&quot;,&quot;
+&amp; &quot;\&quot;DocumentId\&quot;:\&quot;&quot; &amp; {!$Record.IC_ExternalContentDocumentId__c}  &amp; &quot;\&quot;,&quot;
+&amp; &quot;\&quot;DocumentName\&quot;:\&quot;&quot; &amp; {!$Record.Name} &amp; &quot;\&quot;,&quot;
+&amp; &quot;\&quot;DocumentType\&quot;:\&quot;&quot; &amp; TEXT({!$Record.CON_Document_Type__c}) &amp; &quot;\&quot;,&quot;
+&amp; &quot;\&quot;SFdocumentId\&quot;:\&quot;&quot; &amp; {!$Record.Id} &amp; &quot;\&quot;,&quot;
+&amp; &quot;\&quot;CaseId\&quot;:\&quot;&quot; &amp; {!Get_Case_Record.Id} &amp; &quot;\&quot;&quot;
+&amp; &quot;}&quot;</expression>
+    </formulas>
+    <interviewLabel>Conversions - Document Checklist Item After Insert/Update Trigger {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Conversions - Document Checklist Item After Insert/Update Trigger</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>Init_Create_Event</name>
+        <label>Init Create Event</label>
+        <locationX>254</locationX>
+        <locationY>695</locationY>
+        <connector>
+            <targetReference>Logics_To_Execute</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Document__c</field>
+            <value>
+                <elementReference>DocumentCreateJSON</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Conversions_Event__e</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordLookups>
+        <name>Get_Case_Record</name>
+        <label>Get Case Record</label>
+        <locationX>386</locationX>
+        <locationY>479</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Create_Update</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.ParentRecordId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Record_Type_Name__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Conversions</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Case</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>458</locationX>
+        <locationY>48</locationY>
+        <connector>
+            <targetReference>Verify_if_parent_is_a_case</targetReference>
+        </connector>
+        <filterFormula>{!$Setup.Bypass_Configurations__c.Bypass_Flows__c} = false</filterFormula>
+        <object>DocumentChecklistItem</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <description>COCONV-1738: Reactivate and Reassign case to Agent</description>
+        <name>Reactivate_Case2</name>
+        <label>Reactivate Case</label>
+        <locationX>254</locationX>
+        <locationY>995</locationY>
+        <flowName>Conversions_Reactivate_Reassign_Case</flowName>
+        <inputAssignments>
+            <name>caseRecord</name>
+            <value>
+                <elementReference>Get_Case_Record</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+</Flow>

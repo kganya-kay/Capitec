@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Provides access to Conversions functionalities to Conversion Agent, TL and Manager</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Conversions Permission Set Group</label>
+    <permissionSets>BasicAuth</permissionSets>
+    <permissionSets>Conversions</permissionSets>
+    <permissionSets>Email_Attestation_User</permissionSets>
+    <permissionSets>FinServ__FinancialServicesCloudStandard</permissionSets>
+    <permissionSets>force__DocumentChecklist</permissionSets>
+    <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>
