@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Issue__c</fullName>
+    <label>Issue</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Bank statement and Bureau - WS Debit Order Switch Request</fullName>
+                <default>false</default>
+                <label>Bank statement and Bureau - WS Debit Order Switch Request</label>
+            </value>
+            <value>
+                <fullName>Bank Statement and Payslip – WS Debit Order Switch Request</fullName>
+                <default>false</default>
+                <label>Bank Statement and Payslip – WS Debit Order Switch Request</label>
+            </value>
+            <value>
+                <fullName>Bureau Details -WS Debit Order Switch Request</fullName>
+                <default>false</default>
+                <label>Bureau Details -WS Debit Order Switch Request</label>
+            </value>
+            <value>
+                <fullName>CAPFUNERAL – WS Debit Order Switch Request</fullName>
+                <default>false</default>
+                <label>CAPFUNERAL – WS Debit Order Switch Request</label>
+            </value>
+            <value>
+                <fullName>DL Lead - WS Debit Order Switch Request</fullName>
+                <default>false</default>
+                <label>DL Lead - WS Debit Order Switch Request</label>
+            </value>
+            <value>
+                <fullName>Mercantile - Debit Order Switch Request</fullName>
+                <default>false</default>
+                <label>Mercantile - Debit Order Switch Request</label>
+            </value>
+            <value>
+                <fullName>Mercantile - Website Debit Order Switch Request</fullName>
+                <default>false</default>
+                <label>Mercantile - Website Debit Order Switch Request</label>
+            </value>
+            <value>
+                <fullName>SMS &amp; Bureau - WS Debit Order Switch Request</fullName>
+                <default>false</default>
+                <label>SMS &amp; Bureau - WS Debit Order Switch Request</label>
+            </value>
+            <value>
+                <fullName>SMS - WS Debit Order Switch Request</fullName>
+                <default>false</default>
+                <label>SMS - WS Debit Order Switch Request</label>
+            </value>
+            <value>
+                <fullName>Website - WS Debit Order Switch Request</fullName>
+                <default>false</default>
+                <label>Website - WS Debit Order Switch Request</label>
+            </value>
+            <value>
+                <fullName>WhatsApp - Debit Order Switch Request</fullName>
+                <default>false</default>
+                <label>WhatsApp - Debit Order Switch Request</label>
+            </value>
+            <value>
+                <fullName>APP Debit Order Switch Request</fullName>
+                <default>false</default>
+                <label>APP Debit Order Switch Request</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

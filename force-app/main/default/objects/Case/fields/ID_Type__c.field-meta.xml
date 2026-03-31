@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ID_Type__c</fullName>
+    <description>ICS-202 : This field will be used to capture the claimants details</description>
+    <label>Claimant ID Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>National Identity Card</fullName>
+                <default>false</default>
+                <label>National Identity Card</label>
+            </value>
+            <value>
+                <fullName>Foreign Passport</fullName>
+                <default>false</default>
+                <label>Foreign Passport</label>
+            </value>
+            <value>
+                <fullName>SA ID</fullName>
+                <default>false</default>
+                <label>SA ID</label>
+            </value>
+            <value>
+                <fullName>Birth Certificate</fullName>
+                <default>false</default>
+                <label>Birth Certificate</label>
+            </value>
+            <value>
+                <fullName>SA Passport</fullName>
+                <default>false</default>
+                <label>SA Passport</label>
+            </value>
+            <value>
+                <fullName>Drivers License</fullName>
+                <default>false</default>
+                <label>Drivers License</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

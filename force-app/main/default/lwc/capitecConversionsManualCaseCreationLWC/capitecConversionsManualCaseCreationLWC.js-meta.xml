@@ -12,6 +12,10 @@
         <property name="title"                 type="String" label="Component Title"                default="Manual Case Creation" />
         <property name="listViewObjectApiName" type="String" label="List View Object API Name"      default="Case"
                   description="API name of the object list view this button is on (e.g. Case or Conversion__c). Used for Cancel/Submit navigation." />
+        <property name="returnObjectApiName"   type="String" label="Cancel Return Object API Name"
+                  description="Reserved for existing Lightning page assignments." />
+        <property name="returnFilterName"      type="String" label="Cancel Return Filter Name"
+                  description="Reserved for existing Lightning page assignments." />
     </targetConfig>
 </targetConfigs>
 </LightningComponentBundle>

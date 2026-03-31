@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Retail_Bank_Source__c</fullName>
+    <label>Retail Bank Source</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>AML</fullName>
+                <default>false</default>
+                <label>AML</label>
+            </value>
+            <value>
+                <fullName>Cash Disputes</fullName>
+                <default>false</default>
+                <label>Cash Disputes</label>
+            </value>
+            <value>
+                <fullName>Complaints Management</fullName>
+                <default>false</default>
+                <label>Complaints Management</label>
+            </value>
+            <value>
+                <fullName>Fraud</fullName>
+                <default>false</default>
+                <label>Fraud</label>
+            </value>
+            <value>
+                <fullName>Life</fullName>
+                <default>false</default>
+                <label>Life</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

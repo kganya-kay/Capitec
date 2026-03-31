@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Old_Bank_Name__c</fullName>
+    <label>Bank Name</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>20TWENTY</fullName>
+                <default>false</default>
+                <label>20TWENTY</label>
+            </value>
+            <value>
+                <fullName>ABN AMRO BANK</fullName>
+                <default>false</default>
+                <label>ABN AMRO BANK</label>
+            </value>
+            <value>
+                <fullName>ABSA BANK</fullName>
+                <default>false</default>
+                <label>ABSA BANK</label>
+            </value>
+            <value>
+                <fullName>ACCESS BANK (SOUTH AFRICA) LTD</fullName>
+                <default>false</default>
+                <label>ACCESS BANK (SOUTH AFRICA) LTD</label>
+            </value>
+            <value>
+                <fullName>AFRICAN BANK</fullName>
+                <default>false</default>
+                <label>AFRICAN BANK</label>
+            </value>
+            <value>
+                <fullName>ALBARAKA BANK</fullName>
+                <default>false</default>
+                <label>ALBARAKA BANK</label>
+            </value>
+            <value>
+                <fullName>BANK WINDHOEK</fullName>
+                <default>false</default>
+                <label>BANK WINDHOEK</label>
+            </value>
+            <value>
+                <fullName>BANK ZERO MUTUAL BANK</fullName>
+                <default>false</default>
+                <label>BANK ZERO MUTUAL BANK</label>
+            </value>
+            <value>
+                <fullName>BIDVEST BANK</fullName>
+                <default>false</default>
+                <label>BIDVEST BANK</label>
+            </value>
+            <value>
+                <fullName>BNP PARIBAS SA SOUTH AFRICA</fullName>
+                <default>false</default>
+                <label>BNP PARIBAS SA SOUTH AFRICA</label>
+            </value>
+            <value>
+                <fullName>CAPITEC BANK</fullName>
+                <default>false</default>
+                <label>CAPITEC BANK</label>
+            </value>
+            <value>
+                <fullName>CITI BANK</fullName>
+                <default>false</default>
+                <label>CITI BANK</label>
+            </value>
+            <value>
+                <fullName>DISCOVERY BANK</fullName>
+                <default>false</default>
+                <label>DISCOVERY BANK</label>
+            </value>
+            <value>
+                <fullName>FBC FIDELITY BANK</fullName>
+                <default>false</default>
+                <label>FBC FIDELITY BANK</label>
+            </value>
+            <value>
+                <fullName>FINBOND MUTUAL BANK</fullName>
+                <default>false</default>
+                <label>FINBOND MUTUAL BANK</label>
+            </value>
+            <value>
+                <fullName>FIRST NATIONAL BANK</fullName>
+                <default>false</default>
+                <label>FIRST NATIONAL BANK</label>
+            </value>
+            <value>
+                <fullName>FIRST NATIONAL BANK LESOTHO</fullName>
+                <default>false</default>
+                <label>FIRST NATIONAL BANK LESOTHO</label>
+            </value>
+            <value>
+                <fullName>FIRST NATIONAL BANK NAMIBIA</fullName>
+                <default>false</default>
+                <label>FIRST NATIONAL BANK NAMIBIA</label>
+            </value>
+            <value>
+                <fullName>FIRST NATIONAL BANK SWAZILAND</fullName>
+                <default>false</default>
+                <label>FIRST NATIONAL BANK SWAZILAND</label>
+            </value>
+            <value>
+                <fullName>GRINDROD BANK</fullName>
+                <default>false</default>
+                <label>GRINDROD BANK</label>
+            </value>
+            <value>
+                <fullName>HABIB OVERSEAS BANK</fullName>
+                <default>false</default>
+                <label>HABIB OVERSEAS BANK</label>
+            </value>
+            <value>
+                <fullName>HBZ BANK</fullName>
+                <default>false</default>
+                <label>HBZ BANK</label>
+            </value>
+            <value>
+                <fullName>HSBC</fullName>
+                <default>false</default>
+                <label>HSBC</label>
+            </value>
+            <value>
+                <fullName>INVESTEC BANK</fullName>
+                <default>false</default>
+                <label>INVESTEC BANK</label>
+            </value>
+            <value>
+                <fullName>ITHALA ABSA</fullName>
+                <default>false</default>
+                <label>ITHALA ABSA</label>
+            </value>
+            <value>
+                <fullName>JP MORGAN CHASE BANK</fullName>
+                <default>false</default>
+                <label>JP MORGAN CHASE BANK</label>
+            </value>
+            <value>
+                <fullName>MEEG BANK</fullName>
+                <default>false</default>
+                <label>MEEG BANK</label>
+            </value>
+            <value>
+                <fullName>MERCANTILE BANK</fullName>
+                <default>false</default>
+                <label>MERCANTILE BANK</label>
+            </value>
+            <value>
+                <fullName>MTN BANKING</fullName>
+                <default>false</default>
+                <label>MTN BANKING</label>
+            </value>
+            <value>
+                <fullName>NEDBANK</fullName>
+                <default>false</default>
+                <label>NEDBANK</label>
+            </value>
+            <value>
+                <fullName>NEDBANK BOND OR LOAN ACCOUNTS</fullName>
+                <default>false</default>
+                <label>NEDBANK BOND OR LOAN ACCOUNTS</label>
+            </value>
+            <value>
+                <fullName>NEDBANK CORPORATE SAVER</fullName>
+                <default>false</default>
+                <label>NEDBANK CORPORATE SAVER</label>
+            </value>
+            <value>
+                <fullName>NEDBANK LESOTHO</fullName>
+                <default>false</default>
+                <label>NEDBANK LESOTHO</label>
+            </value>
+            <value>
+                <fullName>NEDBANK LTD INC BOE BANK</fullName>
+                <default>false</default>
+                <label>NEDBANK LTD INC BOE BANK</label>
+            </value>
+            <value>
+                <fullName>NEDBANK LTD INC PEP BANK</fullName>
+                <default>false</default>
+                <label>NEDBANK LTD INC PEP BANK</label>
+            </value>
+            <value>
+                <fullName>NEDBANK NAMIBIA</fullName>
+                <default>false</default>
+                <label>NEDBANK NAMIBIA</label>
+            </value>
+            <value>
+                <fullName>NEDBANK PEOPLES MORTAGES LTD</fullName>
+                <default>false</default>
+                <label>NEDBANK PEOPLES MORTAGES LTD</label>
+            </value>
+            <value>
+                <fullName>NEDBANK SWAZILAND</fullName>
+                <default>false</default>
+                <label>NEDBANK SWAZILAND</label>
+            </value>
+            <value>
+                <fullName>OLYMPUS MOBILE</fullName>
+                <default>false</default>
+                <label>OLYMPUS MOBILE</label>
+            </value>
+            <value>
+                <fullName>PEOPLE BANK LTD INC PEP BANK</fullName>
+                <default>false</default>
+                <label>PEOPLE BANK LTD INC PEP BANK</label>
+            </value>
+            <value>
+                <fullName>PEOPLES BANK LTD INC NBS</fullName>
+                <default>false</default>
+                <label>PEOPLES BANK LTD INC NBS</label>
+            </value>
+            <value>
+                <fullName>PERMANENT BANK</fullName>
+                <default>false</default>
+                <label>PERMANENT BANK</label>
+            </value>
+            <value>
+                <fullName>RAND MERCHANT BANK</fullName>
+                <default>false</default>
+                <label>RAND MERCHANT BANK</label>
+            </value>
+            <value>
+                <fullName>SA BANK OF ATHENS</fullName>
+                <default>false</default>
+                <label>SA BANK OF ATHENS</label>
+            </value>
+            <value>
+                <fullName>SA POST OFFICE</fullName>
+                <default>false</default>
+                <label>SA POST OFFICE</label>
+            </value>
+            <value>
+                <fullName>SA RESERVE BANK</fullName>
+                <default>false</default>
+                <label>SA RESERVE BANK</label>
+            </value>
+            <value>
+                <fullName>SASFIN BANK</fullName>
+                <default>false</default>
+                <label>SASFIN BANK</label>
+            </value>
+            <value>
+                <fullName>STANDARD BANK</fullName>
+                <default>false</default>
+                <label>STANDARD BANK</label>
+            </value>
+            <value>
+                <fullName>STANDARD BANK LESOTHO</fullName>
+                <default>false</default>
+                <label>STANDARD BANK LESOTHO</label>
+            </value>
+            <value>
+                <fullName>STANDARD BANK NAMIBIA</fullName>
+                <default>false</default>
+                <label>STANDARD BANK NAMIBIA</label>
+            </value>
+            <value>
+                <fullName>STANDARD BANK SWAZILAND</fullName>
+                <default>false</default>
+                <label>STANDARD BANK SWAZILAND</label>
+            </value>
+            <value>
+                <fullName>STANDARD CHARTERED BANK</fullName>
+                <default>false</default>
+                <label>STANDARD CHARTERED BANK</label>
+            </value>
+            <value>
+                <fullName>STATE BANK OF INDIA</fullName>
+                <default>false</default>
+                <label>STATE BANK OF INDIA</label>
+            </value>
+            <value>
+                <fullName>TYME BANK LIMITED</fullName>
+                <default>false</default>
+                <label>TYME BANK LIMITED</label>
+            </value>
+            <value>
+                <fullName>TYMEDIGITAL BY CBSA</fullName>
+                <default>false</default>
+                <label>TYMEDIGITAL BY CBSA</label>
+            </value>
+            <value>
+                <fullName>UBANK</fullName>
+                <default>false</default>
+                <label>UBANK</label>
+            </value>
+            <value>
+                <fullName>VBS MUTUAL BANK</fullName>
+                <default>false</default>
+                <label>VBS MUTUAL BANK</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

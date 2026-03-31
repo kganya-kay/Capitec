@@ -73,6 +73,8 @@ export default class CapitecConversionsManualCaseCreationLWC extends NavigationM
      * Set via the List View Button URL parameter or the FlexiPage property.
      */
     @api listViewObjectApiName = 'Case';
+    @api returnObjectApiName;
+    @api returnFilterName;
     // ─── Step Navigation ────────────────────────────────────────────────────
     @track currentStep = 1;
 
