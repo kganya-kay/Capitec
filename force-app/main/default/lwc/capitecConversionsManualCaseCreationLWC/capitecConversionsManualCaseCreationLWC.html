@@ -341,7 +341,9 @@
                     </div>
                     <div class="section-body">
                         <div class="files-box">
-                            <div class="files-box-header slds-grid slds-grid_vertical-align-center">
+                            <div class="files-box-header slds-grid slds-grid_vertical-align-center"
+                                style="background: #f3f2f2; border-radius: 0.25rem; padding: 8px;">
+                                
                                 <lightning-icon icon-name="doctype:attachment" size="small" class="slds-m-right_x-small"></lightning-icon>
                                 <span class="files-count-label">Attachments ({uploadedFilesCount})</span>
                             </div>
@@ -371,7 +373,7 @@
                                 </table>
                             </template>
                             <template if:false={hasUploadedFiles}>
-                                <p class="slds-text-color_weak slds-m-top_small">No files attached.</p>
+                                <p class="slds-text-color_weak slds-m-top_small slds-text-align_center">No files attached.</p>
                             </template>
                         </div>
                     </div>

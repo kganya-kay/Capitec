@@ -1,6 +1,6 @@
 import { LightningElement, track, wire, api } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
-import { IsConsoleNavigation, getFocusedTabInfo, closeTab, openTab } from 'lightning/platformWorkspaceApi';
+import { IsConsoleNavigation, getFocusedTabInfo, getAllTabInfo, focusTab, refreshTab, closeTab, openTab } from 'lightning/platformWorkspaceApi';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
@@ -593,29 +593,52 @@ export default class CapitecConversionsManualCaseCreationLWC extends NavigationM
         }
 
         try {
-            // Capture the current wizard tab before opening anything else.
+            // 1. Capture the wizard tab ID before touching anything else.
             const currentTabInfo = await getFocusedTabInfo();
-            const currentTabId = currentTabInfo?.tabId;
+            const currentTabId   = currentTabInfo?.tabId;
 
-            const listViewPageRef = {
-                type: 'standard__objectPage',
-                attributes: {
-                    objectApiName: this.listViewObjectApiName || 'Case',
-                    actionName: 'list'
+            // 2. Find an already-open Cases list view tab.
+            const objectApiName = this.listViewObjectApiName || 'Case';
+            const allTabs       = await getAllTabInfo();
+
+            const existingListTab = allTabs.find(tab => {
+                // Match by URL segment  e.g.  /lightning/o/Case/list
+                const url = (tab.url || '').toLowerCase();
+                if (url.includes(`/o/${objectApiName.toLowerCase()}/list`)) return true;
+
+                // Match by pageReference (more reliable when URL is encoded)
+                const pr = tab.pageReference;
+                return (
+                    pr?.type                          === 'standard__objectPage' &&
+                    pr?.attributes?.objectApiName     === objectApiName          &&
+                    pr?.attributes?.actionName        === 'list'
+                );
+            });
+
+            if (existingListTab) {
+                // 3a. Cases tab already open – focus it and refresh so the list
+                //     view reflects any changes (e.g. new record created).
+                await focusTab(existingListTab.tabId);
+                await refreshTab(existingListTab.tabId, { hasSidePanel: false });
+            } else {
+                // 3b. No Cases tab found – open a fresh one.
+                const pageRef = {
+                    type: 'standard__objectPage',
+                    attributes: { objectApiName, actionName: 'list' }
+                };
+                const url = await this[NavigationMixin.GenerateUrl](pageRef);
+                if (url) {
+                    await openTab({ url, focus: true });
                 }
-            };
-            const listViewUrl = await this[NavigationMixin.GenerateUrl](listViewPageRef);
-            if (listViewUrl) {
-                await openTab({ url: listViewUrl, focus: true });
             }
 
-            // Close only the original wizard tab.
+            // 4. Close the wizard tab now that the user is back on Cases.
             if (currentTabId) {
                 await closeTab(currentTabId);
             }
+
         } catch (error) {
-            // Fall back to standard navigation if console tab handling fails.
-            console.error('Unable to close current workspace tab and open list view:', error);
+            console.error('Console tab management failed, falling back to navigation:', error);
             this._navigateToListView();
         }
     }
